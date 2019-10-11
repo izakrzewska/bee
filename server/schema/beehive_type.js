@@ -1,30 +1,31 @@
-// const mongoose = require('mongoose');
-// const graphql = require('graphql');
-// const {
-//   GraphQLObjectType,
-//   GraphQLList,
-//   GraphQLID,
-//   GraphQLInt,
-//   GraphQLString
-// } = graphql;
-// const Lyric = mongoose.model('lyric');
+const mongoose = require('mongoose');
+const graphql = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLID,
+  GraphQLInt,
+  GraphQLString
+} = graphql;
 
-// const LyricType = new GraphQLObjectType({
-//   name:  'LyricType',
-//   fields: () => ({
-//     id: { type: GraphQLID },
-//     likes: { type: GraphQLInt },
-//     content: { type: GraphQLString },
-//     song: {
-//       type: require('./song_type'),
-//       resolve(parentValue) {
-//         return Lyric.findById(parentValue).populate('song')
-//           .then(lyric => {
-//             return lyric.song
-//           });
-//       }
-//     }
-//   })
-// });
+const Beehive = mongoose.model('beehive');
 
-// module.exports = LyricType;
+const BeehiveType = new GraphQLObjectType({
+  name:  'BeehiveType',
+  fields: () => ({
+    id: { type: GraphQLID },
+    likes: { type: GraphQLInt },
+    content: { type: GraphQLString },
+    apiary: {
+      type: require('./apiary_type'),
+      resolve(parentValue) {
+        return Beehive.findById(parentValue).populate('apiary')
+          .then(beehive => {
+            return beehive.apiary
+          });
+      }
+    }
+  })
+});
+
+module.exports = BeehiveType;

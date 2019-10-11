@@ -1,21 +1,21 @@
-// const mongoose = require('mongoose');
-// const graphql = require('graphql');
-// const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
-// const LyricType = require('./lyric_type');
-// const Song = mongoose.model('song');
+const mongoose = require('mongoose');
+const graphql = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
+const BeehiveType = require('./beehive_type');
+const Apiary = mongoose.model('apiary');
 
-// const SongType = new GraphQLObjectType({
-//   name:  'SongType',
-//   fields: () => ({
-//     id: { type: GraphQLID },
-//     title: { type: GraphQLString },
-//     lyrics: {
-//       type: new GraphQLList(LyricType),
-//       resolve(parentValue) {
-//         return Song.findLyrics(parentValue.id);
-//       }
-//     }
-//   })
-// });
+const ApiaryType = new GraphQLObjectType({
+  name:  'ApiaryType',
+  fields: () => ({
+    id: { type: GraphQLID },
+    title: { type: GraphQLString },
+    beehives: {
+      type: new GraphQLList(BeehiveType),
+      resolve(parentValue) {
+        return Apiary.findLyrics(parentValue.id);
+      }
+    }
+  })
+});
 
-// module.exports = SongType;
+module.exports = ApiaryType;

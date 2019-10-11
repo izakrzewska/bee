@@ -1,34 +1,34 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-// const SongSchema = new Schema({
-//   title: { type: String },
-//   user: {
-//     type: Schema.Types.ObjectId,
-//     ref: 'user'
-//   },
-//   lyrics: [{
-//     type: Schema.Types.ObjectId,
-//     ref: 'lyric'
-//   }]
-// });
+const ApiarySchema = new Schema({
+  title: { type: String },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  },
+  beehives: [{
+    type: Schema.Types.ObjectId,
+    ref: 'beehive'
+  }]
+});
 
-// SongSchema.statics.addLyric = function(id, content) {
-//   const Lyric = mongoose.model('lyric');
+ApiarySchema.statics.addBeehive = function(id, content) {
+  const Beehive = mongoose.model('beehive');
 
-//   return this.findById(id)
-//     .then(song => {
-//       const lyric = new Lyric({ content, song })
-//       song.lyrics.push(lyric)
-//       return Promise.all([lyric.save(), song.save()])
-//         .then(([lyric, song]) => song);
-//     });
-// }
+  return this.findById(id)
+    .then(apiary => {
+      const beehive = new Beehive({ content, apiary })
+      apiary.beehives.push(beehive)
+      return Promise.all([beehive.save(), apiary.save()])
+        .then(([beehive, apiary]) => apiary);
+    });
+}
 
-// SongSchema.statics.findLyrics = function(id) {
-//   return this.findById(id)
-//     .populate('lyrics')
-//     .then(song => song.lyrics);
-// }
+ApiarySchema.statics.findLyrics = function(id) {
+  return this.findById(id)
+    .populate('beehives')
+    .then(apiary => apiary.beehives);
+}
 
-// mongoose.model('song', SongSchema);
+mongoose.model('apiary', ApiarySchema);
