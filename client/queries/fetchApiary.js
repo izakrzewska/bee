@@ -1,15 +1,10 @@
 import gql from 'graphql-tag';
 
 export default gql`
-    query fetchSong($id: ID!) {
-        song(id: $id) {
+    query fetchApiary($id: ID!) {
+        apiary(id: $id) {
             id
-            title
-            lyrics {
-                id
-                content
-                likes
-            }
+            name
         }
     }
 `;
