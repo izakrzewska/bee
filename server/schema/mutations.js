@@ -12,10 +12,10 @@ const mutation = new GraphQLObjectType({
     addApiary: {
       type: ApiaryType,
       args: {
-        title: { type: GraphQLString }
+        name: { type: GraphQLString }
       },
-      resolve(parentValue, { title }) {
-        return (new Apiary({ title })).save()
+      resolve(parentValue, { name }) {
+        return (new Apiary({ name })).save()
       }
     },
     addBeehiveToApiary: {

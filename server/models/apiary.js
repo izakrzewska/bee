@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ApiarySchema = new Schema({
-  title: { type: String },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'user'
-  },
-  beehives: [{
-    type: Schema.Types.ObjectId,
-    ref: 'beehive'
-  }]
+  name: { type: String }
+//   user: {
+//     type: Schema.Types.ObjectId,
+//     ref: 'user'
+//   },
+//   beehives: [{
+//     type: Schema.Types.ObjectId,
+//     ref: 'beehive'
+//   }]
 });
 
 ApiarySchema.statics.addBeehive = function(id, content) {

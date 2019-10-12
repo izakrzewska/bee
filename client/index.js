@@ -1,26 +1,17 @@
 import './style/style.css';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import App from './components/App';
 import ApiariesList from './components/ApiariesList';
 import ApiaryCreate from './components/ApiaryCreate';
 import ApiaryDetails from './components/ApiaryDetails';
 
-const cache = new InMemoryCache();
-const link = new HttpLink({
-    uri: 'http://localhost:4000/'
-  });
 
 const client = new ApolloClient({
-    // is this dataId necessary when cacheInMemories?
-  dataIdFromObject: o => o.id,
-  link: link,
-  cache: cache
+  dataIdFromObject: o => o.id
 });
 
 const Root = () => {

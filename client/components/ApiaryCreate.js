@@ -8,17 +8,17 @@ class ApiaryCreate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: ''
+            name: ''
         };
     }
 
     onSubmit(event) {
         event.preventDefault();
+        console.log(this.props)
         this.props.mutate({
             variables: {
-                title: this.state.title
+                name: this.state.name
             },
-            // this.props.data.refetch() can't be used as the query is connected with another component
             refetchQueries: [{ query: fetchApiaries }]
         })
         .then(() => {
@@ -30,12 +30,12 @@ class ApiaryCreate extends Component {
         return (
             <div>
                 <Link to="/">Back</Link>
-                <h3>Create a new song</h3>
+                <h3>Dodaj nową pasiekę</h3>
                 <form onSubmit={ this.onSubmit.bind(this) }>
-                    <label>Song title:</label>
+                    <label>Nazwa pasieki:</label>
                     <input 
-                        onChange={ event => this.setState({ title: event.target.value })}
-                        value={ this.state.title }    
+                        onChange={ event => this.setState({ name: event.target.value })}
+                        value={ this.state.name }    
                     />
                 </form>
             </div>
@@ -44,9 +44,9 @@ class ApiaryCreate extends Component {
 }
 
 const mutation = gql`
-    mutation AddSong($title: String) {
-        addSong(title: $title) {
-            title
+    mutation AddApiary($name: String) {
+        addApiary(name: $name) {
+            name
         }
     }
 `;

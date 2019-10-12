@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 
 export default gql`
     {
-        songs {
-            title
+        apiaries {
+            name
             id  
         }
     }

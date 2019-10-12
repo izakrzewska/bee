@@ -10,26 +10,21 @@ class ApiariesList extends Component {
         this.props.mutate({
             variables: { id }
         })
-        // this.props.data.refetch() can be used because the query is connected with this component
         .then(() => this.props.data.refetch())
     }
 
     renderSongs() {
-        return (
-            <div>Apiares list should be here</div>
-        );
-        
-        // return this.props.data.songs.map(({ id, title }) => {
-        //     return (
-        //         <li key={id} className='collection-item'>
-        //             <Link to={`/songs/${id}`}>
-        //             { title }
-        //             </Link>
-        //             <i className='material-icons' onClick={ () => this.onSongDelete(id) }>delete</i>
-        //         </li>
+        return this.props.data.apiaries.map(({ id, name }) => {
+            return (
+                <li key={id} className='collection-item'>
+                    <Link to={`/apiaries/${id}`}>
+                    { name }
+                    </Link>
+                    <i className='material-icons' onClick={ () => this.onSongDelete(id) }>delete</i>
+                </li>
 
-        //     )
-        // })
+            )
+        })
     };
 
     render() {
@@ -49,8 +44,8 @@ class ApiariesList extends Component {
 }
 
 const mutation = gql`
-    mutation DeleteSong($id: ID) {
-        deleteSong(id: $id) {
+    mutation DeleteApiary($id: ID) {
+        deleteApiary(id: $id) {
             id
         }
     }
