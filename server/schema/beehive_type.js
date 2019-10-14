@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const graphql = require('graphql');
 const {
   GraphQLObjectType,
+  GraphQLBoolean,
   GraphQLList,
   GraphQLID,
   GraphQLInt,
@@ -10,12 +11,18 @@ const {
 
 const Beehive = mongoose.model('beehive');
 
+const PositionType = new GraphQLObjectType({
+    name: 'PositionType',
+    fields: {
+        row: { type: GraphQLInt },
+        number: { type: GraphQLInt }
+    }
+});
+
 const BeehiveType = new GraphQLObjectType({
   name:  'BeehiveType',
   fields: () => ({
     id: { type: GraphQLID },
-    likes: { type: GraphQLInt },
-    content: { type: GraphQLString },
     apiary: {
       type: require('./apiary_type'),
       resolve(parentValue) {
@@ -24,6 +31,18 @@ const BeehiveType = new GraphQLObjectType({
             return beehive.apiary
           });
       }
+    },
+    position: { 
+        type: PositionType
+    },
+    active: {
+        type: GraphQLBoolean
+    },
+    statuses: {
+        type: new GraphQLList(GraphQLString)
+    },
+    colors: {
+        type: new GraphQLList(GraphQLString)
     }
   })
 });

@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ApiarySchema = new Schema({
-  name: { type: String }
-//   user: {
-//     type: Schema.Types.ObjectId,
-//     ref: 'user'
-//   },
+  name: { type: String },
+//   coordinates: {
+//     longitud: {
+//         type: Schema.Types.String
+//     },
+//     latitude: {
+//         type: Schema.Types.String   
+//     }
+//   }
 //   beehives: [{
 //     type: Schema.Types.ObjectId,
 //     ref: 'beehive'
