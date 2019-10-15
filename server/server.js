@@ -12,6 +12,10 @@ mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+// useCreateIndex added to remove the warning from the console
+mongoose.set('useCreateIndex', true);
+
 mongoose.connection
     .once('open', () => console.log('Connected to Mongo instance.'))
     .on('error', error => console.log('Error connecting to Mongo', error));
