@@ -14,7 +14,6 @@ class ApiaryCreate extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        console.log(this.props)
         this.props.mutate({
             variables: {
                 name: this.state.name

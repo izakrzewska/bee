@@ -21,20 +21,20 @@ const mutation = new GraphQLObjectType({
     addBeehiveToApiary: {
       type: ApiaryType,
       args: {
-        content: { type: GraphQLString },
-        songId: { type: GraphQLID }
+        apiaryId: { type: GraphQLID },
+        content: { type: GraphQLString }
       },
-      resolve(parentValue, { content, songId }) {
-        return Apiary.addBeehive(songId, content);
+      resolve(parentValue, { apiaryId, content }) {
+        return Apiary.addBeehive(apiaryId, content);
       }
     },
-    likeBeehive: {
-      type: BeehiveType,
-      args: { id: { type: GraphQLID } },
-      resolve(parentValue, { id }) {
-        return Beehive.like(id);
-      }
-    },
+    // likeBeehive: {
+    //   type: BeehiveType,
+    //   args: { id: { type: GraphQLID } },
+    //   resolve(parentValue, { id }) {
+    //     return Beehive.like(id);
+    //   }
+    // },
     deleteApiary: {
       type: ApiaryType,
       args: { id: { type: GraphQLID } },

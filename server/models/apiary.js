@@ -11,25 +11,25 @@ const ApiarySchema = new Schema({
 //         type: Schema.Types.String   
 //     }
 //   }
-//   beehives: [{
-//     type: Schema.Types.ObjectId,
-//     ref: 'beehive'
-//   }]
+  beehives: [{
+    type: Schema.Types.ObjectId,
+    ref: 'beehive'
+  }]
 });
 
-ApiarySchema.statics.addBeehive = function(id, content) {
+ApiarySchema.statics.addBeehive = function(apiaryId, content) {
   const Beehive = mongoose.model('beehive');
 
-  return this.findById(id)
+  return this.findById(apiaryId)
     .then(apiary => {
-      const beehive = new Beehive({ content, apiary })
+      const beehive = new Beehive({apiaryId, content})
       apiary.beehives.push(beehive)
       return Promise.all([beehive.save(), apiary.save()])
         .then(([beehive, apiary]) => apiary);
     });
 }
 
-ApiarySchema.statics.findLyrics = function(id) {
+ApiarySchema.statics.findApiary = function(id) {
   return this.findById(id)
     .populate('beehives')
     .then(apiary => apiary.beehives);

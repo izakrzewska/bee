@@ -8,17 +8,17 @@ import BeehivesList from './BeehivesList';
 class ApiaryDetails extends Component {
     
     render() {
-        console.log(this.props)
         const { apiary } = this.props.data;
 
         if (!apiary) { return <div>Loading...</div> }
+        console.log(apiary, 'to pasieka');
         const { name, beehives } = apiary;
         return (
             <div>
                 <Link to='/'>Back</Link>
                 <h3>{ name }</h3>
                 <BeehivesList beehives = { beehives } />
-                <BeehiveCreate songId={ this.props.params.id }/>
+                <BeehiveCreate apiaryId={ this.props.params.id }/>
             </div>
         );
     }

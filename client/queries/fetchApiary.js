@@ -5,6 +5,9 @@ export default gql`
         apiary(id: $id) {
             id
             name
+            beehives {
+                content
+            }
         }
     }
 `;

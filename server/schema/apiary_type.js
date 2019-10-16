@@ -8,13 +8,13 @@ const ApiaryType = new GraphQLObjectType({
   name:  'ApiaryType',
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString }
-    // beehives: {
-    //   type: new GraphQLList(BeehiveType),
-    //   resolve(parentValue) {
-    //     return Apiary.findLyrics(parentValue.id);
-    //   }
-    // }
+    name: { type: GraphQLString },
+    beehives: {
+      type: new GraphQLList(BeehiveType),
+      resolve(parentValue) {
+        return Apiary.findApiary(parentValue.id);
+      }
+    }
   })
 });
 

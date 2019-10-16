@@ -14,6 +14,7 @@ class ApiariesList extends Component {
     }
 
     renderSongs() {
+        console.log(this.props, 'tooo');
         return this.props.data.apiaries.map(({ id, name }) => {
             return (
                 <li key={id} className='collection-item'>

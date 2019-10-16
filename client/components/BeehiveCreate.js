@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import fetchApiary from '../queries/fetchApiary';
 
 class BeehiveCreate extends Component {
     constructor(props) {
@@ -14,8 +15,8 @@ class BeehiveCreate extends Component {
         e.preventDefault();
         this.props.mutate({
             variables: {
-                content: this.state.content,
-                songId: this.props.songId
+                apiaryId: this.props.apiaryId,
+                content: this.state.content
             }
         })
         .then(() => this.setState({ content: ''}))
@@ -34,13 +35,11 @@ class BeehiveCreate extends Component {
 
 
 const mutation = gql`
-    mutation addLyricToSong($content: String, $songId: ID) {
-        addLyricToSong(content: $content, songId: $songId) {
-            id
-            lyrics {
+    mutation addBeehiveToApiary($apiaryId: ID, $content: String){
+        addBeehiveToApiary(apiaryId: $apiaryId, content: $content) {
+            name
+            beehives {
                 content
-                id
-                likes
             }
         }
     }
