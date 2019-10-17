@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const graphql = require('graphql');
 const {
   GraphQLObjectType,
-  GraphQLString
+  GraphQLString, 
+  GraphQLList
 } = graphql;
 
 const Beehive = mongoose.model('beehive');
@@ -21,6 +22,9 @@ const BeehiveType = new GraphQLObjectType({
     },
     content: {
         type: GraphQLString
+    },
+    colors: {
+        type: new GraphQLList(GraphQLString)
     }
   })
 });

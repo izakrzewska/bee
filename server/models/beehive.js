@@ -8,6 +8,9 @@ const BeehiveSchema = new Schema({
   },
   content: {
     type: Schema.Types.String
+  },
+  colors: {
+    type: Schema.Types.Array
   }
 });
 

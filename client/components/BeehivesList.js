@@ -19,10 +19,11 @@ class BeehivesList extends Component {
     }
 
     renderLyrics() {
-        return this.props.beehives.map(({ id, content }) => {
+        return this.props.beehives.map(({ id, content, colors }) => {
             return (
                 <li key={id} className='collection-item'>
                     { content }
+                    { colors.map(color => <div>{color}</div>)}
                 </li>
             );
         })

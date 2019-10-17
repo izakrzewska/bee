@@ -8,4 +8,5 @@
 // - dodaje sie ul do pasieki z contentem
 
 // to do:
-// - czemu sie nie odswiezza z nowymi ulami ( z kursu)
+// dodac jaki kolor ma ul - baza ma pola do colors, backendowo graphql tez
+// zostalo: dodawac z UI
