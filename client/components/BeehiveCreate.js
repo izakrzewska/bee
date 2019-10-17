@@ -38,6 +38,7 @@ const mutation = gql`
     mutation addBeehiveToApiary($apiaryId: ID, $content: String){
         addBeehiveToApiary(apiaryId: $apiaryId, content: $content) {
             name
+            id
             beehives {
                 content
             }
