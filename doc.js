@@ -6,7 +6,7 @@
 // - wchodzenie w detale pasieki
 // - model Beehive (tzn schema mongoosa) + type do graphql
 // - dodaje sie ul do pasieki z contentem
+// - dodaje sie ul do pasieki z wybranymi kolorami ula (tablica z trzech mozliwych)
 
 // to do:
-// dodac jaki kolor ma ul - baza ma pola do colors, backendowo graphql tez
-// zostalo: dodawac z UI
+// -dodac czy ul aktywny

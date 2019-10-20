@@ -11,7 +11,6 @@ class ApiaryDetails extends Component {
         const { apiary } = this.props.data;
 
         if (!apiary) { return <div>Loading...</div> }
-        console.log(apiary, 'to pasieka');
         const { name, beehives } = apiary;
         return (
             <div>

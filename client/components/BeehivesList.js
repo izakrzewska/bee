@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import uuid from 'uuid';
 
 class BeehivesList extends Component {
 
@@ -18,10 +19,10 @@ class BeehivesList extends Component {
         })
     }
 
-    renderLyrics() {
-        return this.props.beehives.map(({ id, content, colors }) => {
+    renderBeehives() {
+        return this.props.beehives.map(({ content, colors }) => {
             return (
-                <li key={id} className='collection-item'>
+                <li key={uuid()} className='collection-item'>
                     { content }
                     { colors.map(color => <div>{color}</div>)}
                 </li>
@@ -31,7 +32,7 @@ class BeehivesList extends Component {
     render() {
     return (
         <ul className='collection'>
-            { this.renderLyrics()}
+            { this.renderBeehives()}
         </ul>
     )
 }}

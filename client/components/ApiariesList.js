@@ -6,22 +6,21 @@ import fetchApiaries from '../queries/fetchApiaries';
 
 class ApiariesList extends Component {
 
-    onSongDelete(id) {
+    onApiaryDelete(id) {
         this.props.mutate({
             variables: { id }
         })
         .then(() => this.props.data.refetch())
     }
 
-    renderSongs() {
-        console.log(this.props, 'tooo');
+    renderApiaries() {
         return this.props.data.apiaries.map(({ id, name }) => {
             return (
                 <li key={id} className='collection-item'>
                     <Link to={`/apiaries/${id}`}>
                     { name }
                     </Link>
-                    <i className='material-icons' onClick={ () => this.onSongDelete(id) }>delete</i>
+                    <i className='material-icons' onClick={ () => this.onApiaryDelete(id) }>delete</i>
                 </li>
 
             )
@@ -35,7 +34,7 @@ class ApiariesList extends Component {
             return (
                 <div>
                 <ul className='collection'>
-                    { this.renderSongs() }
+                    { this.renderApiaries() }
                 </ul>
                 <Link to="/apiaries/new" className='btn-floating btn-large red right'><i className='material-icons'>add</i></Link>
                 </div>
