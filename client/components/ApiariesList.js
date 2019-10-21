@@ -14,12 +14,13 @@ class ApiariesList extends Component {
     }
 
     renderApiaries() {
-        return this.props.data.apiaries.map(({ id, name }) => {
+        return this.props.data.apiaries.map(({ id, name, numberOfBeehivesInRow }) => {
             return (
                 <li key={id} className='collection-item'>
                     <Link to={`/apiaries/${id}`}>
                     { name }
                     </Link>
+                    <div>liczba uli w rzędzie: { numberOfBeehivesInRow } </div>
                     <i className='material-icons' onClick={ () => this.onApiaryDelete(id) }>delete</i>
                 </li>
 

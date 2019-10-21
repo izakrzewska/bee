@@ -8,7 +8,8 @@ class ApiaryCreate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
+            name: '',
+            numberOfBeehivesInRow: 0
         };
     }
 
@@ -16,7 +17,8 @@ class ApiaryCreate extends Component {
         event.preventDefault();
         this.props.mutate({
             variables: {
-                name: this.state.name
+                name: this.state.name,
+                numberOfBeehivesInRow: this.state.numberOfBeehivesInRow
             },
             refetchQueries: [{ query: fetchApiaries }]
         })
@@ -31,11 +33,16 @@ class ApiaryCreate extends Component {
                 <Link to="/">Back</Link>
                 <h3>Dodaj nową pasiekę</h3>
                 <form onSubmit={ this.onSubmit.bind(this) }>
-                    <label>Nazwa pasieki:</label>
-                    <input 
-                        onChange={ event => this.setState({ name: event.target.value })}
-                        value={ this.state.name }    
-                    />
+                    <div>
+                        <label>Nazwa pasieki:</label>
+                        <input 
+                            onChange={ event => this.setState({ name: event.target.value })}
+                            value={ this.state.name }
+                        />
+                    </div>
+                    <div>
+                        tu dac inputa do liczby uli w rzedzie, bo na razie dodaje sie na chama 0
+                    </div>
                 </form>
             </div>
         ); 
@@ -43,9 +50,10 @@ class ApiaryCreate extends Component {
 }
 
 const mutation = gql`
-    mutation AddApiary($name: String) {
-        addApiary(name: $name) {
+    mutation AddApiary($name: String, $numberOfBeehivesInRow: Int) {
+        addApiary(name: $name, numberOfBeehivesInRow: $numberOfBeehivesInRow) {
             name
+            numberOfBeehivesInRow
         }
     }
 `;

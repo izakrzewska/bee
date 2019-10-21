@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLBoolean } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLBoolean, GraphQLInt } = graphql;
 const mongoose = require('mongoose');
 const Apiary = mongoose.model('apiary');
 const Beehive = mongoose.model('beehive');
@@ -12,10 +12,11 @@ const mutation = new GraphQLObjectType({
     addApiary: {
       type: ApiaryType,
       args: {
-        name: { type: GraphQLString }
+        name: { type: GraphQLString },
+        numberOfBeehivesInRow: { type: GraphQLInt }
       },
-      resolve(parentValue, { name }) {
-        return (new Apiary({ name })).save()
+      resolve(parentValue, { name, numberOfBeehivesInRow }) {
+        return (new Apiary({ name, numberOfBeehivesInRow })).save()
       }
     },
     addBeehiveToApiary: {

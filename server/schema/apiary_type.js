@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLInt } = graphql;
 const BeehiveType = require('./beehive_type');
 const Apiary = mongoose.model('apiary');
 
@@ -14,7 +14,8 @@ const ApiaryType = new GraphQLObjectType({
       resolve(parentValue) {
         return Apiary.findApiary(parentValue.id);
       }
-    }
+    },
+    numberOfBeehivesInRow: { type: GraphQLInt }
   })
 });
 

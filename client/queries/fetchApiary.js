@@ -5,6 +5,7 @@ export default gql`
         apiary(id: $id) {
             id
             name
+            numberOfBeehivesInRow
             beehives {
                 content
                 colors

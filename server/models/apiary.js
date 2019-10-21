@@ -14,7 +14,11 @@ const ApiarySchema = new Schema({
   beehives: [{
     type: Schema.Types.ObjectId,
     ref: 'beehive'
-  }]
+  }],
+  numberOfBeehivesInRow: {
+    type: Schema.Types.Number,
+    default: 0
+  }
 });
 
 ApiarySchema.statics.addBeehive = function(apiaryId, content, colors, active, statuses) {
