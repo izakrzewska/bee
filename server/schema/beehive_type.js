@@ -29,6 +29,10 @@ const BeehiveType = new GraphQLObjectType({
     },
     active: {
       type: GraphQLBoolean
+    },
+    statuses: {
+      // GraphQL to be replaced with custom StatusType
+      type: new GraphQLList(GraphQLString)
     }
   })
 });

@@ -11,7 +11,8 @@ class BeehiveCreate extends Component {
         this.state = {
             content: '',
             colors: [],
-            active: false
+            active: false,
+            statuses: []
         };
     }
 
@@ -52,7 +53,8 @@ class BeehiveCreate extends Component {
                 apiaryId: this.props.apiaryId,
                 content: this.state.content,
                 colors: this.state.colors,
-                active: this.state.active
+                active: this.state.active,
+                statuses: this.state.statuses
             }
         })
         .then(() => {
@@ -93,14 +95,15 @@ class BeehiveCreate extends Component {
 
 
 const mutation = gql`
-    mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String], $active: Boolean){
-        addBeehiveToApiary(apiaryId: $apiaryId, content: $content, colors: $colors, active: $active) {
+    mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String], $active: Boolean, $statuses: [String]){
+        addBeehiveToApiary(apiaryId: $apiaryId, content: $content, colors: $colors, active: $active, statuses: $statuses) {
             name
             id
             beehives {
                 content
                 colors
                 active
+                statuses
             }
         }
     }

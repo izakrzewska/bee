@@ -16,6 +16,10 @@ const BeehiveSchema = new Schema({
   active: {
     type: Schema.Types.Boolean,
     default: false
+  },
+  statuses: {
+    type: Schema.Types.Array,
+    default: []
   }
 });
 

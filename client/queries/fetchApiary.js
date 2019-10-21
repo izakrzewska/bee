@@ -9,6 +9,7 @@ export default gql`
                 content
                 colors
                 active
+                statuses
             }
         }
     }
