@@ -20,15 +20,17 @@ class BeehivesList extends Component {
     }
 
     renderBeehives() {
-        return this.props.beehives.map(({ content, colors }) => {
+        return this.props.beehives.map(({ content, colors, active }) => {
             return (
                 <li key={uuid()} className='collection-item'>
                     { content }
                     { colors.map(color => <div>{color}</div>)}
+                    { active ? 'Aktywny' : 'Nieaktywny' }
                 </li>
             );
         })
     }
+    
     render() {
     return (
         <ul className='collection'>

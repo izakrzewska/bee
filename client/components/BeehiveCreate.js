@@ -10,7 +10,8 @@ class BeehiveCreate extends Component {
         super(props);
         this.state = {
             content: '',
-            colors: []
+            colors: [],
+            active: false
         };
     }
 
@@ -38,29 +39,39 @@ class BeehiveCreate extends Component {
         }
     }
 
+    changeBooleanValue(key, value) {
+        this.setState({
+            [key]: !value
+        });
+    }
+
     onSubmit(e) {
         e.preventDefault();
         this.props.mutate({
             variables: {
                 apiaryId: this.props.apiaryId,
                 content: this.state.content,
-                colors: this.state.colors
+                colors: this.state.colors,
+                active: this.state.active
             }
         })
         .then(() => {
             this.clearValue("content", "");
             this.clearValue("colors", []);
+            this.changeBooleanValue("active", this.state.active);
         })
     }
 
     render() {
+        const { colors } = enums;
+
         return (
             <form onSubmit={ this.onSubmit.bind(this)} > 
                 <label htmlFor='content'>Add a content</label>
                 <input id='content' value={ this.state.content } onChange={ e => this.setValue(e, "content")}/>
                 <div>
                     <h6>Wybierz kolory ula:</h6>
-                    {enums.colors.map(color => {
+                    {colors.map(color => {
                         const { id, displayValue } = color;
                         return (
                             <div key={id}>
@@ -70,8 +81,11 @@ class BeehiveCreate extends Component {
                         );
                     })}
                 </div>
+                <div>
+                    <label htmlFor='active'>Aktywny:</label>
+                    <input type='checkbox' id='active' value={this.state.active} onChange={() => this.changeBooleanValue("active", this.state.active)} />
+                </div>
                 <button className='btn-floating btn-large red right' onClick={(e) => this.onSubmit(e)}>Dodaj</button>
-
             </form>
         )
     }
@@ -79,13 +93,14 @@ class BeehiveCreate extends Component {
 
 
 const mutation = gql`
-    mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String]){
-        addBeehiveToApiary(apiaryId: $apiaryId, content: $content, colors: $colors) {
+    mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String], $active: Boolean){
+        addBeehiveToApiary(apiaryId: $apiaryId, content: $content, colors: $colors, active: $active) {
             name
             id
             beehives {
                 content
                 colors
+                active
             }
         }
     }

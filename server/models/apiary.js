@@ -17,12 +17,12 @@ const ApiarySchema = new Schema({
   }]
 });
 
-ApiarySchema.statics.addBeehive = function(apiaryId, content, colors) {
+ApiarySchema.statics.addBeehive = function(apiaryId, content, colors, active) {
   const Beehive = mongoose.model('beehive');
 
   return this.findById(apiaryId)
     .then(apiary => {
-      const beehive = new Beehive({apiaryId, content, colors})
+      const beehive = new Beehive({apiaryId, content, colors, active})
       apiary.beehives.push(beehive)
       return Promise.all([beehive.save(), apiary.save()])
         .then(([beehive, apiary]) => apiary);

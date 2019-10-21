@@ -8,6 +8,7 @@ export default gql`
             beehives {
                 content
                 colors
+                active
             }
         }
     }

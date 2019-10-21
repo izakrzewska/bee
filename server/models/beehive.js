@@ -10,7 +10,12 @@ const BeehiveSchema = new Schema({
     type: Schema.Types.String
   },
   colors: {
-    type: Schema.Types.Array
+    type: Schema.Types.Array,
+    default: []
+  },
+  active: {
+    type: Schema.Types.Boolean,
+    default: false
   }
 });
 
