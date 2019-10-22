@@ -9,10 +9,10 @@
 // - dodaje sie ul do pasieki z wybranymi kolorami ula (tablica z trzech mozliwych)
 // - dodaje sie ul do pasieki aktywny/nieaktywny
 // - dodaje sie ul do pasieki z pusta tablica statusow (poki co stringow)
-// - dodaje sie pasieka z liczba uli w rzedzie 0
+// - dodaje sie pasieka z wybrana liczba uli w rzedzie 
+// - dodaje sie ul z pozycja ustawiona sztywno na row 1 position 1
 
 
 
 // to do:
-// - dodac inputa do zbierania danych o liczbie uli w rzedzie z frontu
-// - dodawanie położenia ula z automatu dzieki polu liczba uli w rzedzie
+// - dodawanie położenia ula z automatu row tyle ile monzna, i kolejny numer z frontu

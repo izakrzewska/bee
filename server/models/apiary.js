@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ApiarySchema = new Schema({
-  name: { type: String },
+  name: String,
 //   coordinates: {
 //     longitud: {
 //         type: Schema.Types.String
@@ -21,12 +21,12 @@ const ApiarySchema = new Schema({
   }
 });
 
-ApiarySchema.statics.addBeehive = function(apiaryId, content, colors, active, statuses) {
+ApiarySchema.statics.addBeehive = function(apiaryId, content, colors, active, statuses, position) {
   const Beehive = mongoose.model('beehive');
 
   return this.findById(apiaryId)
     .then(apiary => {
-      const beehive = new Beehive({apiaryId, content, colors, active, statuses})
+      const beehive = new Beehive({apiaryId, content, colors, active, statuses, position})
       apiary.beehives.push(beehive)
       return Promise.all([beehive.save(), apiary.save()])
         .then(([beehive, apiary]) => apiary);

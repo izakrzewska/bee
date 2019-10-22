@@ -1,10 +1,11 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLBoolean, GraphQLInt } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLBoolean, GraphQLInt, GraphQLInputObjectType } = graphql;
 const mongoose = require('mongoose');
 const Apiary = mongoose.model('apiary');
 const Beehive = mongoose.model('beehive');
 const ApiaryType = require('./apiary_type');
 const BeehiveType = require('./beehive_type');
+const PositionTypes = require('./position_type');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -26,10 +27,11 @@ const mutation = new GraphQLObjectType({
         content: { type: GraphQLString },
         colors: { type: new GraphQLList(GraphQLString) },
         active: { type: GraphQLBoolean },
-        statuses: { type: new GraphQLList(GraphQLString) }
+        statuses: { type: new GraphQLList(GraphQLString) },
+        position: { type: PositionTypes.PositionInputType }
       },
-      resolve(parentValue, { apiaryId, content, colors, active, statuses }) {
-        return Apiary.addBeehive(apiaryId, content, colors, active, statuses);
+      resolve(parentValue, { apiaryId, content, colors, active, statuses, position }) {
+        return Apiary.addBeehive(apiaryId, content, colors, active, statuses, position );
       }
     },
     // likeBeehive: {

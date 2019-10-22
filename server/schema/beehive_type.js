@@ -4,9 +4,10 @@ const {
   GraphQLObjectType,
   GraphQLString, 
   GraphQLList,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLInt
 } = graphql;
-
+const PositionTypes = require('./position_type');
 const Beehive = mongoose.model('beehive');
 
 const BeehiveType = new GraphQLObjectType({
@@ -31,8 +32,10 @@ const BeehiveType = new GraphQLObjectType({
       type: GraphQLBoolean
     },
     statuses: {
-      // GraphQL to be replaced with custom StatusType
       type: new GraphQLList(GraphQLString)
+    },
+    position: {
+      type: PositionTypes.PositionType
     }
   })
 });

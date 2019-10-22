@@ -41,8 +41,14 @@ class ApiaryCreate extends Component {
                         />
                     </div>
                     <div>
-                        tu dac inputa do liczby uli w rzedzie, bo na razie dodaje sie na chama 0
+                        <label>Liczba uli w rzędzie:</label>
+                        <input 
+                            type='number'
+                            onChange={ event => this.setState({ numberOfBeehivesInRow: event.target.value })}
+                            value={ this.state.numberOfBeehivesInRow }
+                        />
                     </div>
+                    <button onClick={(e) => this.onSubmit(e)} className='btn-floating btn-large red right'>Dodaj</button>
                 </form>
             </div>
         ); 

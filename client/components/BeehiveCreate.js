@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import fetchApiary from '../queries/fetchApiary';
 import enums from '../enums';
 import uuid from 'uuid';
+const PositionTypes = require('../../server/schema/position_type');
 
 class BeehiveCreate extends Component {
     constructor(props) {
@@ -54,7 +55,11 @@ class BeehiveCreate extends Component {
                 content: this.state.content,
                 colors: this.state.colors,
                 active: this.state.active,
-                statuses: this.state.statuses
+                statuses: this.state.statuses,
+                position: {
+                    row: 1,
+                    number: 1
+                }
             }
         })
         .then(() => {
@@ -95,8 +100,8 @@ class BeehiveCreate extends Component {
 
 
 const mutation = gql`
-    mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String], $active: Boolean, $statuses: [String]){
-        addBeehiveToApiary(apiaryId: $apiaryId, content: $content, colors: $colors, active: $active, statuses: $statuses) {
+    mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String], $active: Boolean, $statuses: [String], $position: ${PositionTypes.PositionInputType}){
+        addBeehiveToApiary(apiaryId: $apiaryId, content: $content, colors: $colors, active: $active, statuses: $statuses, position: $position) {
             name
             id
             beehives {
@@ -104,6 +109,10 @@ const mutation = gql`
                 colors
                 active
                 statuses
+                position {
+                    row
+                    number
+                }
             }
         }
     }
