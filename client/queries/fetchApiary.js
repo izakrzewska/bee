@@ -11,6 +11,10 @@ export default gql`
                 colors
                 active
                 statuses
+                position {
+                    row
+                    number
+                }
             }
         }
     }

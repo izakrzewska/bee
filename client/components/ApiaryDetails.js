@@ -11,13 +11,22 @@ class ApiaryDetails extends Component {
         const { apiary } = this.props.data;
 
         if (!apiary) { return <div>Loading...</div> }
-        const { name, beehives } = apiary;
+        const { name, beehives, numberOfBeehivesInRow } = apiary;
+        const numberOfBeehives = beehives.length;
+
         return (
             <div>
                 <Link to='/'>Back</Link>
                 <h3>{ name }</h3>
-                <BeehivesList beehives = { beehives } />
-                <BeehiveCreate apiaryId={ this.props.params.id }/>
+                <div>{`Liczba uli w pasiece: ${numberOfBeehives}`}</div>
+                <BeehivesList 
+                    beehives = { beehives }
+                />
+                <BeehiveCreate
+                    numberOfBeehives = { numberOfBeehives }
+                    numberOfBeehivesInRow = { numberOfBeehivesInRow }
+                    apiaryId={ this.props.params.id }
+                />
             </div>
         );
     }
