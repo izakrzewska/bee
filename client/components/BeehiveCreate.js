@@ -48,33 +48,17 @@ class BeehiveCreate extends Component {
     }
 
     getPosition(numberOfBeehivesInRow, numberOfBeehives) {
-
-        // warunki do tego jak ma się zachować jak jest mniej uli niż liczba miejsc w rzędzie
-        // warunek jak jest tyle samo uli co liczba w rzędzie
-
-
         const rowValue = (numberOfBeehives / numberOfBeehivesInRow) + 1
-
-        
         let numberValue;
         const modulo = numberOfBeehives % numberOfBeehivesInRow;
-        console.log(modulo)
-        if (numberOfBeehives === 0 || numberOfBeehives === numberOfBeehivesInRow) {
-            console.log('albo nie ma wcale uli, albo tyle samo uli co może być w jednym row ')
+
+        if ( numberOfBeehives === 0 || numberOfBeehives === numberOfBeehivesInRow || modulo === 0 ) {
             numberValue = 1;
+        } else if (numberOfBeehives < numberOfBeehivesInRow) {
+            numberValue = numberOfBeehives + 1;
         } else {
-            if (modulo === 0) {
-                console.log('modulo wychodzi zero czyli mamy wielokrotnosc')
-                numberValue = 1; 
-            } else {
-                console.log('kazda inna')
-                numberValue = modulo;
-            }
+            numberValue = modulo + 1;
         }
-        
-        
-
-
 
         return {
             row: rowValue,
