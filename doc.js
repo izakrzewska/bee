@@ -12,10 +12,9 @@
 // - dodaje sie pasieka z wybrana liczba uli w rzedzie 
 // - dodaje sie ul z pozycja ustawiona sztywno na row 1 position
 // - dodaje sie ul z odpowiednio wyliczonym rowem i position
-
-
+// - instalacja google react maps i wyswietlenie mapy
 
 // to do:
-// - dodawanie lokalizacji pasieki
+// - sprawdzic jak zapisuje sie lokalizacja z map gogogle i zrobic update modelu
 // - dodac non Null do typw
 // - refactor na nowsze reacty itp.

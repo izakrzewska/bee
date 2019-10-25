@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link, hashHistory } from 'react-router';
 import fetchApiaries from '../queries/fetchApiaries';
+import Map from './MapContainer';
 
 class ApiaryCreate extends Component {
     constructor(props) {
@@ -48,7 +49,12 @@ class ApiaryCreate extends Component {
                             value={ this.state.numberOfBeehivesInRow }
                         />
                     </div>
-                    <button onClick={(e) => this.onSubmit(e)} className='btn-floating btn-large red right'>Dodaj</button>
+                    <div>
+                       <Map />
+                    </div>
+                    <div>
+                        <button onClick={(e) => this.onSubmit(e)} className='btn-floating btn-large red right'>Dodaj</button>
+                    </div>
                 </form>
             </div>
         ); 
