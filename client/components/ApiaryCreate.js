@@ -22,6 +22,29 @@ class ApiaryCreate extends Component {
         }
     }
 
+    getUserLocation() {
+        let longitudeValue;
+        let latitudeValue;
+
+        const success = (pos) => {
+            console.log(pos.coords.latitude);
+            console.log(pos.coords.longitude);
+
+        };
+
+        if ("geolocation" in navigator) {
+            console.log('yass');
+            navigator.geolocation.getCurrentPosition(success);
+        } else {
+           console.log('nie ma polozenia usera, co tu zrobic');
+        }
+
+        // return {
+        //     long: longitudeValue,
+        //     lat: latitudeValue
+        // }
+    }
+
     onSubmit(event) {
         event.preventDefault();
         this.props.mutate({
@@ -38,6 +61,9 @@ class ApiaryCreate extends Component {
     }
 
     render() {
+
+        this.getUserLocation();
+
         return (
             <div>
                 <Link to="/">Back</Link>
@@ -59,6 +85,7 @@ class ApiaryCreate extends Component {
                         />
                     </div>
                     <div>
+                        <div>My location :</div>
                        <Map />
                     </div>
                     <div>
