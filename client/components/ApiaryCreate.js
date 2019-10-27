@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { Link, hashHistory } from 'react-router';
 import fetchApiaries from '../queries/fetchApiaries';
 import Map from './MapContainer';
+const CoordinatesTypes = require('../../server/schema/coordinates_type');
 
 class ApiaryCreate extends Component {
     constructor(props) {
@@ -14,12 +15,20 @@ class ApiaryCreate extends Component {
         };
     }
 
+    getCoordinates() {
+        return {
+            long: 0,
+            lat: 0
+        }
+    }
+
     onSubmit(event) {
         event.preventDefault();
         this.props.mutate({
             variables: {
                 name: this.state.name,
-                numberOfBeehivesInRow: this.state.numberOfBeehivesInRow
+                numberOfBeehivesInRow: this.state.numberOfBeehivesInRow,
+                coordinates: this.getCoordinates()
             },
             refetchQueries: [{ query: fetchApiaries }]
         })
@@ -62,10 +71,14 @@ class ApiaryCreate extends Component {
 }
 
 const mutation = gql`
-    mutation AddApiary($name: String, $numberOfBeehivesInRow: Int) {
-        addApiary(name: $name, numberOfBeehivesInRow: $numberOfBeehivesInRow) {
+    mutation AddApiary($name: String, $numberOfBeehivesInRow: Int, $coordinates: ${CoordinatesTypes.CoordinatesInputType}) {
+        addApiary(name: $name, numberOfBeehivesInRow: $numberOfBeehivesInRow, coordinates: $coordinates) {
             name
             numberOfBeehivesInRow
+            coordinates {
+                long
+                lat
+            }
         }
     }
 `;

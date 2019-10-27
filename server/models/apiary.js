@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 const ApiarySchema = new Schema({
   name: String,
-//   coordinates: {
-//     longitud: {
-//         type: Schema.Types.String
-//     },
-//     latitude: {
-//         type: Schema.Types.String   
-//     }
-//   }
+  coordinates: {
+    long: {
+      type: Schema.Types.Number
+    },
+    lat: {
+      type: Schema.Types.Number   
+    }
+  },
   beehives: [{
     type: Schema.Types.ObjectId,
     ref: 'beehive'

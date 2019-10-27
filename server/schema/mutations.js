@@ -6,6 +6,7 @@ const Beehive = mongoose.model('beehive');
 const ApiaryType = require('./apiary_type');
 const BeehiveType = require('./beehive_type');
 const PositionTypes = require('./position_type');
+const CoordinatesTypes = require('./coordinates_type');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -14,10 +15,11 @@ const mutation = new GraphQLObjectType({
       type: ApiaryType,
       args: {
         name: { type: GraphQLString },
-        numberOfBeehivesInRow: { type: GraphQLInt }
+        numberOfBeehivesInRow: { type: GraphQLInt },
+        coordinates: { type: CoordinatesTypes.CoordinatesInputType }
       },
-      resolve(parentValue, { name, numberOfBeehivesInRow }) {
-        return (new Apiary({ name, numberOfBeehivesInRow })).save()
+      resolve(parentValue, { name, numberOfBeehivesInRow, coordinates }) {
+        return (new Apiary({ name, numberOfBeehivesInRow, coordinates })).save()
       }
     },
     addBeehiveToApiary: {
