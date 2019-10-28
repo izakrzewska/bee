@@ -11,38 +11,35 @@ class ApiaryCreate extends Component {
         super(props);
         this.state = {
             name: '',
-            numberOfBeehivesInRow: 0
+            numberOfBeehivesInRow: 0,
+            coordinates: {
+                long: 0,
+                lat: 0
+            }
         };
-    }
-
-    getCoordinates() {
-        return {
-            long: 0,
-            lat: 0
-        }
     }
 
     getUserLocation() {
-        let longitudeValue;
-        let latitudeValue;
+        const geo = navigator.geolocation;
 
-        const success = (pos) => {
-            console.log(pos.coords.latitude);
-            console.log(pos.coords.longitude);
-
-        };
-
-        if ("geolocation" in navigator) {
-            console.log('yass');
-            navigator.geolocation.getCurrentPosition(success);
+        if (geo) {
+            geo.getCurrentPosition(position => {
+                this.setState({
+                    coordinates: {
+                        long: position.coords.longitude,
+                        lat: position.coords.latitude
+                    }
+                }, () => console.log(this.state.coordinates));
+            })
         } else {
-           console.log('nie ma polozenia usera, co tu zrobic');
+            console.log('geolocation is unavailable');
         }
+    }
 
-        // return {
-        //     long: longitudeValue,
-        //     lat: latitudeValue
-        // }
+    
+
+    componentDidMount() {
+        this.getUserLocation();
     }
 
     onSubmit(event) {
@@ -61,9 +58,6 @@ class ApiaryCreate extends Component {
     }
 
     render() {
-
-        this.getUserLocation();
-
         return (
             <div>
                 <Link to="/">Back</Link>
@@ -86,7 +80,7 @@ class ApiaryCreate extends Component {
                     </div>
                     <div>
                         <div>My location :</div>
-                       <Map />
+                       <Map coordinates={ this.state.coordinates }/>
                     </div>
                     <div>
                         <button onClick={(e) => this.onSubmit(e)} className='btn-floating btn-large red right'>Dodaj</button>
