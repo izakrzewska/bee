@@ -15,8 +15,15 @@ class ApiaryCreate extends Component {
             coordinates: {
                 long: 0,
                 lat: 0
-            }
+            },
+            newApiaryCoordinates: {
+                long: 0,
+                lat: 0
+            },
+            isMarkerVisible: false
         };
+
+        this.setNewApiaryCoordinates = this.setNewApiaryCoordinates.bind(this)
     }
 
     getUserLocation() {
@@ -37,9 +44,22 @@ class ApiaryCreate extends Component {
     }
 
     
-
     componentDidMount() {
         this.getUserLocation();
+    }
+
+    setNewApiaryCoordinates(coordinates) {
+        console.log(coordinates);
+        this.setState({
+            isMarkerVisible: true
+        });
+        // tu bedzie zmiana stanu obecnego zeby moc wrzucic koordynaty do pasieki
+        // this.setState({
+        //     newApiaryCoordinates: {
+        //         long: coordinates.long,
+        //         lat: coordinates.lat
+        //     }
+        // })
     }
 
     onSubmit(event) {
@@ -80,7 +100,12 @@ class ApiaryCreate extends Component {
                     </div>
                     <div>
                         <div>My location :</div>
-                       <Map coordinates={ this.state.coordinates }/>
+                       <Map 
+                            coordinates={ this.state.coordinates }
+                            setNewApiaryCoordinates = { this.setNewApiaryCoordinates }
+                            isMarkerVisible = { this.state.isMarkerVisible }
+
+                        />
                     </div>
                     <div>
                         <button onClick={(e) => this.onSubmit(e)} className='btn-floating btn-large red right'>Dodaj</button>

@@ -3,16 +3,17 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
   
 export class MapContainer extends Component {
 
-
-
-    onMarkerClick() {
-        console.log('clicked')
+    onMapCliked(mapProps, map, clickEvent) {
+        console.log('mapa kliknieta');
+        // tu musze pobrac koordynaty z kliku i wyslac jako argument do setNewApiary
+        this.props.setNewApiaryCoordinates('hej');
     }
 
     render() {
-
-        console.log(this.props.coordinates, 'kooo')
-       
+        
+        const marker = (
+            <Marker />
+        );
         
         return (
         
@@ -23,15 +24,12 @@ export class MapContainer extends Component {
                     lat: this.props.coordinates.lat,
                     lng: this.props.coordinates.long
                 }}
+                onClick={(mapProps, map, clickEvent) => this.onMapCliked(mapProps, map, clickEvent)}
             >
-        
-                {/* <Marker onClick={this.onMarkerClick}
-                        name={'Current location'} 
-                        initialCenter={{
-                            lat: 40.854885,
-                            lng: -88.081807
-                        }}
-                /> */}
+                
+
+                { this.props.isMarkerVisible ? marker : null}
+
         
                 {/* <InfoWindow onClose={this.onInfoWindowClose}>
                     <div>
