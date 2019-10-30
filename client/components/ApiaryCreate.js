@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link, hashHistory } from 'react-router';
 import fetchApiaries from '../queries/fetchApiaries';
-import Map from './MapContainer';
+import Map from './Map/Map';
 const CoordinatesTypes = require('../../server/schema/coordinates_type');
 
 class ApiaryCreate extends Component {
@@ -12,7 +12,7 @@ class ApiaryCreate extends Component {
         this.state = {
             name: '',
             numberOfBeehivesInRow: 0,
-            coordinates: {
+            userCoordinates: {
                 long: 0,
                 lat: 0
             },
@@ -32,11 +32,11 @@ class ApiaryCreate extends Component {
         if (geo) {
             geo.getCurrentPosition(position => {
                 this.setState({
-                    coordinates: {
+                    userCoordinates: {
                         long: position.coords.longitude,
                         lat: position.coords.latitude
                     }
-                }, () => console.log(this.state.coordinates));
+                });
             })
         } else {
             console.log('geolocation is unavailable');
@@ -49,17 +49,17 @@ class ApiaryCreate extends Component {
     }
 
     setNewApiaryCoordinates(coordinates) {
-        console.log(coordinates);
+        console.log(coordinates, 'co to tuaja mmama');
         this.setState({
             isMarkerVisible: true
         });
-        // tu bedzie zmiana stanu obecnego zeby moc wrzucic koordynaty do pasieki
-        // this.setState({
-        //     newApiaryCoordinates: {
-        //         long: coordinates.long,
-        //         lat: coordinates.lat
-        //     }
-        // })
+
+        this.setState({
+            newApiaryCoordinates: {
+                long: coordinates.long,
+                lat: coordinates.lat
+            }
+        })
     }
 
     onSubmit(event) {
@@ -68,7 +68,7 @@ class ApiaryCreate extends Component {
             variables: {
                 name: this.state.name,
                 numberOfBeehivesInRow: this.state.numberOfBeehivesInRow,
-                coordinates: this.getCoordinates()
+                coordinates: this.state.newApiaryCoordinates
             },
             refetchQueries: [{ query: fetchApiaries }]
         })
@@ -100,8 +100,8 @@ class ApiaryCreate extends Component {
                     </div>
                     <div>
                         <div>My location :</div>
-                       <Map 
-                            coordinates={ this.state.coordinates }
+                       <Map
+                            userCoordinates={ this.state.userCoordinates }
                             setNewApiaryCoordinates = { this.setNewApiaryCoordinates }
                             isMarkerVisible = { this.state.isMarkerVisible }
 
