@@ -3,8 +3,16 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router';
 import fetchApiaries from '../queries/fetchApiaries';
+import ApiariesListMap from './Map/ApiariesListMap';
 
 class ApiariesList extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            listView: true
+        }
+    }
 
     onApiaryDelete(id) {
         this.props.mutate({
@@ -13,30 +21,48 @@ class ApiariesList extends Component {
         .then(() => this.props.data.refetch())
     }
 
-    renderApiaries() {
-        return this.props.data.apiaries.map(({ id, name, numberOfBeehivesInRow }) => {
-            return (
-                <li key={id} className='collection-item'>
-                    <Link to={`/apiaries/${id}`}>
-                    { name }
-                    </Link>
-                    <div>liczba uli w rzędzie: { numberOfBeehivesInRow } </div>
-                    <i className='material-icons' onClick={ () => this.onApiaryDelete(id) }>delete</i>
-                </li>
-
-            )
-        })
+    renderApiaries(apiaries) {
+        if (apiaries) {
+            return apiaries.map(({ id, name, numberOfBeehivesInRow }) => {
+                return (
+                    <li key={id} className='collection-item'>
+                        <Link to={`/apiaries/${id}`}>
+                        { name }
+                        </Link>
+                        <div>liczba uli w rzędzie: { numberOfBeehivesInRow } </div>
+                        <i className='material-icons' onClick={ () => this.onApiaryDelete(id) }>delete</i>
+                    </li>
+    
+                )
+            })
+        }
     };
 
+    changeView() {
+        this.setState((prevState) => ({
+            listView: !prevState.listView
+        }));
+    }
+
     render() {
+
+        const apiariesList = (
+            <ul className='collection'>
+                { this.renderApiaries(this.props.data.apiaries) }
+            </ul>
+        );
+
+        const apiariesMap = (
+            <ApiariesListMap />
+        );
+
         if (this.props.data.loading) {
             return <div>Loading...</div>
         } else {
             return (
                 <div>
-                <ul className='collection'>
-                    { this.renderApiaries() }
-                </ul>
+                <button onClick={() => this.changeView()}>Zmień widok</button>
+                {this.state.listView ? apiariesList : apiariesMap}               
                 <Link to="/apiaries/new" className='btn-floating btn-large red right'><i className='material-icons'>add</i></Link>
                 </div>
             );

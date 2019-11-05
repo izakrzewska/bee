@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 
 const Marker = ({ text }) => <div style={{ height: '5px', width: '5px', borderRadius: '50%', backgroundColor: 'black' }}>{text}</div>;
 
-class Map extends Component {
+class ApiaryCreateMap extends Component {
 
   constructor(props) {
     super(props) 
@@ -62,4 +62,4 @@ class Map extends Component {
     }
   }
   
-export default Map;
+export default ApiaryCreateMap;
