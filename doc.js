@@ -18,7 +18,8 @@
 // - marker pojawia sie na mapie po kliknieciu na nia i jednoczesnie staje sie koordynatami nowej pasieki
 
 // to do:
-// - naprawic ze long i lat jest zawsze intem, czyli scina przecinki
+// - dodac wyswietlanie pasiek albo jako lista albo jako mapka
+// - bug na pierwsze ladowanie tabeli
 // - dodac non Null do typw
 // - refactor na nowsze reacty itp.
 // - dodac default propsy

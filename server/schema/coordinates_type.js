@@ -2,17 +2,18 @@ const graphql = require('graphql');
 const {
   GraphQLInputObjectType,
   GraphQLObjectType,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLFloat
 } = graphql;
 
 const CoordinatesType = new GraphQLObjectType({
   name: 'CoordinatesType',
   fields: () => ({
     long: {
-      type: GraphQLInt
+      type: GraphQLFloat
     },
     lat: {
-      type: GraphQLInt
+      type: GraphQLFloat
     }
   })
 });
@@ -21,10 +22,10 @@ const CoordinatesInputType = new GraphQLInputObjectType({
     name: 'CoordinatesInputType',
     fields: () => ({
         long: {
-            type: GraphQLInt
+            type: GraphQLFloat
         },
         lat: {
-            type: GraphQLInt
+            type: GraphQLFloat
         }
     })
 });
