@@ -1,12 +1,8 @@
-const graphql = require('graphql');
-const {
-  GraphQLInputObjectType,
-  GraphQLObjectType,
-  GraphQLInt
-} = graphql;
+const graphql = require("graphql");
+const { GraphQLInputObjectType, GraphQLObjectType, GraphQLInt } = graphql;
 
 const PositionType = new GraphQLObjectType({
-  name: 'PositionType',
+  name: "PositionType",
   fields: () => ({
     row: {
       type: GraphQLInt
@@ -18,18 +14,18 @@ const PositionType = new GraphQLObjectType({
 });
 
 const PositionInputType = new GraphQLInputObjectType({
-    name: 'PositionInputType',
-    fields: () => ({
-      row: {
-        type: GraphQLInt
-      },
-      number: {
-        type: GraphQLInt
-      }
-    })
+  name: "PositionInputType",
+  fields: () => ({
+    row: {
+      type: GraphQLInt
+    },
+    number: {
+      type: GraphQLInt
+    }
+  })
 });
 
 module.exports = {
-    PositionType: PositionType,
-    PositionInputType: PositionInputType
-}
+  PositionType: PositionType,
+  PositionInputType: PositionInputType
+};

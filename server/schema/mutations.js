@@ -1,15 +1,23 @@
-const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLBoolean, GraphQLInt, GraphQLInputObjectType } = graphql;
-const mongoose = require('mongoose');
-const Apiary = mongoose.model('apiary');
-const Beehive = mongoose.model('beehive');
-const ApiaryType = require('./apiary_type');
-const BeehiveType = require('./beehive_type');
-const PositionTypes = require('./position_type');
-const CoordinatesTypes = require('./coordinates_type');
+const graphql = require("graphql");
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLList,
+  GraphQLBoolean,
+  GraphQLInt,
+  GraphQLInputObjectType
+} = graphql;
+const mongoose = require("mongoose");
+const Apiary = mongoose.model("apiary");
+const Beehive = mongoose.model("beehive");
+const ApiaryType = require("./apiary_type");
+const BeehiveType = require("./beehive_type");
+const PositionTypes = require("./position_type");
+const CoordinatesTypes = require("./coordinates_type");
 
 const mutation = new GraphQLObjectType({
-  name: 'Mutation',
+  name: "Mutation",
   fields: {
     addApiary: {
       type: ApiaryType,
@@ -19,7 +27,7 @@ const mutation = new GraphQLObjectType({
         coordinates: { type: CoordinatesTypes.CoordinatesInputType }
       },
       resolve(parentValue, { name, numberOfBeehivesInRow, coordinates }) {
-        return (new Apiary({ name, numberOfBeehivesInRow, coordinates })).save()
+        return new Apiary({ name, numberOfBeehivesInRow, coordinates }).save();
       }
     },
     addBeehiveToApiary: {
@@ -32,8 +40,18 @@ const mutation = new GraphQLObjectType({
         statuses: { type: new GraphQLList(GraphQLString) },
         position: { type: PositionTypes.PositionInputType }
       },
-      resolve(parentValue, { apiaryId, content, colors, active, statuses, position }) {
-        return Apiary.addBeehive(apiaryId, content, colors, active, statuses, position );
+      resolve(
+        parentValue,
+        { apiaryId, content, colors, active, statuses, position }
+      ) {
+        return Apiary.addBeehive(
+          apiaryId,
+          content,
+          colors,
+          active,
+          statuses,
+          position
+        );
       }
     },
     // likeBeehive: {

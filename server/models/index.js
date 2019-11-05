@@ -1,2 +1,2 @@
-require('./apiary');
-require('./beehive');
+require("./apiary");
+require("./beehive");

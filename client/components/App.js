@@ -3,8 +3,8 @@ import React from "react";
 export default ({ children }) => {
   return (
     <div>
-      <h1 style={{ textAlign: 'center'}}>Twoja pasieka</h1>
-      <div className="container">{children}</div>
+      <h1 style={{ textAlign: "center" }}>Twoja pasieka</h1>
+      <div className='container'>{children}</div>
     </div>
   );
 };

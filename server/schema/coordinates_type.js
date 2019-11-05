@@ -1,4 +1,4 @@
-const graphql = require('graphql');
+const graphql = require("graphql");
 const {
   GraphQLInputObjectType,
   GraphQLObjectType,
@@ -7,7 +7,7 @@ const {
 } = graphql;
 
 const CoordinatesType = new GraphQLObjectType({
-  name: 'CoordinatesType',
+  name: "CoordinatesType",
   fields: () => ({
     long: {
       type: GraphQLFloat
@@ -19,18 +19,18 @@ const CoordinatesType = new GraphQLObjectType({
 });
 
 const CoordinatesInputType = new GraphQLInputObjectType({
-    name: 'CoordinatesInputType',
-    fields: () => ({
-        long: {
-            type: GraphQLFloat
-        },
-        lat: {
-            type: GraphQLFloat
-        }
-    })
+  name: "CoordinatesInputType",
+  fields: () => ({
+    long: {
+      type: GraphQLFloat
+    },
+    lat: {
+      type: GraphQLFloat
+    }
+  })
 });
 
 module.exports = {
-    CoordinatesType: CoordinatesType,
-    CoordinatesInputType: CoordinatesInputType
-}
+  CoordinatesType: CoordinatesType,
+  CoordinatesInputType: CoordinatesInputType
+};

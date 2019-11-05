@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const BeehiveSchema = new Schema({
   apiary: {
     type: Schema.Types.ObjectId,
-    ref: 'apiary'
+    ref: "apiary"
   },
   content: String,
   colors: {
@@ -32,4 +32,4 @@ const BeehiveSchema = new Schema({
   }
 });
 
-mongoose.model('beehive', BeehiveSchema);
+mongoose.model("beehive", BeehiveSchema);

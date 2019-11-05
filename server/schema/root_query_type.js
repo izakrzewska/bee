@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
-const graphql = require('graphql');
+const mongoose = require("mongoose");
+const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
-const ApiaryType = require('./apiary_type');
-const BeehiveType = require('./beehive_type');
-const Beehive = mongoose.model('beehive');
-const Apiary = mongoose.model('apiary');
+const ApiaryType = require("./apiary_type");
+const BeehiveType = require("./beehive_type");
+const Beehive = mongoose.model("beehive");
+const Apiary = mongoose.model("apiary");
 
 const RootQuery = new GraphQLObjectType({
-  name: 'RootQueryType',
+  name: "RootQueryType",
   fields: () => ({
     apiaries: {
       type: new GraphQLList(ApiaryType),
