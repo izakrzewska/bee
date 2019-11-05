@@ -16,10 +16,12 @@
 // - model pasieka ma coordinates z long i lat; 
 // - brac lokalizacje od uzytkownika podczas dodawania mapy i dodawac ja do mapy jako center
 // - marker pojawia sie na mapie po kliknieciu na nia i jednoczesnie staje sie koordynatami nowej pasieki
-// - na widoku pasiek mozna zmienic albo widok listy albo widok mapy (poki co pustej)
+// - na widoku pasiek mozna zmienic albo widok listy albo widok mapy z pasiekami
 
 // to do:
-// // wypopulowac mape prawdziwymi danymi
+// - onClick na pasieke na mapie przenosi do detailsow
+// - centrowanie mapy wszystkich pasiek (na co?)
+// - dodac jakis fajny komponent na pasieke na mapie
 // - bug na pierwsze ladowanie tabeli
 // - dodac non Null do typw
 // - refactor na nowsze reacty itp.

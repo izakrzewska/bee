@@ -53,7 +53,7 @@ class ApiariesList extends Component {
         );
 
         const apiariesMap = (
-            <ApiariesListMap />
+            <ApiariesListMap apiaries={this.props.data.apiaries}/>
         );
 
         if (this.props.data.loading) {

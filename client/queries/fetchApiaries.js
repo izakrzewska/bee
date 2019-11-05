@@ -9,7 +9,10 @@ export default gql`
             beehives {
                 content
             }
-
+            coordinates {
+                long
+                lat
+            }
         }
     }
 `;

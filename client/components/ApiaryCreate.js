@@ -49,7 +49,6 @@ class ApiaryCreate extends Component {
     }
 
     setNewApiaryCoordinates(coordinates) {
-        console.log(coordinates, 'co to tuaja mmama');
         this.setState({
             isMarkerVisible: true
         });
