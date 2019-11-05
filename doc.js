@@ -1,5 +1,4 @@
 // zrobione:
-
 // - dodawanie pasieki
 // - usuwanie pasieki
 // - wchodzenie w detale pasieki
@@ -20,7 +19,17 @@
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
+// - kolory korpusów to zolty, zielony, czerwony, niebieski - update
 // - dodac non Null do typw
 // - refactor na nowsze reacty itp.
 // - dodac default propsy
 // - dodac props type checking
+
+// na pozniejsze etapy:
+// - ostylowac ladnie
+// - statusy uli (glodny, brak matki (czerwony), trutowka (czerwono zolty), slaba matka (zolta))
+// - akcje na pasiece, ale przekazywane do kazdego ula, zeby mozna bylo edytowac indywidualnie w razie potrzeby
+// - kratowanie pasieki (w dzień A, A + 9 dni sprawdzenie czegoś?, A + 24 miodobranie)
+// - wlozenie ramek do odkładów (w dzień A, A + 21 wyjęcie odkładów, zmienia się status jaki?)
+// - leczenie (w dzień A, A + 14 dni zmienić leki)
+// - karmienia (w dzień A, później A + 7, A + 14, i tak razy 6? )
