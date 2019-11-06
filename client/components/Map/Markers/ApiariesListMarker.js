@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router";
 
 const ApiariesListMarker = ({ text, id }) => (
@@ -14,5 +15,12 @@ const ApiariesListMarker = ({ text, id }) => (
     </div>
   </Link>
 );
+
+ApiariesListMarker.propTypes = {
+  id: PropTypes.string.isRequired,
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired
+};
 
 export default ApiariesListMarker;

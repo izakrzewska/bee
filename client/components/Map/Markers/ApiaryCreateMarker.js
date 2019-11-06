@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const ApiaryCreateMarker = ({ text }) => (
   <div
@@ -11,5 +12,11 @@ const ApiaryCreateMarker = ({ text }) => (
     {text}
   </div>
 );
+
+ApiaryCreateMarker.propTypes = {
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired
+};
 
 export default ApiaryCreateMarker;
