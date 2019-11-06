@@ -11,7 +11,7 @@
 // - dodaje sie ul z pozycja ustawiona sztywno na row 1 position
 // - dodaje sie ul z odpowiednio wyliczonym rowem i position
 // - instalacja google react maps i wyswietlenie mapy
-// - model pasieka ma coordinates z long i lat;
+// - model pasieka ma coordinates z lng i lat;
 // - brac lokalizacje od uzytkownika podczas dodawania mapy i dodawac ja do mapy jako center
 // - marker pojawia sie na mapie po kliknieciu na nia i jednoczesnie staje sie koordynatami nowej pasieki
 // - na widoku pasiek mozna zmienic albo widok listy albo widok mapy z pasiekami

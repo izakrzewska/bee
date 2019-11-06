@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import ApiaryCreateMarker from "./Markers/ApiaryCreateMarker";
+import { GOOGLE_API_KEY } from "../../constants";
 
 class ApiaryCreateMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newApiaryCoordinates: {
-        long: 0,
+        lng: 0,
         lat: 0
       }
     };
@@ -17,7 +18,7 @@ class ApiaryCreateMap extends Component {
     this.setState(
       {
         newApiaryCoordinates: {
-          long: e.lng,
+          lng: e.lng,
           lat: e.lat
         }
       },
@@ -26,20 +27,25 @@ class ApiaryCreateMap extends Component {
   }
 
   render() {
+    const {
+      userCoordinates: { lat, lng },
+      isMarkerVisible
+    } = this.props;
+
     return (
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyB3NaWrODZ83svVrKyDxwB_tiW8f7y7xBg" }}
+          bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
           defaultCenter={{
-            lat: this.props.userCoordinates.lat,
-            lng: this.props.userCoordinates.long
+            lat,
+            lng
           }}
           defaultZoom={14}
           onClick={e => this.onMapCliked(e)}>
-          {this.props.isMarkerVisible ? (
+          {isMarkerVisible ? (
             <ApiaryCreateMarker
               lat={this.state.newApiaryCoordinates.lat}
-              lng={this.state.newApiaryCoordinates.long}
+              lng={this.state.newApiaryCoordinates.lng}
               text='My Marker'
             />
           ) : null}
@@ -48,7 +54,5 @@ class ApiaryCreateMap extends Component {
     );
   }
 }
-
-ApiaryCreateMap.defaultProps = {};
 
 export default ApiaryCreateMap;

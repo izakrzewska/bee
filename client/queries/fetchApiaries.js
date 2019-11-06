@@ -10,7 +10,7 @@ export default gql`
         content
       }
       coordinates {
-        long
+        lng
         lat
       }
     }

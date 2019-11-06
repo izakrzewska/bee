@@ -13,11 +13,11 @@ class ApiaryCreate extends Component {
       name: "",
       numberOfBeehivesInRow: 0,
       userCoordinates: {
-        long: 0,
+        lng: 0,
         lat: 0
       },
       newApiaryCoordinates: {
-        long: 0,
+        lng: 0,
         lat: 0
       },
       isMarkerVisible: false
@@ -33,7 +33,7 @@ class ApiaryCreate extends Component {
       geo.getCurrentPosition(position => {
         this.setState({
           userCoordinates: {
-            long: position.coords.longitude,
+            lng: position.coords.longitude,
             lat: position.coords.latitude
           }
         });
@@ -54,7 +54,7 @@ class ApiaryCreate extends Component {
 
     this.setState({
       newApiaryCoordinates: {
-        long: coordinates.long,
+        lng: coordinates.lng,
         lat: coordinates.lat
       }
     });
@@ -126,7 +126,7 @@ const mutation = gql`
             name
             numberOfBeehivesInRow
             coordinates {
-                long
+                lng
                 lat
             }
         }

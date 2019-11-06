@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ApiarySchema = new Schema({
   name: String,
   coordinates: {
-    long: {
+    lng: {
       type: Schema.Types.Number
     },
     lat: {

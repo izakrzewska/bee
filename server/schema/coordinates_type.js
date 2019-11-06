@@ -9,7 +9,7 @@ const {
 const CoordinatesType = new GraphQLObjectType({
   name: "CoordinatesType",
   fields: () => ({
-    long: {
+    lng: {
       type: GraphQLFloat
     },
     lat: {
@@ -21,7 +21,7 @@ const CoordinatesType = new GraphQLObjectType({
 const CoordinatesInputType = new GraphQLInputObjectType({
   name: "CoordinatesInputType",
   fields: () => ({
-    long: {
+    lng: {
       type: GraphQLFloat
     },
     lat: {

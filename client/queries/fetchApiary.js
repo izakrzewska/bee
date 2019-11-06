@@ -7,7 +7,7 @@ export default gql`
       name
       numberOfBeehivesInRow
       coordinates {
-        long
+        lng
         lat
       }
       beehives {
