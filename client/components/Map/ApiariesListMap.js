@@ -1,24 +1,10 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
-import { Link } from "react-router";
-
-const Marker = ({ text, id }) => (
-  <Link to={`/apiaries/${id}`}>
-    <div
-      style={{
-        height: "25px",
-        width: "25px",
-        borderRadius: "50%",
-        backgroundColor: "red"
-      }}>
-      {text}
-    </div>
-  </Link>
-);
+import ApiariesListMarker from "./Markers/ApiariesListMarker";
 
 class ApiariesListMap extends Component {
   render() {
-    const getMapBounds = (map, maps, apiaries) => {
+    const getMapBounds = (maps, apiaries) => {
       const bounds = new maps.LatLngBounds();
 
       apiaries.forEach(apiary => {
@@ -39,7 +25,7 @@ class ApiariesListMap extends Component {
 
     const handleApiLoaded = (map, maps, apiaries) => {
       if (map) {
-        const bounds = getMapBounds(map, maps, apiaries);
+        const bounds = getMapBounds(maps, apiaries);
         map.fitBounds(bounds);
         bindResizeListener(map, maps, bounds);
       }
@@ -57,7 +43,7 @@ class ApiariesListMap extends Component {
           defaultZoom={13}>
           {this.props.apiaries.map(apiary => {
             return (
-              <Marker
+              <ApiariesListMarker
                 lat={apiary.coordinates.lat}
                 lng={apiary.coordinates.long}
                 text={apiary.name}
