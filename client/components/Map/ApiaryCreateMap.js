@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import GoogleMapReact from "google-map-react";
 import ApiaryCreateMarker from "./Markers/ApiaryCreateMarker";
 import { GOOGLE_API_KEY } from "../../constants";
@@ -51,5 +52,11 @@ class ApiaryCreateMap extends Component {
     );
   }
 }
+
+ApiaryCreateMap.propTypes = {
+  setNewApiaryCoordinates: PropTypes.func.isRequired,
+  isMarkerVisible: PropTypes.bool.isRequired,
+  userCoordinates: PropTypes.object.isRequired
+};
 
 export default ApiaryCreateMap;

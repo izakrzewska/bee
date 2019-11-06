@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import uuid from "uuid";
@@ -39,6 +40,10 @@ class BeehivesList extends Component {
     return <ul className='collection'>{this.renderBeehives()}</ul>;
   }
 }
+
+BeehivesList.propTypes = {
+  beehives: PropTypes.array.isRequired
+};
 
 const mutation = gql`
   mutation likeLyric($id: ID) {

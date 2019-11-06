@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import enums from "../../enums";
@@ -143,6 +144,12 @@ class BeehiveCreate extends Component {
     );
   }
 }
+
+BeehiveCreate.propTypes = {
+  numberOfBeehives: PropTypes.number.isRequired,
+  numberOfBeehivesInRow: PropTypes.number.isRequired,
+  apiaryId: PropTypes.string.isRequired
+};
 
 const mutation = gql`
     mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String], $active: Boolean, $statuses: [String], $position: ${PositionTypes.PositionInputType}){
