@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import fetchApiary from "../queries/fetchApiary";
-import enums from "../enums";
+import enums from "../../enums";
 import uuid from "uuid";
-const PositionTypes = require("../../server/schema/position_type");
+const PositionTypes = require("../../../server/schema/position_type");
 
 class BeehiveCreate extends Component {
   constructor(props) {

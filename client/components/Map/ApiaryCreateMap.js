@@ -36,10 +36,7 @@ class ApiaryCreateMap extends Component {
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
-          defaultCenter={{
-            lat,
-            lng
-          }}
+          defaultCenter={{ lat, lng }}
           defaultZoom={14}
           onClick={e => this.onMapCliked(e)}>
           {isMarkerVisible ? (

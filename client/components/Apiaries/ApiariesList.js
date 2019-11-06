@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import { Link } from "react-router";
-import fetchApiaries from "../queries/fetchApiaries";
-import ApiariesListMap from "./Map/ApiariesListMap";
+import fetchApiaries from "../../queries/fetchApiaries";
+import ApiariesListMap from "../Map/ApiariesListMap";
 
 class ApiariesList extends Component {
   constructor(props) {

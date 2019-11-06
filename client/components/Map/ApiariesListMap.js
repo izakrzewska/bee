@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import GoogleMapReact from "google-map-react";
 import ApiariesListMarker from "./Markers/ApiariesListMarker";

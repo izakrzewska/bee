@@ -5,9 +5,9 @@ import ApolloClient from "apollo-client";
 import { ApolloProvider } from "react-apollo";
 import { Router, Route, hashHistory, IndexRoute } from "react-router";
 import App from "./components/App";
-import ApiariesList from "./components/ApiariesList";
-import ApiaryCreate from "./components/ApiaryCreate";
-import ApiaryDetails from "./components/ApiaryDetails";
+import ApiariesList from "./components/Apiaries/ApiariesList";
+import ApiaryCreate from "./components/Apiaries/ApiaryCreate";
+import ApiaryDetails from "./components/Apiaries/ApiaryDetails";
 
 const client = new ApolloClient({
   dataIdFromObject: o => o.id

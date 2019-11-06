@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import fetchApiary from "../queries/fetchApiary";
+import fetchApiary from "../../queries/fetchApiary";
 import { Link } from "react-router";
-import BeehiveCreate from "./BeehiveCreate";
-import BeehivesList from "./BeehivesList";
+import BeehiveCreate from "../Beehives/BeehiveCreate";
+import BeehivesList from "../Beehives/BeehivesList";
 
 class ApiaryDetails extends Component {
   render() {

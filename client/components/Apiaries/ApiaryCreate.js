@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { Link, hashHistory } from "react-router";
-import fetchApiaries from "../queries/fetchApiaries";
-import ApiaryCreateMap from "./Map/ApiaryCreateMap";
-const CoordinatesTypes = require("../../server/schema/coordinates_type");
+import fetchApiaries from "../../queries/fetchApiaries";
+import ApiaryCreateMap from "../Map/ApiaryCreateMap";
+const CoordinatesTypes = require("../../../server/schema/coordinates_type");
 
 class ApiaryCreate extends Component {
   constructor(props) {
