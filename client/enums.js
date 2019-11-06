@@ -11,6 +11,10 @@ const enums = {
     {
       id: "yellow",
       displayValue: "Żółty"
+    },
+    {
+      id: "blue",
+      displayValue: "Niebieski"
     }
   ]
 };

@@ -26,8 +26,7 @@ const BeehiveSchema = new Schema({
     },
     number: {
       type: Schema.Types.Number,
-      default: 0,
-      unique: true
+      default: 0
     }
   }
 });

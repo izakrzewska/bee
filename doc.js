@@ -19,7 +19,6 @@
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
-// - kolory korpusów to zolty, zielony, czerwony, niebieski - update
 // - dodac non Null do typw
 // - refactor na nowsze reacty itp.
 // - dodac default propsy
