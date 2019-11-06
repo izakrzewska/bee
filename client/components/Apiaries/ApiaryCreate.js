@@ -94,7 +94,9 @@ class ApiaryCreate extends Component {
             <input
               type='number'
               onChange={event =>
-                this.setState({ numberOfBeehivesInRow: event.target.value })
+                this.setState({
+                  numberOfBeehivesInRow: Number(event.target.value)
+                })
               }
               value={this.state.numberOfBeehivesInRow}
             />

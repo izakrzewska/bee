@@ -22,7 +22,6 @@
 // - dodac non Null do typw
 // - refactor na nowsze reacty itp.
 // - dodac default propsy
-// - dodac props type checking
 
 // na pozniejsze etapy:
 // - ostylowac ladnie

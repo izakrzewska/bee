@@ -1,7 +1,9 @@
 import "./style/style.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import ApolloClient from "apollo-client";
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { createHttpLink } from "apollo-link-http";
 import { ApolloProvider } from "react-apollo";
 import { Router, Route, hashHistory, IndexRoute } from "react-router";
 import App from "./components/App";
@@ -10,7 +12,8 @@ import ApiaryCreate from "./components/Apiaries/ApiaryCreate";
 import ApiaryDetails from "./components/Apiaries/ApiaryDetails";
 
 const client = new ApolloClient({
-  dataIdFromObject: o => o.id
+  link: createHttpLink({ uri: "/graphql" }),
+  cache: new InMemoryCache()
 });
 
 const Root = () => {
