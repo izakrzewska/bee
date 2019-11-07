@@ -3,6 +3,7 @@ const graphql = require("graphql");
 const {
   GraphQLObjectType,
   GraphQLString,
+  GraphQLID,
   GraphQLList,
   GraphQLBoolean
 } = graphql;
@@ -12,6 +13,7 @@ const Beehive = mongoose.model("beehive");
 const BeehiveType = new GraphQLObjectType({
   name: "BeehiveType",
   fields: () => ({
+    id: { type: GraphQLID },
     apiary: {
       type: require("./apiary_type"),
       resolve(parentValue) {

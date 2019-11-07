@@ -157,6 +157,7 @@ const mutation = gql`
             name
             id
             beehives {
+                id
                 content
                 colors
                 active

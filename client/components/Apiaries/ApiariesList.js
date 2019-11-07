@@ -4,6 +4,7 @@ import { graphql } from "react-apollo";
 import { Link } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiariesListMap from "../Map/ApiariesListMap";
+import fetchApiary from "../../queries/fetchApiary";
 
 class ApiariesList extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class ApiariesList extends Component {
   onApiaryDelete(id) {
     this.props
       .mutate({
-        variables: { id }
+        variables: { id },
+        refetchQueries: [{ query: fetchApiary }]
       })
       .then(() => this.props.data.refetch());
   }

@@ -22,7 +22,7 @@
 // - dodac non Null do typw
 // - refactor reacy routera na v4
 // - dodac default propsy
-// - usuwanie ula
+// - naprawic buga z numeracja uli w pasiece
 
 // na pozniejsze etapy:
 // - ostylowac ladnie

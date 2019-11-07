@@ -5,8 +5,8 @@ export default gql`
     apiaries {
       id
       name
-      numberOfBeehivesInRow
       beehives {
+        id
         content
       }
       coordinates {
