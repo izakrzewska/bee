@@ -4,8 +4,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLBoolean,
-  GraphQLInt
+  GraphQLBoolean
 } = graphql;
 const PositionTypes = require("./position_type");
 const Beehive = mongoose.model("beehive");

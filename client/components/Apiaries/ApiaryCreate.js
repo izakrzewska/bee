@@ -11,7 +11,7 @@ class ApiaryCreate extends Component {
     super(props);
     this.state = {
       name: "",
-      numberOfBeehivesInRow: 0,
+      numberOfBeehivesInRow: 1,
       userCoordinates: {
         lng: 0,
         lat: 0
@@ -92,6 +92,7 @@ class ApiaryCreate extends Component {
           <div>
             <label>Liczba uli w rzędzie:</label>
             <input
+              min={1}
               type='number'
               onChange={event =>
                 this.setState({

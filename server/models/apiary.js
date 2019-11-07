@@ -19,7 +19,7 @@ const ApiarySchema = new Schema({
   ],
   numberOfBeehivesInRow: {
     type: Schema.Types.Number,
-    default: 0
+    default: 1
   }
 });
 
