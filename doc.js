@@ -16,6 +16,7 @@
 // - marker pojawia sie na mapie po kliknieciu na nia i jednoczesnie staje sie koordynatami nowej pasieki
 // - na widoku pasiek mozna zmienic albo widok listy albo widok mapy z pasiekami
 // - onClick na pasieke na mapie przenosi do detailsow
+// - wszystkie komponenty funkcyjne
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
@@ -23,7 +24,7 @@
 // - refactor reacy routera na v4
 // - dodac default propsy
 // - naprawic buga z numeracja uli w pasiece
-// przeprobic beehive create na funkcyjny
+// - naprawic buga z kolorami uli
 
 // na pozniejsze etapy:
 // - ostylowac ladnie

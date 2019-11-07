@@ -1,53 +1,34 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import enums from "../../enums";
-import uuid from "uuid";
-const PositionTypes = require("../../../server/schema/position_type");
+import PositionTypes from "../../../server/schema/position_type";
 
-class BeehiveCreate extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: "",
-      colors: [],
-      active: false,
-      statuses: []
-    };
-  }
+const BeehiveCreate = ({
+  mutate,
+  numberOfBeehives,
+  numberOfBeehivesInRow,
+  apiaryId
+}) => {
+  const [content, setContent] = useState("");
+  const [colors, setColors] = useState([]);
+  const [isActive, isActiveHandler] = useState(false);
+  const [statuses, setStatuses] = useState([]);
 
-  setValue(e, key) {
-    this.setState({
-      [key]: e.target.value
-    });
-  }
-
-  clearValue(key, value) {
-    this.setState({
-      [key]: value
-    });
-  }
-
-  chooseBeehiveColor(chosenColor) {
-    if (this.state.colors.includes(chosenColor)) {
-      this.setState({
-        colors: this.state.colors.filter(color => color !== chosenColor)
+  const setBeehiveColor = (colors, chosenColor) => {
+    if (colors.includes(chosenColor)) {
+      setColors(() => {
+        colors.filter(color => color !== chosenColor);
       });
     } else {
-      this.setState({
-        colors: [...this.state.colors, chosenColor]
+      setColors(() => {
+        return [...colors, chosenColor];
       });
     }
-  }
+  };
 
-  changeBooleanValue(key, value) {
-    this.setState({
-      [key]: !value
-    });
-  }
-
-  getPosition(numberOfBeehivesInRow, numberOfBeehives) {
+  const getPosition = (numberOfBeehivesInRow, numberOfBeehives) => {
     const rowValue = numberOfBeehives / numberOfBeehivesInRow + 1;
     let numberValue;
     const modulo = numberOfBeehives % numberOfBeehivesInRow;
@@ -68,82 +49,71 @@ class BeehiveCreate extends Component {
       row: rowValue,
       number: numberValue
     };
-  }
+  };
 
-  onSubmit(e) {
+  const onBeehiveCreate = e => {
     e.preventDefault();
-    this.props
-      .mutate({
-        variables: {
-          apiaryId: this.props.apiaryId,
-          content: this.state.content,
-          colors: this.state.colors,
-          active: this.state.active,
-          statuses: this.state.statuses,
-          position: this.getPosition(
-            this.props.numberOfBeehivesInRow,
-            this.props.numberOfBeehives
-          )
-        }
-      })
-      .then(() => {
-        this.clearValue("content", "");
-        this.clearValue("colors", []);
-        this.changeBooleanValue("active", this.state.active);
-      });
-  }
+    mutate({
+      variables: {
+        apiaryId: apiaryId,
+        content: content,
+        colors: colors,
+        active: isActive,
+        statuses: statuses,
+        position: getPosition(numberOfBeehivesInRow, numberOfBeehives)
+      }
+    }).then(() => {
+      setContent("");
+      setColors([]);
+      isActiveHandler(false);
+    });
+  };
 
-  render() {
-    const { colors } = enums;
+  const { availableColors } = enums;
 
-    return (
-      <form onSubmit={this.onSubmit.bind(this)}>
-        <label htmlFor='content'>Add a content</label>
+  return (
+    <form>
+      <label htmlFor='content'>Add a content</label>
+      <input
+        id='content'
+        value={content}
+        onChange={({ target: { value } }) => setContent(value)}
+      />
+      <div>
+        <h6>Wybierz kolory ula:</h6>
+        {availableColors.map(({ id, displayValue }) => {
+          return (
+            <div key={id}>
+              <label htmlFor={id}>{displayValue}</label>
+              <input
+                type='checkbox'
+                id={id}
+                value={id}
+                onChange={({ target: { value } }) =>
+                  setBeehiveColor(colors, value)
+                }
+              />
+            </div>
+          );
+        })}
+      </div>
+      <div>
+        <label htmlFor='active'>Aktywny:</label>
         <input
-          id='content'
-          value={this.state.content}
-          onChange={e => this.setValue(e, "content")}
+          type='checkbox'
+          id='active'
+          value={isActive}
+          onChange={() => isActiveHandler(!isActive)}
         />
-        <div>
-          <h6>Wybierz kolory ula:</h6>
-          {colors.map(color => {
-            const { id, displayValue } = color;
-            return (
-              <div key={id}>
-                <label key={uuid()} htmlFor={id}>
-                  {displayValue}
-                </label>
-                <input
-                  key={uuid()}
-                  type='checkbox'
-                  id={id}
-                  value={id}
-                  onChange={e => this.chooseBeehiveColor(e.target.value)}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <div>
-          <label htmlFor='active'>Aktywny:</label>
-          <input
-            type='checkbox'
-            id='active'
-            value={this.state.active}
-            onChange={() =>
-              this.changeBooleanValue("active", this.state.active)
-            }
-          />
-        </div>
-        <button
-          className='btn-floating btn-large red right'
-          onClick={e => this.onSubmit(e)}>
-          Dodaj
-        </button>
-      </form>
-    );
-  }
-}
+      </div>
+      <button
+        className='btn-floating btn-large red right'
+        onClick={e => onBeehiveCreate(e)}>
+        Dodaj
+      </button>
+    </form>
+  );
+};
 
 BeehiveCreate.propTypes = {
   numberOfBeehives: PropTypes.number.isRequired,

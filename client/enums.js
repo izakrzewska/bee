@@ -1,5 +1,5 @@
 const enums = {
-  colors: [
+  availableColors: [
     {
       id: "green",
       displayValue: "Zielony"
