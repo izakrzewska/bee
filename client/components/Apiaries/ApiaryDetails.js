@@ -5,8 +5,8 @@ import { Link } from "react-router";
 import BeehiveCreate from "../Beehives/BeehiveCreate";
 import BeehivesList from "../Beehives/BeehivesList";
 
-const ApiaryDetails = props => {
-  const { apiary } = props.data;
+const ApiaryDetails = ({ params: { id }, data }) => {
+  const { apiary } = data;
 
   if (!apiary) {
     return <div>Loading...</div>;
@@ -25,14 +25,14 @@ const ApiaryDetails = props => {
       <BeehiveCreate
         numberOfBeehives={numberOfBeehives}
         numberOfBeehivesInRow={numberOfBeehivesInRow}
-        apiaryId={props.params.id}
+        apiaryId={id}
       />
     </div>
   );
 };
 
 export default graphql(fetchApiary, {
-  options: props => {
-    return { variables: { id: props.params.id } };
+  options: ({ params: { id } }) => {
+    return { variables: { id: id } };
   }
 })(ApiaryDetails);

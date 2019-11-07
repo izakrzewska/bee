@@ -33,7 +33,7 @@ const ApiariesList = ({ mutate, data }) => {
     }
   };
 
-  const onChangeViewClick = () => {
+  const onChangeViewClick = isInListView => {
     handleListViewChange(!isInListView);
   };
 
@@ -47,7 +47,9 @@ const ApiariesList = ({ mutate, data }) => {
   } else {
     return (
       <div>
-        <button onClick={() => onChangeViewClick()}>Zmień widok</button>
+        <button onClick={() => onChangeViewClick(isInListView)}>
+          Zmień widok
+        </button>
         {isInListView ? apiariesList : apiariesMap}
         <Link to='/apiaries/new' className='btn-floating btn-large red right'>
           <i className='material-icons'>add</i>
