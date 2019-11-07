@@ -20,6 +20,7 @@ class ApiaryDetails extends Component {
         <Link to='/'>Back</Link>
         <h3>{name}</h3>
         <div>{`Liczba uli w pasiece: ${numberOfBeehives}`}</div>
+        <div>{`Liczba uli w rzędzie: ${numberOfBeehivesInRow}`}</div>
         <BeehivesList beehives={beehives} />
         <BeehiveCreate
           numberOfBeehives={numberOfBeehives}

@@ -23,11 +23,11 @@ class ApiariesList extends Component {
 
   renderApiaries(apiaries) {
     if (apiaries) {
-      return apiaries.map(({ id, name, numberOfBeehivesInRow }) => {
+      return apiaries.map(({ id, name, beehives }) => {
         return (
           <li key={id} className='collection-item'>
             <Link to={`/apiaries/${id}`}>{name}</Link>
-            <div>liczba uli w rzędzie: {numberOfBeehivesInRow} </div>
+            <div>liczba uli w pasiece: {beehives.length} </div>
             <i
               className='material-icons'
               onClick={() => this.onApiaryDelete(id)}>

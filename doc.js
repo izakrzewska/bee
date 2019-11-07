@@ -20,8 +20,9 @@
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
 // - dodac non Null do typw
-// - refactor na nowsze reacty itp.
+// - refactor reacy routera na v4
 // - dodac default propsy
+// - usuwanie ula
 
 // na pozniejsze etapy:
 // - ostylowac ladnie
