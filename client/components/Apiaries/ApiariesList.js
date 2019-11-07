@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import { Link } from "react-router";
@@ -6,71 +6,56 @@ import fetchApiaries from "../../queries/fetchApiaries";
 import ApiariesListMap from "../Map/ApiariesListMap";
 import fetchApiary from "../../queries/fetchApiary";
 
-class ApiariesList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      listView: true
-    };
-  }
+const ApiariesList = ({ mutate, data }) => {
+  const [isInListView, handleListViewChange] = useState(true);
+  const { refetch, apiaries, loading } = data;
 
-  onApiaryDelete(id) {
-    this.props
-      .mutate({
-        variables: { id },
-        refetchQueries: [{ query: fetchApiary }]
-      })
-      .then(() => this.props.data.refetch());
-  }
+  const onApiaryDelete = id => {
+    mutate({
+      variables: { id },
+      refetchQueries: [{ query: fetchApiary }]
+    }).then(() => refetch());
+  };
 
-  renderApiaries(apiaries) {
+  const renderApiaries = apiaries => {
     if (apiaries) {
       return apiaries.map(({ id, name, beehives }) => {
         return (
           <li key={id} className='collection-item'>
             <Link to={`/apiaries/${id}`}>{name}</Link>
             <div>liczba uli w pasiece: {beehives.length} </div>
-            <i
-              className='material-icons'
-              onClick={() => this.onApiaryDelete(id)}>
+            <i className='material-icons' onClick={() => onApiaryDelete(id)}>
               delete
             </i>
           </li>
         );
       });
     }
-  }
+  };
 
-  changeView() {
-    this.setState(prevState => ({
-      listView: !prevState.listView
-    }));
-  }
+  const onChangeViewClick = () => {
+    handleListViewChange(!isInListView);
+  };
 
-  render() {
-    const apiariesList = (
-      <ul className='collection'>
-        {this.renderApiaries(this.props.data.apiaries)}
-      </ul>
+  const apiariesList = (
+    <ul className='collection'>{renderApiaries(apiaries)}</ul>
+  );
+  const apiariesMap = <ApiariesListMap apiaries={apiaries} />;
+
+  if (loading) {
+    return <div>Loading...</div>;
+  } else {
+    return (
+      <div>
+        <button onClick={() => onChangeViewClick()}>Zmień widok</button>
+        {isInListView ? apiariesList : apiariesMap}
+        <Link to='/apiaries/new' className='btn-floating btn-large red right'>
+          <i className='material-icons'>add</i>
+        </Link>
+      </div>
     );
-
-    const apiariesMap = <ApiariesListMap apiaries={this.props.data.apiaries} />;
-
-    if (this.props.data.loading) {
-      return <div>Loading...</div>;
-    } else {
-      return (
-        <div>
-          <button onClick={() => this.changeView()}>Zmień widok</button>
-          {this.state.listView ? apiariesList : apiariesMap}
-          <Link to='/apiaries/new' className='btn-floating btn-large red right'>
-            <i className='material-icons'>add</i>
-          </Link>
-        </div>
-      );
-    }
   }
-}
+};
 
 const mutation = gql`
   mutation DeleteApiary($id: ID) {
