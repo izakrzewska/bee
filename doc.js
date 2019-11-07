@@ -23,6 +23,7 @@
 // - refactor reacy routera na v4
 // - dodac default propsy
 // - naprawic buga z numeracja uli w pasiece
+// przeprobic beehive create na funkcyjny
 
 // na pozniejsze etapy:
 // - ostylowac ladnie
