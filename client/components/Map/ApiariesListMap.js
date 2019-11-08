@@ -38,7 +38,7 @@ const ApiariesListMap = ({ apiaries }) => {
         onGoogleApiLoaded={({ map, maps }) =>
           handleApiLoaded(map, maps, apiaries)
         }
-        center={{ lng: 0, lat: 0 }}
+        defaultCenter={{ lng: 0, lat: 0 }}
         defaultZoom={13}>
         {apiaries.map(({ coordinates: { lat, lng }, name, id }) => {
           return (
