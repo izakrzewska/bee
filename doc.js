@@ -25,7 +25,6 @@
 // - refactor reacy routera na v4
 // - dodac default propsy
 // - naprawic buga z numeracja uli w pasiece
-// - naprawic buga z kolorami uli
 // - dodac komponent na loding i error
 
 // na pozniejsze etapy:

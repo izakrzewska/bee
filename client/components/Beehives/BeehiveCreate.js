@@ -25,7 +25,7 @@ const BeehiveCreate = ({
   const setBeehiveColor = (colors, chosenColor) => {
     if (colors.includes(chosenColor)) {
       setColors(() => {
-        colors.filter(color => color !== chosenColor);
+        return colors.filter(color => color !== chosenColor);
       });
     } else {
       setColors(() => {
