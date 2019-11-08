@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import PropTypes from "prop-types";
-import { graphql } from "react-apollo";
 import enums from "../../enums";
 import beehiveMutations from "../../mutations/beehive_mutations";
 
 const BeehiveCreate = ({
-  mutate,
   numberOfBeehives,
   numberOfBeehivesInRow,
   apiaryId
@@ -14,6 +13,14 @@ const BeehiveCreate = ({
   const [colors, setColors] = useState([]);
   const [isActive, isActiveHandler] = useState(false);
   const [statuses, setStatuses] = useState([]);
+  const { ADD_BEEHIVE } = beehiveMutations;
+  const [addBeehive] = useMutation(ADD_BEEHIVE, {
+    onCompleted() {
+      setContent("");
+      setColors([]);
+      isActiveHandler(false);
+    }
+  });
 
   const setBeehiveColor = (colors, chosenColor) => {
     if (colors.includes(chosenColor)) {
@@ -52,7 +59,7 @@ const BeehiveCreate = ({
 
   const onBeehiveCreate = e => {
     e.preventDefault();
-    mutate({
+    addBeehive({
       variables: {
         apiaryId: apiaryId,
         content: content,
@@ -61,10 +68,6 @@ const BeehiveCreate = ({
         statuses: statuses,
         position: getPosition(numberOfBeehivesInRow, numberOfBeehives)
       }
-    }).then(() => {
-      setContent("");
-      setColors([]);
-      isActiveHandler(false);
     });
   };
 
@@ -120,5 +123,4 @@ BeehiveCreate.propTypes = {
   apiaryId: PropTypes.string.isRequired
 };
 
-const { ADD_BEEHIVE } = beehiveMutations;
-export default graphql(ADD_BEEHIVE)(BeehiveCreate);
+export default BeehiveCreate;

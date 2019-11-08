@@ -17,7 +17,7 @@
 // - na widoku pasiek mozna zmienic albo widok listy albo widok mapy z pasiekami
 // - onClick na pasieke na mapie przenosi do detailsow
 // - wszystkie komponenty funkcyjne
-// - usequeries dodane
+// - usequeries dodane + usemutations dodane
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)

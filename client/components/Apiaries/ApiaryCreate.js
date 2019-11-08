@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { graphql } from "react-apollo";
 import { Link, hashHistory } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiaryCreateMap from "../Map/ApiaryCreateMap";
