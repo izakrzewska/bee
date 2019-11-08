@@ -21,10 +21,8 @@
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
-// - dodac non Null do typw
 // - refactor reacy routera na v4
 // - dodac default propsy
-// - naprawic buga z numeracja uli w pasiece
 // - dodac komponent na loding i error
 
 // na pozniejsze etapy:

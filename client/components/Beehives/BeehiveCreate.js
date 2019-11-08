@@ -35,7 +35,7 @@ const BeehiveCreate = ({
   };
 
   const getPosition = (numberOfBeehivesInRow, numberOfBeehives) => {
-    const rowValue = numberOfBeehives / numberOfBeehivesInRow + 1;
+    const rowValue = Math.floor(numberOfBeehives / numberOfBeehivesInRow + 1);
     let numberValue;
     const modulo = numberOfBeehives % numberOfBeehivesInRow;
 
@@ -50,7 +50,6 @@ const BeehiveCreate = ({
     } else {
       numberValue = modulo + 1;
     }
-
     return {
       row: rowValue,
       number: numberValue
