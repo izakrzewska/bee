@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { graphql } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiariesListMap from "../Map/ApiariesListMap";
-import fetchApiary from "../../queries/fetchApiary";
 import apiaryMutations from "../../mutations/apiary_mutations";
 
-const ApiariesList = ({ mutate }) => {
+const ApiariesList = () => {
   const [isInListView, handleListViewChange] = useState(true);
   const { data, error, loading } = useQuery(fetchApiaries);
+  const { DELETE_APIARY } = apiaryMutations;
+  const [deleteApiary] = useMutation(DELETE_APIARY);
 
   const onApiaryDelete = id => {
-    mutate({
-      variables: { id },
-      refetchQueries: [{ query: fetchApiary }]
+    deleteApiary({
+      variables: { id: id },
+      refetchQueries: [
+        {
+          query: fetchApiaries
+        }
+      ]
     });
-    // then refetch pasiek
   };
 
   const renderApiaries = apiaries => {
@@ -60,5 +63,4 @@ const ApiariesList = ({ mutate }) => {
   }
 };
 
-const { DELETE_APIARY } = apiaryMutations;
-export default graphql(DELETE_APIARY)(ApiariesList);
+export default ApiariesList;
