@@ -4,6 +4,8 @@ import { Link } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiariesListMap from "../Map/ApiariesListMap";
 import apiaryMutations from "../../mutations/apiary_mutations";
+import Loading from "../common/Loading";
+import Error from "../common/Error";
 
 const ApiariesList = () => {
   const [isInListView, handleListViewChange] = useState(true);
@@ -41,9 +43,9 @@ const ApiariesList = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   } else if (error) {
-    return <div>Przepraszamy, coś poszło nie tak: {error} </div>;
+    return <Error />;
   } else {
     const apiariesList = (
       <ul className='collection'>{renderApiaries(data.apiaries)}</ul>

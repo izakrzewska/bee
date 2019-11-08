@@ -4,6 +4,8 @@ import fetchApiary from "../../queries/fetchApiary";
 import { Link } from "react-router";
 import BeehiveCreate from "../Beehives/BeehiveCreate";
 import BeehivesList from "../Beehives/BeehivesList";
+import Loading from "../../components/common/Loading";
+import Error from "../../components/common/Error";
 
 const ApiaryDetails = ({ params: { id } }) => {
   const { data, error, loading } = useQuery(fetchApiary, {
@@ -13,11 +15,11 @@ const ApiaryDetails = ({ params: { id } }) => {
   });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
-    return <div>Przepraszamy, coś poszło nie tak: {error} </div>;
+    return <Error />;
   } else {
     const { apiary } = data;
     const { name, beehives, numberOfBeehivesInRow } = apiary;

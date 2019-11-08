@@ -18,13 +18,11 @@
 // - onClick na pasieke na mapie przenosi do detailsow
 // - wszystkie komponenty funkcyjne
 // - usequeries dodane + usemutations dodane
+// - dodac komponent na loding i error
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
 // - refactor reacy routera na v4
-// - dodac default propsy
-// - dodac komponent na loding i error
-
 // na pozniejsze etapy:
 // - ostylowac ladnie
 // - statusy uli (glodny, brak matki (czerwony), trutowka (czerwono zolty), slaba matka (zolta))
