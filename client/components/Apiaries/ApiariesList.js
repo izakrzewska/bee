@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import { Link } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiariesListMap from "../Map/ApiariesListMap";
 import fetchApiary from "../../queries/fetchApiary";
+import apiaryMutations from "../../mutations/apiary_mutations";
 
 const ApiariesList = ({ mutate, data }) => {
   const [isInListView, handleListViewChange] = useState(true);
@@ -59,12 +59,5 @@ const ApiariesList = ({ mutate, data }) => {
   }
 };
 
-const mutation = gql`
-  mutation DeleteApiary($id: ID) {
-    deleteApiary(id: $id) {
-      id
-    }
-  }
-`;
-
-export default graphql(mutation)(graphql(fetchApiaries)(ApiariesList));
+const { DELETE_APIARY } = apiaryMutations;
+export default graphql(DELETE_APIARY)(graphql(fetchApiaries)(ApiariesList));

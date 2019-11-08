@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 import enums from "../../enums";
-import PositionTypes from "../../../server/schema/position_type";
+import beehiveMutations from "../../mutations/beehive_mutations";
 
 const BeehiveCreate = ({
   mutate,
@@ -121,24 +120,5 @@ BeehiveCreate.propTypes = {
   apiaryId: PropTypes.string.isRequired
 };
 
-const mutation = gql`
-    mutation addBeehiveToApiary($apiaryId: ID, $content: String, $colors: [String], $active: Boolean, $statuses: [String], $position: ${PositionTypes.PositionInputType}){
-        addBeehiveToApiary(apiaryId: $apiaryId, content: $content, colors: $colors, active: $active, statuses: $statuses, position: $position) {
-            name
-            id
-            beehives {
-                id
-                content
-                colors
-                active
-                statuses
-                position {
-                    row
-                    number
-                }
-            }
-        }
-    }
-`;
-
-export default graphql(mutation)(BeehiveCreate);
+const { ADD_BEEHIVE } = beehiveMutations;
+export default graphql(ADD_BEEHIVE)(BeehiveCreate);

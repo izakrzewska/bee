@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 import { Link, hashHistory } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiaryCreateMap from "../Map/ApiaryCreateMap";
-import CoordinatesTypes from "../../../server/schema/coordinates_type";
+import apiaryMutations from "../../mutations/apiary_mutations";
 
 const ApiaryCreate = ({ mutate }) => {
   const [apiaryName, setApiaryName] = useState("");
@@ -14,7 +13,7 @@ const ApiaryCreate = ({ mutate }) => {
     lat: 0
   });
   const [isMarkerVisible, isMarkerVisibleHandler] = useState(false);
-  const [userCoordinates, setUserCoordinates] = useState({ lng: 0, lat: 0 });
+  const [userCoordinates, setUserCoordinates] = useState({ lat: 0, lng: 0 });
 
   const getUserLocation = () => {
     const geo = navigator.geolocation;
@@ -31,7 +30,9 @@ const ApiaryCreate = ({ mutate }) => {
     }
   };
 
-  useEffect(() => getUserLocation());
+  useEffect(() => {
+    getUserLocation();
+  }, []);
 
   const setNewApiaryCoordinates = ({ lng, lat }) => {
     isMarkerVisibleHandler(true);
@@ -95,17 +96,5 @@ const ApiaryCreate = ({ mutate }) => {
   );
 };
 
-const mutation = gql`
-    mutation AddApiary($name: String, $numberOfBeehivesInRow: Int, $coordinates: ${CoordinatesTypes.CoordinatesInputType}) {
-        addApiary(name: $name, numberOfBeehivesInRow: $numberOfBeehivesInRow, coordinates: $coordinates) {
-            name
-            numberOfBeehivesInRow
-            coordinates {
-                lng
-                lat
-            }
-        }
-    }
-`;
-
-export default graphql(mutation)(ApiaryCreate);
+const { ADD_APIARY } = apiaryMutations;
+export default graphql(ADD_APIARY)(ApiaryCreate);
