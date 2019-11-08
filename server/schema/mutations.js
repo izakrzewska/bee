@@ -65,7 +65,7 @@ const mutation = new GraphQLObjectType({
       type: ApiaryType,
       args: { id: { type: GraphQLID } },
       resolve(parentValue, { id }) {
-        return Apiary.remove({ _id: id });
+        return Apiary.deleteOne({ _id: id });
       }
     }
   }

@@ -17,6 +17,7 @@
 // - na widoku pasiek mozna zmienic albo widok listy albo widok mapy z pasiekami
 // - onClick na pasieke na mapie przenosi do detailsow
 // - wszystkie komponenty funkcyjne
+// - usequeries dodane
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
@@ -25,6 +26,7 @@
 // - dodac default propsy
 // - naprawic buga z numeracja uli w pasiece
 // - naprawic buga z kolorami uli
+// - dodac komponent na loding i error
 
 // na pozniejsze etapy:
 // - ostylowac ladnie
