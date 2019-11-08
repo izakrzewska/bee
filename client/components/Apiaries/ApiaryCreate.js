@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import { graphql } from "react-apollo";
 import { Link, hashHistory } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiaryCreateMap from "../Map/ApiaryCreateMap";
 import apiaryMutations from "../../mutations/apiary_mutations";
 
-const ApiaryCreate = ({ mutate }) => {
+const ApiaryCreate = () => {
   const [apiaryName, setApiaryName] = useState("");
   const [numberOfBeehivesInRow, setNumberOfBeehivesInRow] = useState(1);
   const [apiaryCoordinates, setApiaryCoordinates] = useState({
@@ -14,6 +15,12 @@ const ApiaryCreate = ({ mutate }) => {
   });
   const [isMarkerVisible, isMarkerVisibleHandler] = useState(false);
   const [userCoordinates, setUserCoordinates] = useState({ lat: 0, lng: 0 });
+  const { ADD_APIARY } = apiaryMutations;
+  const [addApiary] = useMutation(ADD_APIARY, {
+    onCompleted() {
+      hashHistory.push("/");
+    }
+  });
 
   const getUserLocation = () => {
     const geo = navigator.geolocation;
@@ -41,15 +48,14 @@ const ApiaryCreate = ({ mutate }) => {
 
   const onApiaryCreate = e => {
     e.preventDefault();
-    mutate({
+    addApiary({
       variables: {
         name: apiaryName,
         numberOfBeehivesInRow: numberOfBeehivesInRow,
         coordinates: apiaryCoordinates
       },
-      refetchQueries: [{ query: fetchApiaries }]
-    }).then(() => {
-      hashHistory.push("/");
+      refetchQueries: [{ query: fetchApiaries }],
+      awaitRefetchQueries: true
     });
   };
 
@@ -57,7 +63,7 @@ const ApiaryCreate = ({ mutate }) => {
     <div>
       <Link to='/'>Back</Link>
       <h3>Dodaj nową pasiekę</h3>
-      <form onSubmit={e => onSubmit(e)}>
+      <form>
         <div>
           <label>Nazwa pasieki:</label>
           <input
@@ -96,5 +102,4 @@ const ApiaryCreate = ({ mutate }) => {
   );
 };
 
-const { ADD_APIARY } = apiaryMutations;
-export default graphql(ADD_APIARY)(ApiaryCreate);
+export default ApiaryCreate;
