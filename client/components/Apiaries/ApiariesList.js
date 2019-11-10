@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
@@ -53,9 +54,9 @@ const ApiariesList = () => {
     const apiariesMap = <ApiariesListMap apiaries={data.apiaries} />;
     return (
       <div>
-        <button onClick={() => onChangeViewClick(isInListView)}>
+        <Button onClick={() => onChangeViewClick(isInListView)}>
           Zmień widok
-        </button>
+        </Button>
         {isInListView ? apiariesList : apiariesMap}
         <Link to='/apiaries/new' className='btn-floating btn-large red right'>
           <i className='material-icons'>add</i>
