@@ -107,9 +107,7 @@ const BeehiveCreate = ({
           onChange={() => isActiveHandler(!isActive)}
         />
       </div>
-      <button
-        className='btn-floating btn-large red right'
-        onClick={e => onBeehiveCreate(e)}>
+      <button className='btn-large right' onClick={e => onBeehiveCreate(e)}>
         Dodaj
       </button>
     </form>

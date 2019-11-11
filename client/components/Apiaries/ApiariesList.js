@@ -58,7 +58,7 @@ const ApiariesList = () => {
           Zmień widok
         </Button>
         {isInListView ? apiariesList : apiariesMap}
-        <Link to='/apiaries/new' className='btn-floating btn-large red right'>
+        <Link to='/apiaries/new' className='btn-large right'>
           <i className='material-icons'>add</i>
         </Link>
       </div>

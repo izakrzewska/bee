@@ -90,9 +90,7 @@ const ApiaryCreate = () => {
           />
         </div>
         <div>
-          <button
-            onClick={e => onApiaryCreate(e)}
-            className='btn-floating btn-large red right'>
+          <button onClick={e => onApiaryCreate(e)} className='btn-large right'>
             Dodaj
           </button>
         </div>

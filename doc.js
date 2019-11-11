@@ -19,6 +19,7 @@
 // - wszystkie komponenty funkcyjne
 // - usequeries dodane + usemutations dodane
 // - dodac komponent na loding i error
+// - app.js ostylowane
 
 // to do:
 // - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
