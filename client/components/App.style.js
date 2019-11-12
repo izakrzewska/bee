@@ -5,11 +5,12 @@ const useStyles = makeStyles({
   appContainer: {
     padding: 0,
     height: "100%",
-    backgroundColor: pallete.background
+    backgroundColor: pallete.backgroundMain
   },
   appBar: {
     backgroundColor: pallete.primary,
-    color: pallete.text
+    color: pallete.brown,
+    marginBottom: 25
   }
 });
 

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography
+} from "@material-ui/core";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
@@ -7,12 +13,17 @@ import ApiariesListMap from "../Map/ApiariesListMap";
 import apiaryMutations from "../../mutations/apiary_mutations";
 import Loading from "../common/Loading";
 import Error from "../common/Error";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
+import MapIcon from "@material-ui/icons/Map";
+import useStyles from "./ApiariesList.style";
 
 const ApiariesList = () => {
   const [isInListView, handleListViewChange] = useState(true);
   const { data, error, loading } = useQuery(fetchApiaries);
   const { DELETE_APIARY } = apiaryMutations;
   const [deleteApiary] = useMutation(DELETE_APIARY);
+  const classes = useStyles();
 
   const onApiaryDelete = id => {
     deleteApiary({
@@ -25,16 +36,37 @@ const ApiariesList = () => {
     });
   };
 
+  const {
+    card,
+    mapIcon,
+    deleteIcon,
+    cardText,
+    button,
+    actions,
+    container
+  } = classes;
+
   const renderApiaries = apiaries => {
     return apiaries.map(({ id, name, beehives }) => {
       return (
-        <li key={id} className='collection-item'>
-          <Link to={`/apiaries/${id}`}>{name}</Link>
-          <div>liczba uli w pasiece: {beehives.length} </div>
-          <i className='material-icons' onClick={() => onApiaryDelete(id)}>
-            delete
-          </i>
-        </li>
+        <Card id={id} className={card}>
+          <Link to={`/apiaries/${id}`}>
+            <CardContent>
+              <Typography variant='h6' className={cardText}>
+                {name}
+              </Typography>
+              <Typography variant='body1' className={cardText}>
+                Liczba uli w pasiece: <b>{beehives.length}</b>
+              </Typography>
+            </CardContent>
+          </Link>
+          <CardActions className={actions}>
+            <DeleteIcon
+              className={deleteIcon}
+              onClick={() => onApiaryDelete(id)}
+            />
+          </CardActions>
+        </Card>
       );
     });
   };
@@ -48,18 +80,20 @@ const ApiariesList = () => {
   } else if (error) {
     return <Error />;
   } else {
-    const apiariesList = (
-      <ul className='collection'>{renderApiaries(data.apiaries)}</ul>
-    );
-    const apiariesMap = <ApiariesListMap apiaries={data.apiaries} />;
+    const { apiaries } = data;
+    const apiariesList = renderApiaries(apiaries);
+    const apiariesMap = <ApiariesListMap apiaries={apiaries} />;
     return (
-      <div>
-        <Button onClick={() => onChangeViewClick(isInListView)}>
-          Zmień widok
-        </Button>
-        {isInListView ? apiariesList : apiariesMap}
-        <Link to='/apiaries/new' className='btn-large right'>
-          <i className='material-icons'>add</i>
+      <div className={container}>
+        <MapIcon
+          className={mapIcon}
+          onClick={() => onChangeViewClick(isInListView)}
+        />
+        <div>{isInListView ? apiariesList : apiariesMap}</div>
+        <Link to='/apiaries/new'>
+          <Button className={button}>
+            <AddIcon fontSize='large' />
+          </Button>
         </Link>
       </div>
     );
