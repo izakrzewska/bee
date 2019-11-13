@@ -16,14 +16,14 @@ import Error from "../common/Error";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import MapIcon from "@material-ui/icons/Map";
-import useStyles from "./ApiariesList.style";
+import useApiariesListStyles from "./ApiariesList.style";
 
 const ApiariesList = () => {
   const [isInListView, handleListViewChange] = useState(true);
   const { data, error, loading } = useQuery(fetchApiaries);
   const { DELETE_APIARY } = apiaryMutations;
   const [deleteApiary] = useMutation(DELETE_APIARY);
-  const classes = useStyles();
+  const classes = useApiariesListStyles();
 
   const onApiaryDelete = id => {
     deleteApiary({
@@ -43,32 +43,40 @@ const ApiariesList = () => {
     cardText,
     button,
     actions,
-    container
+    buttonSection,
+    apiariesCardsSection,
+    cardName,
+    topIconsSection
   } = classes;
 
-  const renderApiaries = apiaries => {
-    return apiaries.map(({ id, name, beehives }) => {
-      return (
-        <Card id={id} className={card}>
-          <Link to={`/apiaries/${id}`}>
-            <CardContent>
-              <Typography variant='h6' className={cardText}>
-                {name}
-              </Typography>
-              <Typography variant='body1' className={cardText}>
-                Liczba uli w pasiece: <b>{beehives.length}</b>
-              </Typography>
-            </CardContent>
-          </Link>
-          <CardActions className={actions}>
-            <DeleteIcon
-              className={deleteIcon}
-              onClick={() => onApiaryDelete(id)}
-            />
-          </CardActions>
-        </Card>
-      );
-    });
+  const renderApiariesList = apiaries => {
+    return (
+      <div className={apiariesCardsSection}>
+        {apiaries.map(({ id, name, beehives }) => {
+          return (
+            <Card id={id} className={card}>
+              <CardContent>
+                <Link to={`/apiaries/${id}`}>
+                  <Typography variant='h6' className={cardName}>
+                    {name}
+                  </Typography>
+                </Link>
+                <Typography variant='body1' className={cardText}>
+                  Liczba uli w pasiece: <b>{beehives.length}</b>
+                </Typography>
+              </CardContent>
+
+              <CardActions className={actions}>
+                <DeleteIcon
+                  className={deleteIcon}
+                  onClick={() => onApiaryDelete(id)}
+                />
+              </CardActions>
+            </Card>
+          );
+        })}
+      </div>
+    );
   };
 
   const onChangeViewClick = isInListView => {
@@ -81,20 +89,25 @@ const ApiariesList = () => {
     return <Error />;
   } else {
     const { apiaries } = data;
-    const apiariesList = renderApiaries(apiaries);
+    const apiariesList = renderApiariesList(apiaries);
     const apiariesMap = <ApiariesListMap apiaries={apiaries} />;
     return (
-      <div className={container}>
-        <MapIcon
-          className={mapIcon}
-          onClick={() => onChangeViewClick(isInListView)}
-        />
-        <div>{isInListView ? apiariesList : apiariesMap}</div>
-        <Link to='/apiaries/new'>
-          <Button className={button}>
-            <AddIcon fontSize='large' />
-          </Button>
-        </Link>
+      <div>
+        <div className={topIconsSection}>
+          <MapIcon
+            className={mapIcon}
+            onClick={() => onChangeViewClick(isInListView)}
+          />
+        </div>
+
+        {isInListView ? apiariesList : apiariesMap}
+        <div className={buttonSection}>
+          <Link to='/apiaries/new'>
+            <Button className={button}>
+              <AddIcon fontSize='large' />
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
