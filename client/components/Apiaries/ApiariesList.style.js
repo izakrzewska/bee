@@ -4,7 +4,7 @@ import pallete from "../../style/pallete";
 const useApiariesListStyles = makeStyles({
   card: {
     minWidth: 275,
-    maxWidth: "35%",
+    width: "35%",
     margin: 15,
     color: pallete.brown,
     backgroundColor: pallete.backgroundCard,
@@ -13,7 +13,9 @@ const useApiariesListStyles = makeStyles({
   topIconsSection: {
     paddingTop: 20,
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    minHeight: "70px",
+    height: "70px"
   },
   apiariesCardsSection: {
     display: "flex",
@@ -44,7 +46,7 @@ const useApiariesListStyles = makeStyles({
       transform: "scale(1.1)"
     }
   },
-  mapIcon: {
+  viewIcon: {
     color: pallete.brown,
     marginLeft: 10,
     marginTop: 10,
@@ -70,9 +72,9 @@ const useApiariesListStyles = makeStyles({
     }
   },
   buttonSection: {
-    display: "flex",
-    paddingTop: 20,
-    justifyContent: "flex-end"
+    position: "absolute",
+    bottom: 20,
+    right: "15%"
   }
 });
 

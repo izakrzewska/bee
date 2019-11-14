@@ -1,26 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
+import PlaceIcon from "@material-ui/icons/Place";
+import useApiariesListMarkerStyle from "./ApiariesListMarker.style";
 
-const ApiariesListMarker = ({ text, id }) => (
-  <Link to={`/apiaries/${id}`}>
-    <div
-      style={{
-        height: "25px",
-        width: "25px",
-        borderRadius: "50%",
-        backgroundColor: "red"
-      }}>
-      {text}
-    </div>
-  </Link>
-);
+const ApiariesListMarker = ({ id }) => {
+  const classes = useApiariesListMarkerStyle();
+  const { apiaryMarker } = classes;
+  return (
+    <Link to={`/apiaries/${id}`}>
+      <PlaceIcon fontSize='large' className={apiaryMarker} />
+    </Link>
+  );
+};
 
 ApiariesListMarker.propTypes = {
   id: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired
+  lng: PropTypes.number.isRequired
 };
 
 export default ApiariesListMarker;

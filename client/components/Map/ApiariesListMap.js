@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import GoogleMapReact from "google-map-react";
 import ApiariesListMarker from "./Markers/ApiariesListMarker";
 import { GOOGLE_API_KEY } from "../../constants";
+import useApiariesListMapStyles from "./ApiariesListMap.style";
 
 const ApiariesListMap = ({ apiaries }) => {
   const getMapBounds = (maps, apiaries) => {
@@ -30,8 +31,20 @@ const ApiariesListMap = ({ apiaries }) => {
     }
   };
 
+  const mapOptions = {
+    fullscreenControl: false,
+    disableDefaultUI: true,
+    keyboardShortcuts: false,
+    panControl: false,
+    zoomControl: false,
+    gestureHandling: "greedy"
+  };
+
+  const classes = useApiariesListMapStyles();
+  const { mapContainer } = classes;
+
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div className={mapContainer}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
         yesIWantToUseGoogleMapApiInternals
@@ -39,17 +52,10 @@ const ApiariesListMap = ({ apiaries }) => {
           handleApiLoaded(map, maps, apiaries)
         }
         defaultCenter={{ lng: 0, lat: 0 }}
-        defaultZoom={13}>
-        {apiaries.map(({ coordinates: { lat, lng }, name, id }) => {
-          return (
-            <ApiariesListMarker
-              lat={lat}
-              lng={lng}
-              text={name}
-              key={id}
-              id={id}
-            />
-          );
+        defaultZoom={13}
+        options={mapOptions}>
+        {apiaries.map(({ coordinates: { lat, lng }, id }) => {
+          return <ApiariesListMarker lat={lat} lng={lng} key={id} id={id} />;
         })}
       </GoogleMapReact>
     </div>

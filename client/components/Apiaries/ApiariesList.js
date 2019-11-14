@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
   Button,
   Card,
@@ -16,6 +16,7 @@ import Error from "../common/Error";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import MapIcon from "@material-ui/icons/Map";
+import DnsIcon from "@material-ui/icons/Dns";
 import useApiariesListStyles from "./ApiariesList.style";
 
 const ApiariesList = () => {
@@ -38,7 +39,7 @@ const ApiariesList = () => {
 
   const {
     card,
-    mapIcon,
+    viewIcon,
     deleteIcon,
     cardText,
     button,
@@ -51,31 +52,39 @@ const ApiariesList = () => {
 
   const renderApiariesList = apiaries => {
     return (
-      <div className={apiariesCardsSection}>
-        {apiaries.map(({ id, name, beehives }) => {
-          return (
-            <Card id={id} className={card}>
-              <CardContent>
-                <Link to={`/apiaries/${id}`}>
-                  <Typography variant='h6' className={cardName}>
-                    {name}
+      <Fragment>
+        <div className={apiariesCardsSection}>
+          {apiaries.map(({ id, name, beehives }) => {
+            return (
+              <Card key={id} id={id} className={card}>
+                <CardContent>
+                  <Link to={`/apiaries/${id}`}>
+                    <Typography variant='h6' className={cardName}>
+                      {name}
+                    </Typography>
+                  </Link>
+                  <Typography variant='body1' className={cardText}>
+                    Liczba uli w pasiece: <b>{beehives.length}</b>
                   </Typography>
-                </Link>
-                <Typography variant='body1' className={cardText}>
-                  Liczba uli w pasiece: <b>{beehives.length}</b>
-                </Typography>
-              </CardContent>
-
-              <CardActions className={actions}>
-                <DeleteIcon
-                  className={deleteIcon}
-                  onClick={() => onApiaryDelete(id)}
-                />
-              </CardActions>
-            </Card>
-          );
-        })}
-      </div>
+                </CardContent>
+                <CardActions className={actions}>
+                  <DeleteIcon
+                    className={deleteIcon}
+                    onClick={() => onApiaryDelete(id)}
+                  />
+                </CardActions>
+              </Card>
+            );
+          })}
+        </div>
+        <div className={buttonSection}>
+          <Link to='/apiaries/new'>
+            <Button className={button}>
+              <AddIcon fontSize='large' />
+            </Button>
+          </Link>
+        </div>
+      </Fragment>
     );
   };
 
@@ -94,20 +103,20 @@ const ApiariesList = () => {
     return (
       <div>
         <div className={topIconsSection}>
-          <MapIcon
-            className={mapIcon}
-            onClick={() => onChangeViewClick(isInListView)}
-          />
+          {isInListView ? (
+            <MapIcon
+              className={viewIcon}
+              onClick={() => onChangeViewClick(isInListView)}
+            />
+          ) : (
+            <DnsIcon
+              className={viewIcon}
+              onClick={() => onChangeViewClick(isInListView)}
+            />
+          )}
         </div>
 
         {isInListView ? apiariesList : apiariesMap}
-        <div className={buttonSection}>
-          <Link to='/apiaries/new'>
-            <Button className={button}>
-              <AddIcon fontSize='large' />
-            </Button>
-          </Link>
-        </div>
       </div>
     );
   }
