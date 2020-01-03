@@ -5,13 +5,13 @@ import MainToolbar from "./layout/MainToolbar";
 
 export default ({ children }) => {
   const classes = useStyles();
-  const { appContainer, appBar } = classes;
+  const { appContainer, appBar, contentContainer } = classes;
   return (
     <Container className={appContainer}>
-      <AppBar className={appBar} position='static'>
+      <AppBar className={appBar} position="static">
         <MainToolbar />
       </AppBar>
-      <div className='container'>{children}</div>
+      <div className={contentContainer}>{children}</div>
     </Container>
   );
 };

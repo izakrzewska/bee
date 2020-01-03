@@ -48,7 +48,7 @@ const useApiariesListStyles = makeStyles({
   },
   viewIcon: {
     color: pallete.brown,
-    marginLeft: 10,
+    marginRight: 20,
     marginTop: 10,
     marginBottom: 10,
     textAlign: "right",
@@ -72,9 +72,11 @@ const useApiariesListStyles = makeStyles({
     }
   },
   buttonSection: {
-    position: "absolute",
-    bottom: 20,
-    right: "15%"
+    display: "flex",
+    justifyContent: "center"
+  },
+  mainListContainer: {
+    position: "relative"
   }
 });
 

@@ -1,22 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import PlaceIcon from "@material-ui/icons/Place";
+import useApiaryCreateMarkerStyles from "./ApiaryCreateMarker.style";
 
-const ApiaryCreateMarker = ({ text }) => (
-  <div
-    style={{
-      height: "5px",
-      width: "5px",
-      borderRadius: "50%",
-      backgroundColor: "black"
-    }}>
-    {text}
-  </div>
-);
+const ApiaryCreateMarker = () => {
+  const classes = useApiaryCreateMarkerStyles();
+  const { apiaryMarker } = classes;
+  return <PlaceIcon fontSize="large" className={apiaryMarker} />;
+};
 
 ApiaryCreateMarker.propTypes = {
   lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired
+  lng: PropTypes.number.isRequired
 };
 
 export default ApiaryCreateMarker;

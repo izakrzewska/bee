@@ -74,9 +74,9 @@ const BeehiveCreate = ({
 
   return (
     <form>
-      <label htmlFor='content'>Add a content</label>
+      <label htmlFor="content">Add a content</label>
       <input
-        id='content'
+        id="content"
         value={content}
         onChange={({ target: { value } }) => setContent(value)}
       />
@@ -87,7 +87,7 @@ const BeehiveCreate = ({
             <div key={id}>
               <label htmlFor={id}>{displayValue}</label>
               <input
-                type='checkbox'
+                type="checkbox"
                 id={id}
                 value={id}
                 onChange={({ target: { value } }) =>
@@ -99,15 +99,15 @@ const BeehiveCreate = ({
         })}
       </div>
       <div>
-        <label htmlFor='active'>Aktywny:</label>
+        <label htmlFor="active">Aktywny:</label>
         <input
-          type='checkbox'
-          id='active'
+          type="checkbox"
+          id="active"
           value={isActive}
           onChange={() => isActiveHandler(!isActive)}
         />
       </div>
-      <button className='btn-large right' onClick={e => onBeehiveCreate(e)}>
+      <button className="btn-large right" onClick={e => onBeehiveCreate(e)}>
         Dodaj
       </button>
     </form>

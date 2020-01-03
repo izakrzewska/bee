@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { Link, hashHistory } from "react-router";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Button, Typography } from "@material-ui/core";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiaryCreateMap from "../Map/ApiaryCreateMap";
 import apiaryMutations from "../../mutations/apiary_mutations";
+import useApiaryCreateStyles from "./ApiaryCreate.style";
 
 const ApiaryCreate = () => {
   const [apiaryName, setApiaryName] = useState("");
@@ -20,6 +23,7 @@ const ApiaryCreate = () => {
       hashHistory.push("/");
     }
   });
+  const classes = useApiaryCreateStyles();
 
   const getUserLocation = () => {
     const geo = navigator.geolocation;
@@ -60,39 +64,44 @@ const ApiaryCreate = () => {
 
   return (
     <div>
-      <Link to='/'>Back</Link>
-      <h3>Dodaj nową pasiekę</h3>
-      <form>
-        <div>
-          <label>Nazwa pasieki:</label>
+      <Link to="/">
+        <ArrowBackIcon className={classes.backIcon} />
+      </Link>
+      <Typography variant="h1" className={classes.addApiaryHeading}>
+        Dodaj nową pasiekę
+      </Typography>
+      <form className={classes.addApiaryForm}>
+        <div className={classes.formInputs}>
+          <label htmlFor="apiaryName">Nazwa pasieki:</label>
           <input
+            id="apiaryName"
             onChange={({ target: { value } }) => setApiaryName(value)}
             value={apiaryName}
           />
-        </div>
-        <div>
-          <label>Liczba uli w rzędzie:</label>
+          <label htmlFor="numberOfBeehivesInRow">Liczba uli w rzędzie:</label>
           <input
+            id="numberOfBeehivesInRow"
             min={1}
-            type='number'
+            type="number"
             onChange={({ target: { value } }) =>
               setNumberOfBeehivesInRow(Number(value))
             }
             value={numberOfBeehivesInRow}
           />
+          <div className={classes.formButton}>
+            <Button onClick={e => onApiaryCreate(e)} className={classes.button}>
+              Zapisz pasiekę
+            </Button>
+          </div>
         </div>
-        <div>
-          <div>My location :</div>
+        <div className={classes.apiaryLocation}>
+          <label htmlFor="apiaryLocation">Lokalizacja pasieki:</label>
           <ApiaryCreateMap
+            id="apiaryLocation"
             userCoordinates={userCoordinates}
             setNewApiaryCoordinates={setNewApiaryCoordinates}
             isMarkerVisible={isMarkerVisible}
           />
-        </div>
-        <div>
-          <button onClick={e => onApiaryCreate(e)} className='btn-large right'>
-            Dodaj
-          </button>
         </div>
       </form>
     </div>

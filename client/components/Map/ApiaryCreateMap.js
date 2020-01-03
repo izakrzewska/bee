@@ -19,18 +19,29 @@ const ApiaryCreateMap = ({
     setNewApiaryCoordinates({ lat, lng });
   };
 
+  const mapOptions = {
+    fullscreenControl: false,
+    disableDefaultUI: true,
+    keyboardShortcuts: false,
+    panControl: false,
+    zoomControl: false,
+    gestureHandling: "greedy"
+  };
+
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
         center={{ lat, lng }}
         defaultZoom={14}
-        onClick={e => onMapCliked(e)}>
+        options={mapOptions}
+        onClick={e => onMapCliked(e)}
+      >
         {isMarkerVisible ? (
           <ApiaryCreateMarker
             lat={markerCoordinates.lat}
             lng={markerCoordinates.lng}
-            text='My Marker'
+            text="My Marker"
           />
         ) : null}
       </GoogleMapReact>

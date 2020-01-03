@@ -59,11 +59,11 @@ const ApiariesList = () => {
               <Card key={id} id={id} className={card}>
                 <CardContent>
                   <Link to={`/apiaries/${id}`}>
-                    <Typography variant='h6' className={cardName}>
+                    <Typography variant="h6" className={cardName}>
                       {name}
                     </Typography>
                   </Link>
-                  <Typography variant='body1' className={cardText}>
+                  <Typography variant="body1" className={cardText}>
                     Liczba uli w pasiece: <b>{beehives.length}</b>
                   </Typography>
                 </CardContent>
@@ -78,9 +78,9 @@ const ApiariesList = () => {
           })}
         </div>
         <div className={buttonSection}>
-          <Link to='/apiaries/new'>
+          <Link to="/apiaries/new">
             <Button className={button}>
-              <AddIcon fontSize='large' />
+              <AddIcon fontSize="large" />
             </Button>
           </Link>
         </div>

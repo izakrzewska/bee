@@ -22,7 +22,7 @@
 // - app.js ostylowane
 
 // to do:
-// - bug na pierwsze ladowanie tabeli (?? kiedy on jest)
+// - bug na pierwsze ladowanie mapy (?? kiedy on jest)
 // - refactor reacy routera na v4
 // na pozniejsze etapy:
 // - ostylowac ladnie
