@@ -7,7 +7,7 @@ const schema = require("./schema/schema");
 const app = express();
 
 const MONGO_URI =
-  "mongodb+srv://iga1801:<password></password>@cluster0-nzdsj.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://iga1801:iga1801@cluster0-nzdsj.mongodb.net/test?retryWrites=true&w=majority";
 mongoose.Promise = global.Promise;
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,

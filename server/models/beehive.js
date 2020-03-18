@@ -6,7 +6,6 @@ const BeehiveSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "apiary"
   },
-  content: String,
   colors: {
     type: [Schema.Types.String],
     default: []

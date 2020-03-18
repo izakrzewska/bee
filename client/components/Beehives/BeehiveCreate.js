@@ -7,16 +7,16 @@ import beehiveMutations from "../../mutations/beehive_mutations";
 const BeehiveCreate = ({
   numberOfBeehives,
   numberOfBeehivesInRow,
-  apiaryId
+  apiaryId,
+  handleIsAddFormVisible,
+  isAddFormVisible
 }) => {
-  const [content, setContent] = useState("");
   const [colors, setColors] = useState([]);
   const [isActive, isActiveHandler] = useState(false);
   const [statuses, setStatuses] = useState([]);
   const { ADD_BEEHIVE } = beehiveMutations;
   const [addBeehive] = useMutation(ADD_BEEHIVE, {
     onCompleted() {
-      setContent("");
       setColors([]);
       isActiveHandler(false);
     }
@@ -61,7 +61,6 @@ const BeehiveCreate = ({
     addBeehive({
       variables: {
         apiaryId: apiaryId,
-        content: content,
         colors: colors,
         active: isActive,
         statuses: statuses,
@@ -74,12 +73,6 @@ const BeehiveCreate = ({
 
   return (
     <form>
-      <label htmlFor="content">Add a content</label>
-      <input
-        id="content"
-        value={content}
-        onChange={({ target: { value } }) => setContent(value)}
-      />
       <div>
         <h6>Wybierz kolory ula:</h6>
         {availableColors.map(({ id, displayValue }) => {
@@ -107,7 +100,13 @@ const BeehiveCreate = ({
           onChange={() => isActiveHandler(!isActive)}
         />
       </div>
-      <button className="btn-large right" onClick={e => onBeehiveCreate(e)}>
+      <button
+        className="btn-large right"
+        onClick={e => {
+          handleIsAddFormVisible();
+          onBeehiveCreate(e);
+        }}
+      >
         Dodaj
       </button>
     </form>

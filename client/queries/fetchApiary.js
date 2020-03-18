@@ -12,7 +12,6 @@ export default gql`
       }
       beehives {
         id
-        content
         colors
         active
         statuses

@@ -7,7 +7,6 @@ export default gql`
       name
       beehives {
         id
-        content
       }
       coordinates {
         lng

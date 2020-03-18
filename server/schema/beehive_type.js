@@ -24,9 +24,6 @@ const BeehiveType = new GraphQLObjectType({
           });
       }
     },
-    content: {
-      type: GraphQLString
-    },
     colors: {
       type: new GraphQLList(GraphQLString)
     },

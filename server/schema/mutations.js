@@ -34,24 +34,13 @@ const mutation = new GraphQLObjectType({
       type: ApiaryType,
       args: {
         apiaryId: { type: GraphQLID },
-        content: { type: GraphQLString },
         colors: { type: new GraphQLList(GraphQLString) },
         active: { type: GraphQLBoolean },
         statuses: { type: new GraphQLList(GraphQLString) },
         position: { type: PositionTypes.PositionInputType }
       },
-      resolve(
-        parentValue,
-        { apiaryId, content, colors, active, statuses, position }
-      ) {
-        return Apiary.addBeehive(
-          apiaryId,
-          content,
-          colors,
-          active,
-          statuses,
-          position
-        );
+      resolve(parentValue, { apiaryId, colors, active, statuses, position }) {
+        return Apiary.addBeehive(apiaryId, colors, active, statuses, position);
       }
     },
     // likeBeehive: {

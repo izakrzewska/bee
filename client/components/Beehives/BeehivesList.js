@@ -1,25 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Card, CardContent } from "@material-ui/core";
+import useBeehivesListStyles from "./BeehivesList.style";
 
 const BeehivesList = ({ beehives }) => {
+  const classes = useBeehivesListStyles();
+
   const renderBeehives = beehives => {
-    return beehives.map(({ content, colors, active, position, id }) => {
+    return beehives.map(({ colors, active, position, id }) => {
       return (
-        <li key={id} className='collection-item'>
-          {content}
-          {colors.map(color => (
-            <div key={color}>{color}</div>
-          ))}
-          {active ? "Aktywny" : "Nieaktywny"}
-          <div>
-            {`Rząd: ${position.row} Miejsce w rzędzie: ${position.number}`}
-          </div>
-        </li>
+        <Card key={id} className={classes.card}>
+          <CardContent>
+            {colors.map(color => (
+              <div key={color}>{color}</div>
+            ))}
+            {active ? "Aktywny" : "Nieaktywny"}
+            <div>
+              {`Rząd: ${position.row} Miejsce w rzędzie: ${position.number}`}
+            </div>
+          </CardContent>
+        </Card>
       );
     });
   };
 
-  return <ul className='collection'>{renderBeehives(beehives)}</ul>;
+  return (
+    <div className={classes.beehivesListContainer}>
+      {renderBeehives(beehives)}
+    </div>
+  );
 };
 
 BeehivesList.propTypes = {

@@ -25,7 +25,6 @@ const ApiarySchema = new Schema({
 
 ApiarySchema.statics.addBeehive = function(
   apiaryId,
-  content,
   colors,
   active,
   statuses,
@@ -36,7 +35,6 @@ ApiarySchema.statics.addBeehive = function(
   return this.findById(apiaryId).then(apiary => {
     const beehive = new Beehive({
       apiaryId,
-      content,
       colors,
       active,
       statuses,

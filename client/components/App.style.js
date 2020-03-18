@@ -4,7 +4,6 @@ import pallete from "../style/pallete";
 const useStyles = makeStyles({
   appContainer: {
     padding: 0,
-    backgroundColor: pallete.backgroundMain,
     maxWidth: "100%",
     height: "100%"
   },
