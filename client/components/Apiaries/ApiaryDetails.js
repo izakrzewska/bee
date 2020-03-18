@@ -55,7 +55,6 @@ const ApiaryDetails = ({ params: { id } }) => {
         {isAddFormVisible && (
           <BeehiveCreate
             handleIsAddFormVisible={handleIsAddFormVisible}
-            isAddFormVisible={isAddFormVisible}
             numberOfBeehives={numberOfBeehives}
             numberOfBeehivesInRow={numberOfBeehivesInRow}
             apiaryId={id}

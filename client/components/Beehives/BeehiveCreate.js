@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import PropTypes from "prop-types";
-import enums from "../../enums";
+import availableColors from "../../colors";
 import beehiveMutations from "../../mutations/beehive_mutations";
+import BeehiveColors from "./BeehiveColors";
 
 const BeehiveCreate = ({
   numberOfBeehives,
   numberOfBeehivesInRow,
   apiaryId,
-  handleIsAddFormVisible,
-  isAddFormVisible
+  handleIsAddFormVisible
 }) => {
   const [colors, setColors] = useState([]);
   const [isActive, isActiveHandler] = useState(false);
@@ -69,12 +69,11 @@ const BeehiveCreate = ({
     });
   };
 
-  const { availableColors } = enums;
-
   return (
     <form>
       <div>
         <h6>Wybierz kolory ula:</h6>
+        <BeehiveColors colors={availableColors} />
         {availableColors.map(({ id, displayValue }) => {
           return (
             <div key={id}>
