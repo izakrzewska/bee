@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, CardContent } from "@material-ui/core";
 import useBeehivesListStyles from "./BeehivesList.style";
+import BeehiveColors from "./BeehiveColors";
 
 const BeehivesList = ({ beehives }) => {
   const classes = useBeehivesListStyles();
@@ -14,6 +15,7 @@ const BeehivesList = ({ beehives }) => {
             {colors.map(color => (
               <div key={color}>{color}</div>
             ))}
+            <BeehiveColors availableColors={colors} selectable={false} />
             {active ? "Aktywny" : "Nieaktywny"}
             <div>
               {`Rząd: ${position.row} Miejsce w rzędzie: ${position.number}`}

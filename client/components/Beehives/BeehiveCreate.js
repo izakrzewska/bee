@@ -11,25 +11,25 @@ const BeehiveCreate = ({
   apiaryId,
   handleIsAddFormVisible
 }) => {
-  const [colors, setColors] = useState([]);
+  const [selectedColors, setSelectedColors] = useState([]);
   const [isActive, isActiveHandler] = useState(false);
   const [statuses, setStatuses] = useState([]);
   const { ADD_BEEHIVE } = beehiveMutations;
   const [addBeehive] = useMutation(ADD_BEEHIVE, {
     onCompleted() {
-      setColors([]);
+      setSelectedColors([]);
       isActiveHandler(false);
     }
   });
 
-  const setBeehiveColor = (colors, chosenColor) => {
-    if (colors.includes(chosenColor)) {
-      setColors(() => {
-        return colors.filter(color => color !== chosenColor);
+  const setBeehiveColorHandler = chosenColor => {
+    if (selectedColors.includes(chosenColor)) {
+      setSelectedColors(() => {
+        return selectedColors.filter(color => color !== chosenColor);
       });
     } else {
-      setColors(() => {
-        return [...colors, chosenColor];
+      setSelectedColors(() => {
+        return [...selectedColors, chosenColor];
       });
     }
   };
@@ -61,7 +61,7 @@ const BeehiveCreate = ({
     addBeehive({
       variables: {
         apiaryId: apiaryId,
-        colors: colors,
+        colors: selectedColors,
         active: isActive,
         statuses: statuses,
         position: getPosition(numberOfBeehivesInRow, numberOfBeehives)
@@ -73,22 +73,12 @@ const BeehiveCreate = ({
     <form>
       <div>
         <h6>Wybierz kolory ula:</h6>
-        <BeehiveColors colors={availableColors} />
-        {availableColors.map(({ id, displayValue }) => {
-          return (
-            <div key={id}>
-              <label htmlFor={id}>{displayValue}</label>
-              <input
-                type="checkbox"
-                id={id}
-                value={id}
-                onChange={({ target: { value } }) =>
-                  setBeehiveColor(colors, value)
-                }
-              />
-            </div>
-          );
-        })}
+        <BeehiveColors
+          availableColors={availableColors}
+          onChangeHandler={setBeehiveColorHandler}
+          selectedColors={selectedColors}
+          selectable
+        />
       </div>
       <div>
         <label htmlFor="active">Aktywny:</label>
