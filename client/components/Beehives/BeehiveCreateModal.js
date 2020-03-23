@@ -3,12 +3,17 @@ import { useMutation } from "@apollo/react-hooks";
 import PropTypes from "prop-types";
 import beehiveMutations from "../../mutations/beehive_mutations";
 import BeehiveColors from "./BeehiveColors";
+import { Modal, Typography, Button } from "@material-ui/core";
+import useBeehiveCreateModalStyle from "./BeehiveCreateModal.style";
+import useCommonStyle from "../../style/common";
 
-const BeehiveCreate = ({
+const BeehiveCreateModal = ({
   numberOfBeehives,
   numberOfBeehivesInRow,
   apiaryId,
-  handleIsAddFormVisible
+  handleIsAddBeehiveOpen,
+  isAddBeehiveOpen,
+  apiaryName
 }) => {
   const [selectedColors, setSelectedColors] = useState([]);
   const [isActive, isActiveHandler] = useState(false);
@@ -21,6 +26,9 @@ const BeehiveCreate = ({
     }
   });
 
+  const classes = useBeehiveCreateModalStyle();
+  const commonClasses = useCommonStyle();
+
   const setBeehiveColorHandler = chosenColor => {
     if (selectedColors.includes(chosenColor)) {
       setSelectedColors(() => {
@@ -31,6 +39,12 @@ const BeehiveCreate = ({
         return [...selectedColors, chosenColor];
       });
     }
+  };
+
+  const onModalClose = () => {
+    handleIsAddBeehiveOpen();
+    setSelectedColors([]);
+    isActiveHandler(false);
   };
 
   const getPosition = (numberOfBeehivesInRow, numberOfBeehives) => {
@@ -69,41 +83,62 @@ const BeehiveCreate = ({
   };
 
   return (
-    <form>
-      <div>
-        <h6>Wybierz kolory ula:</h6>
-        <BeehiveColors
-          onChangeHandler={setBeehiveColorHandler}
-          selectedColors={selectedColors}
-          selectable
-        />
+    <Modal
+      aria-labelledby="beehive-create-modal"
+      aria-describedby="beehive-create-modal"
+      open={isAddBeehiveOpen}
+      onClose={onModalClose}
+    >
+      <div className={commonClasses.modal}>
+        <Typography
+          component="h2"
+          className={commonClasses.subheading}
+        >{`Nowy ul w pasiece: ${apiaryName}`}</Typography>
+        <div>
+          <label htmlFor="beehiveColors">Wybierz kolory ula:</label>
+          <BeehiveColors
+            id="beehiveColors"
+            onChangeHandler={setBeehiveColorHandler}
+            selectedColors={selectedColors}
+            selectable
+          />
+        </div>
+        <div>
+          <label htmlFor="active">Aktywny:</label>
+          <input
+            type="checkbox"
+            id="active"
+            value={isActive}
+            onChange={() => isActiveHandler(!isActive)}
+          />
+        </div>
+        <div className={commonClasses.modalButtonSection}>
+          <Button
+            className={commonClasses.secondaryButton}
+            onClick={onModalClose}
+          >
+            Anuluj
+          </Button>
+          <Button
+            className={commonClasses.primaryButton}
+            onClick={e => {
+              handleIsAddBeehiveOpen();
+              onBeehiveCreate(e);
+            }}
+          >
+            Zapisz
+          </Button>
+        </div>
       </div>
-      <div>
-        <label htmlFor="active">Aktywny:</label>
-        <input
-          type="checkbox"
-          id="active"
-          value={isActive}
-          onChange={() => isActiveHandler(!isActive)}
-        />
-      </div>
-      <button
-        className="btn-large right"
-        onClick={e => {
-          handleIsAddFormVisible();
-          onBeehiveCreate(e);
-        }}
-      >
-        Dodaj
-      </button>
-    </form>
+    </Modal>
   );
 };
 
-BeehiveCreate.propTypes = {
+BeehiveCreateModal.propTypes = {
   numberOfBeehives: PropTypes.number.isRequired,
   numberOfBeehivesInRow: PropTypes.number.isRequired,
-  apiaryId: PropTypes.string.isRequired
+  apiaryId: PropTypes.string.isRequired,
+  apiaryName: PropTypes.string.isRequired
 };
 
-export default BeehiveCreate;
+export default BeehiveCreateModal;

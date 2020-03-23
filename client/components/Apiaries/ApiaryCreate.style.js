@@ -15,7 +15,6 @@ const useApiariesCreateStyles = makeStyles({
     marginBottom: 0
   },
   addApiaryHeading: {
-    fontSize: 25,
     marginTop: 25,
     marginBottom: 25
   },
@@ -38,18 +37,6 @@ const useApiariesCreateStyles = makeStyles({
     left: "60%",
     bottom: "10%"
   },
-  button: {
-    backgroundColor: pallete.secondary,
-    color: pallete.brown,
-    padding: 10,
-    transition: "transform ease-out .3s",
-    "&:hover": {
-      backgroundColor: pallete.secondary,
-      color: pallete.brown,
-      transform: "scale(1.2)"
-    }
-  },
-
   apiaryLocation: {
     height: 350,
     overflow: "hidden"

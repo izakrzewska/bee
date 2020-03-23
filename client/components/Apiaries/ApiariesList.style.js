@@ -58,22 +58,10 @@ const useApiariesListStyles = makeStyles({
       transform: "scale(1.1)"
     }
   },
-  button: {
-    backgroundColor: pallete.secondary,
-    color: pallete.brown,
-    marginLeft: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    transition: "transform ease-out .3s",
-    "&:hover": {
-      backgroundColor: pallete.secondary,
-      color: pallete.brown,
-      transform: "scale(1.2)"
-    }
-  },
-  buttonSection: {
-    display: "flex",
-    justifyContent: "center"
+  addNewApiaryButton: {
+    position: "absolute",
+    right: "5%",
+    top: "10%"
   },
   mainListContainer: {
     position: "relative"

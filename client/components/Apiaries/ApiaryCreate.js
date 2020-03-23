@@ -7,6 +7,8 @@ import fetchApiaries from "../../queries/fetchApiaries";
 import ApiaryCreateMap from "../Map/ApiaryCreateMap";
 import apiaryMutations from "../../mutations/apiary_mutations";
 import useApiaryCreateStyles from "./ApiaryCreate.style";
+import useCommonStyle from "../../style/common";
+import classnames from "classnames";
 
 const ApiaryCreate = () => {
   const [apiaryName, setApiaryName] = useState("");
@@ -24,6 +26,7 @@ const ApiaryCreate = () => {
     }
   });
   const classes = useApiaryCreateStyles();
+  const commonClasses = useCommonStyle();
 
   const getUserLocation = () => {
     const geo = navigator.geolocation;
@@ -67,8 +70,11 @@ const ApiaryCreate = () => {
       <Link to="/">
         <ArrowBackIcon className={classes.backIcon} />
       </Link>
-      <Typography variant="h1" className={classes.addApiaryHeading}>
-        Dodaj nową pasiekę
+      <Typography
+        component="h1"
+        className={classnames(classes.addApiaryHeading, commonClasses.heading)}
+      >
+        Nowa pasieka
       </Typography>
       <form className={classes.addApiaryForm}>
         <div className={classes.formInputs}>
@@ -89,8 +95,11 @@ const ApiaryCreate = () => {
             value={numberOfBeehivesInRow}
           />
           <div className={classes.formButton}>
-            <Button onClick={e => onApiaryCreate(e)} className={classes.button}>
-              Zapisz pasiekę
+            <Button
+              onClick={e => onApiaryCreate(e)}
+              className={commonClasses.primaryButton}
+            >
+              Zapisz
             </Button>
           </div>
         </div>

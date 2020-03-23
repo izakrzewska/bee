@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   },
   contentContainer: {
     margin: "0 10%",
-    paddingBottom: "5%"
+    padding: "5%"
   }
 });
 

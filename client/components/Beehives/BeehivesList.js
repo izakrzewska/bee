@@ -18,9 +18,7 @@ const BeehivesList = ({ beehives }) => {
               selectable={false}
             />
             {active ? "Aktywny" : "Nieaktywny"}
-            <div>
-              {`Rząd: ${position.row} Miejsce w rzędzie: ${position.number}`}
-            </div>
+            <div>{`Rząd: ${position.row} M: ${position.number}`}</div>
           </CardContent>
         </Card>
       );
