@@ -10,12 +10,13 @@ const BeehivesList = ({ beehives }) => {
   const renderBeehives = beehives => {
     return beehives.map(({ colors, active, position, id }) => {
       return (
-        <Card key={id} className={classes.card}>
+        <Card key={id} className={classes.beehiveCard}>
           <CardContent>
-            {colors.map(color => (
-              <div key={color}>{color}</div>
-            ))}
-            <BeehiveColors availableColors={colors} selectable={false} />
+            <BeehiveColors
+              className="beehiveCardColors"
+              selectedColors={colors}
+              selectable={false}
+            />
             {active ? "Aktywny" : "Nieaktywny"}
             <div>
               {`Rząd: ${position.row} Miejsce w rzędzie: ${position.number}`}

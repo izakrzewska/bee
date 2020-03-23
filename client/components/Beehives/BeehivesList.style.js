@@ -8,13 +8,14 @@ const useBeehivesListStyles = makeStyles({
     justifyContent: "center",
     marginTop: 20
   },
-  card: {
+  beehiveCard: {
     minWidth: 275,
     width: "25%",
     margin: 15,
     color: pallete.brown,
     backgroundColor: pallete.backgroundCard,
-    padding: 10
+    padding: 10,
+    position: "relative"
   }
 });
 

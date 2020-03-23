@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import PropTypes from "prop-types";
-import availableColors from "../../colors";
 import beehiveMutations from "../../mutations/beehive_mutations";
 import BeehiveColors from "./BeehiveColors";
 
@@ -74,7 +73,6 @@ const BeehiveCreate = ({
       <div>
         <h6>Wybierz kolory ula:</h6>
         <BeehiveColors
-          availableColors={availableColors}
           onChangeHandler={setBeehiveColorHandler}
           selectedColors={selectedColors}
           selectable

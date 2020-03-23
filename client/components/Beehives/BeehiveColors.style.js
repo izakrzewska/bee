@@ -8,8 +8,17 @@ const useBeehiveColorsStyles = makeStyles({
     display: "block",
     margin: 10
   },
+  colorBoxCard: {
+    width: "25px",
+    height: "25px"
+  },
   colorBoxContainer: {
     display: "flex"
+  },
+  beehiveCardColors: {
+    position: "absolute",
+    top: "5%",
+    right: "5%"
   }
 });
 

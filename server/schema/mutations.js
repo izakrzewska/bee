@@ -5,8 +5,7 @@ const {
   GraphQLID,
   GraphQLList,
   GraphQLBoolean,
-  GraphQLInt,
-  GraphQLInputObjectType
+  GraphQLInt
 } = graphql;
 const mongoose = require("mongoose");
 const Apiary = mongoose.model("apiary");
@@ -26,7 +25,7 @@ const mutation = new GraphQLObjectType({
         numberOfBeehivesInRow: { type: GraphQLInt },
         coordinates: { type: CoordinatesTypes.CoordinatesInputType }
       },
-      resolve(parentValue, { name, numberOfBeehivesInRow, coordinates }) {
+      resolve(_, { name, numberOfBeehivesInRow, coordinates }) {
         return new Apiary({ name, numberOfBeehivesInRow, coordinates }).save();
       }
     },
@@ -39,7 +38,7 @@ const mutation = new GraphQLObjectType({
         statuses: { type: new GraphQLList(GraphQLString) },
         position: { type: PositionTypes.PositionInputType }
       },
-      resolve(parentValue, { apiaryId, colors, active, statuses, position }) {
+      resolve(_, { apiaryId, colors, active, statuses, position }) {
         return Apiary.addBeehive(apiaryId, colors, active, statuses, position);
       }
     },
@@ -53,7 +52,7 @@ const mutation = new GraphQLObjectType({
     deleteApiary: {
       type: ApiaryType,
       args: { id: { type: GraphQLID } },
-      resolve(parentValue, { id }) {
+      resolve(_, { id }) {
         return Apiary.deleteOne({ _id: id });
       }
     }
