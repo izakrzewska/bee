@@ -3,7 +3,7 @@ import pallete from "../../style/pallete";
 
 const useApiariesListStyles = makeStyles({
   apiaryCard: {
-    margin: 15,
+    margin: "15px 0",
     backgroundColor: pallete.backgroundCard,
     padding: 10,
     flexGrow: 1
@@ -21,7 +21,6 @@ const useApiariesListStyles = makeStyles({
     justifyContent: "flex-end"
   },
   addNewApiaryButton: {
-    textAlign: "center",
     margin: "20px 0"
   }
 });

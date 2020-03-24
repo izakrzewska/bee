@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import pallete from "../../style/pallete";
 
 const useBeehiveColorsStyles = makeStyles({
   colorBox: {
@@ -14,10 +15,15 @@ const useBeehiveColorsStyles = makeStyles({
   colorBoxContainer: {
     display: "flex"
   },
-  beehiveCardColors: {
-    position: "absolute",
-    top: "5%",
-    right: "5%"
+  beehiveColorsModal: {
+    justifyContent: "center",
+    margin: "10px 0 20px 0"
+  },
+  borderActive: {
+    border: `5px solid ${pallete.brown}`
+  },
+  borderInactive: {
+    border: "5px solid transparent"
   }
 });
 

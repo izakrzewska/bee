@@ -42,15 +42,14 @@ const ApiaryDetails = ({ params: { id } }) => {
         <Link to="/" className={commonClasses.link}>
           <ArrowBackIcon className={commonClasses.backIcon} />
         </Link>
-        <Typography component="h1" className={commonClasses.heading}>
-          {name}
-        </Typography>
-        <Typography variant="body1" className={classes.apiaryInfo}>
-          {`Liczba uli w pasiece: ${numberOfBeehives}`}
-        </Typography>
-        <Typography variant="body1" className={classes.apiaryInfo}>
-          {`Liczba uli w rzędzie: ${numberOfBeehivesInRow}`}
-        </Typography>
+        <div className={classes.apiaryInfo}>
+          <Typography component="h1" className={commonClasses.heading}>
+            {name}
+          </Typography>
+          <Typography>{`Liczba uli: ${numberOfBeehives}`}</Typography>
+          <Typography>{`Uli w rzędzie: ${numberOfBeehivesInRow}`}</Typography>
+        </div>
+
         {numberOfBeehives > 0 && <BeehivesList beehives={beehives} />}
         <div className={classes.addNewBeehiveIcon}>
           <Button

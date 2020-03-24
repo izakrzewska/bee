@@ -4,17 +4,15 @@ import pallete from "../../style/pallete";
 const useBeehivesListStyles = makeStyles({
   beehivesListContainer: {
     display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginTop: 20
+    flexDirection: "column"
   },
   beehiveCard: {
-    minWidth: 275,
-    width: "25%",
-    margin: 15,
+    margin: "15px 0",
     backgroundColor: pallete.backgroundCard,
-    padding: 10,
-    position: "relative"
+    padding: 10
+  },
+  cardInactive: {
+    opacity: 0.5
   }
 });
 

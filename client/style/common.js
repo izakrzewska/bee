@@ -25,6 +25,17 @@ const useCommonStyle = makeStyles({
       marginRight: 0
     }
   },
+  modalHeading: {
+    textAlign: "center",
+    marginBottom: 30
+  },
+  modalContent: {
+    minHeight: "60%",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
   heading: {
     fontSize: "2rem"
   },
@@ -82,6 +93,9 @@ const useCommonStyle = makeStyles({
       cursor: "pointer",
       transform: "scale(1.1)"
     }
+  },
+  hidden: {
+    display: "none"
   }
 });
 

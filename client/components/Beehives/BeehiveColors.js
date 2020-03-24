@@ -3,6 +3,7 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 import useBeehiveColorsStyles from "./BeehiveColors.style";
 import availableColors from "../../colors";
+import useCommonStyles from "../../style/common";
 
 const BeehiveColors = ({
   onChangeHandler,
@@ -11,14 +12,7 @@ const BeehiveColors = ({
   className
 }) => {
   const classes = useBeehiveColorsStyles();
-
-  const getBorderStyle = id => {
-    if (selectedColors.includes(id)) {
-      return "10px solid transparent";
-    } else {
-      return "5px solid white";
-    }
-  };
+  const commonClasses = useCommonStyles();
 
   const getBackgroundColor = id => {
     let backgroundColor;
@@ -39,16 +33,21 @@ const BeehiveColors = ({
                 <label
                   htmlFor={color.id}
                   style={{
-                    backgroundColor: color.hex,
-                    border: getBorderStyle(color.id)
+                    backgroundColor: color.hex
                   }}
-                  className={classes.colorBox}
+                  className={classnames(
+                    classes.colorBox,
+                    selectedColors.includes(color.id)
+                      ? classes.borderActive
+                      : classes.borderInactive
+                  )}
                 ></label>
                 <input
                   type="checkbox"
                   id={color.id}
                   value={color.id}
                   onChange={() => onChangeHandler(color.id)}
+                  className={commonClasses.hidden}
                 />
               </div>
             );

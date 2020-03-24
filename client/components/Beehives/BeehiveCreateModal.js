@@ -3,9 +3,17 @@ import { useMutation } from "@apollo/react-hooks";
 import PropTypes from "prop-types";
 import beehiveMutations from "../../mutations/beehive_mutations";
 import BeehiveColors from "./BeehiveColors";
-import { Modal, Typography, Button } from "@material-ui/core";
+import {
+  Modal,
+  Typography,
+  Button,
+  FormLabel,
+  FormControlLabel,
+  Switch
+} from "@material-ui/core";
 import useBeehiveCreateModalStyle from "./BeehiveCreateModal.style";
 import useCommonStyle from "../../style/common";
+import classnames from "classnames";
 
 const BeehiveCreateModal = ({
   numberOfBeehives,
@@ -92,24 +100,30 @@ const BeehiveCreateModal = ({
       <div className={commonClasses.modal}>
         <Typography
           component="h2"
-          className={commonClasses.subheading}
+          className={classnames(
+            commonClasses.subheading,
+            commonClasses.modalHeading
+          )}
         >{`Nowy ul w pasiece: ${apiaryName}`}</Typography>
-        <div>
-          <label htmlFor="beehiveColors">Wybierz kolory ula:</label>
+        <div className={commonClasses.modalContent}>
+          <FormLabel htmlFor="beehiveColors">Kolory ula:</FormLabel>
           <BeehiveColors
             id="beehiveColors"
             onChangeHandler={setBeehiveColorHandler}
             selectedColors={selectedColors}
             selectable
+            className="beehiveColorsModal"
           />
-        </div>
-        <div>
-          <label htmlFor="active">Aktywny:</label>
-          <input
-            type="checkbox"
-            id="active"
-            value={isActive}
-            onChange={() => isActiveHandler(!isActive)}
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isActive}
+                onChange={() => isActiveHandler(!isActive)}
+                name="mapView"
+                color="primary"
+              />
+            }
+            label="Aktywny"
           />
         </div>
         <div className={commonClasses.modalButtonSection}>
