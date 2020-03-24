@@ -39,8 +39,8 @@ const ApiaryDetails = ({ params: { id } }) => {
 
     return (
       <div className={classes.apiaryDetailsContainer}>
-        <Link to="/">
-          <ArrowBackIcon className={classes.backIcon} />
+        <Link to="/" className={commonClasses.link}>
+          <ArrowBackIcon className={commonClasses.backIcon} />
         </Link>
         <Typography component="h1" className={commonClasses.heading}>
           {name}
@@ -52,12 +52,14 @@ const ApiaryDetails = ({ params: { id } }) => {
           {`Liczba uli w rzędzie: ${numberOfBeehivesInRow}`}
         </Typography>
         {numberOfBeehives > 0 && <BeehivesList beehives={beehives} />}
-        <Button
-          onClick={handleIsAddBeehiveOpen}
-          className={commonClasses.primaryButton}
-        >
-          <AddIcon fontSize="large" />
-        </Button>
+        <div className={classes.addNewBeehiveIcon}>
+          <Button
+            onClick={handleIsAddBeehiveOpen}
+            className={commonClasses.primaryButton}
+          >
+            <AddIcon fontSize="large" />
+          </Button>
+        </div>
         <BeehiveCreateModal
           apiaryName={name}
           isAddBeehiveOpen={isAddBeehiveOpen}

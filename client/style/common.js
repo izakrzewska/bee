@@ -26,44 +26,61 @@ const useCommonStyle = makeStyles({
     }
   },
   heading: {
-    fontSize: "2rem",
-    color: pallete.brown
+    fontSize: "2rem"
   },
   subheading: {
-    fontSize: "1.5rem",
-    color: pallete.brown
+    fontSize: "1.5rem"
   },
   primaryButton: {
-    maxWidth: "100px",
+    minWidth: 100,
     backgroundColor: pallete.primary,
-    color: pallete.brown,
     padding: 10,
     transition: "transform ease-out .3s",
     "&:hover": {
       backgroundColor: pallete.primary,
-      color: pallete.brown,
       transform: "scale(1.1)"
     },
     "&:focus": {
-      backgroundColor: pallete.primary,
-      color: pallete.brown
+      backgroundColor: pallete.primary
     }
   },
   secondaryButton: {
     maxWidth: "100px",
     backgroundColor: pallete.backgroundCard,
-    color: pallete.brown,
     padding: 10,
     transition: "transform ease-out .3s",
     border: `1px solid ${pallete.primary}`,
     "&:hover": {
       backgroundColor: pallete.backgroundCard,
-      color: pallete.brown,
       transform: "scale(1.1)"
     },
     "&:focus": {
-      backgroundColor: pallete.backgroundCard,
+      backgroundColor: pallete.backgroundCard
+    }
+  },
+  backIcon: {
+    transition: "transform ease-out .3s",
+    "&:hover": {
+      cursor: "pointer",
+      transform: "scale(1.2)"
+    },
+    position: "absolute",
+    top: 100,
+    left: 40
+  },
+  link: {
+    textDecoration: "none",
+    color: pallete.brown,
+    "&:active": {
       color: pallete.brown
+    }
+  },
+  deleteIcon: {
+    color: pallete.brown,
+    transition: "transform ease-out .3s",
+    "&:hover": {
+      cursor: "pointer",
+      transform: "scale(1.1)"
     }
   }
 });

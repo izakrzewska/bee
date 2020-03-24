@@ -8,8 +8,7 @@ const useStyles = makeStyles({
     height: "100%"
   },
   appBar: {
-    backgroundColor: pallete.primary,
-    color: pallete.brown
+    backgroundColor: pallete.primary
   },
   contentContainer: {
     margin: "0 10%",

@@ -3,8 +3,9 @@ import {
   Button,
   Card,
   CardActions,
-  CardContent,
-  Typography
+  CardHeader,
+  FormControlLabel,
+  Switch
 } from "@material-ui/core";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router";
@@ -15,8 +16,6 @@ import Loading from "../common/Loading";
 import Error from "../common/Error";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
-import MapIcon from "@material-ui/icons/Map";
-import DnsIcon from "@material-ui/icons/Dns";
 import useApiariesListStyles from "./ApiariesList.style";
 import useCommonStyle from "../../style/common";
 
@@ -39,47 +38,41 @@ const ApiariesList = () => {
     });
   };
 
-  const {
-    card,
-    viewIcon,
-    deleteIcon,
-    cardText,
-    actions,
-    apiariesCardsSection,
-    cardName,
-    topIconsSection
-  } = classes;
-
   const renderApiariesList = apiaries => {
     return (
-      <div className={apiariesCardsSection}>
-        {apiaries.map(({ id, name, beehives }) => {
-          return (
-            <Card key={id} id={id} className={card}>
-              <CardContent>
-                <Link to={`/apiaries/${id}`}>
-                  <Typography variant="h6" className={cardName}>
-                    {name}
-                  </Typography>
+      <Fragment>
+        <div className={classes.apiariesCardsSection}>
+          {apiaries.map(({ id, name, beehives }) => {
+            return (
+              <Card key={id} id={id} className={classes.apiaryCard}>
+                <Link className={commonClasses.link} to={`/apiaries/${id}`}>
+                  <CardHeader
+                    title={name}
+                    subheader={`Liczba uli: ${beehives.length}`}
+                  />
                 </Link>
-                <Typography variant="body1" className={cardText}>
-                  Liczba uli w pasiece: <b>{beehives.length}</b>
-                </Typography>
-              </CardContent>
-              <CardActions className={actions}>
-                <DeleteIcon
-                  className={deleteIcon}
-                  onClick={() => onApiaryDelete(id)}
-                />
-              </CardActions>
-            </Card>
-          );
-        })}
-      </div>
+                <CardActions className={classes.apiaryCardActions}>
+                  <DeleteIcon
+                    className={commonClasses.deleteIcon}
+                    onClick={() => onApiaryDelete(id)}
+                  />
+                </CardActions>
+              </Card>
+            );
+          })}
+        </div>
+        <div className={classes.addNewApiaryButton}>
+          <Link to="/apiaries/new">
+            <Button className={commonClasses.primaryButton}>
+              <AddIcon fontSize="large" />
+            </Button>
+          </Link>
+        </div>
+      </Fragment>
     );
   };
 
-  const onChangeViewClick = isInListView => {
+  const onChangeViewClick = () => {
     handleListViewChange(!isInListView);
   };
 
@@ -93,27 +86,20 @@ const ApiariesList = () => {
     const apiariesMap = <ApiariesListMap apiaries={apiaries} />;
     return (
       <div>
-        <div className={topIconsSection}>
-          {isInListView ? (
-            <MapIcon
-              className={viewIcon}
-              onClick={() => onChangeViewClick(isInListView)}
-            />
-          ) : (
-            <DnsIcon
-              className={viewIcon}
-              onClick={() => onChangeViewClick(isInListView)}
-            />
-          )}
+        <div className={classes.switchViewSection}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={!isInListView}
+                onChange={onChangeViewClick}
+                name="mapView"
+                color="primary"
+              />
+            }
+            label="Mapa"
+          />
         </div>
         {isInListView ? apiariesList : apiariesMap}
-        <div className={classes.addNewApiaryButton}>
-          <Link to="/apiaries/new">
-            <Button className={commonClasses.primaryButton}>
-              <AddIcon fontSize="large" />
-            </Button>
-          </Link>
-        </div>
       </div>
     );
   }

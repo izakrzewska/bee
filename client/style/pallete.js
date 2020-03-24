@@ -1,12 +1,11 @@
+import amber from "@material-ui/core/colors/amber";
+import brown from "@material-ui/core/colors/brown";
+
 const pallete = {
   white: "#ffffff",
-  brown: "#191400",
-  lightBrown: "#332800",
-  backgroundMain: "#fef9e5",
+  brown: brown[900],
   backgroundCard: "#fffdf8",
-  primary: "#F9C901",
-  secondary: "#E0B501",
-  tertiary: "#AE8D01"
+  primary: amber[500]
 };
 
 export default pallete;

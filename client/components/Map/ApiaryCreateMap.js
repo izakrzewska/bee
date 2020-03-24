@@ -29,7 +29,7 @@ const ApiaryCreateMap = ({
   };
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div style={{ height: "100%", width: "100%", marginTop: "15px" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
         center={{ lat, lng }}

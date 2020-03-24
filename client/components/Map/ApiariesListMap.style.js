@@ -3,11 +3,11 @@ import pallete from "../../style/pallete";
 
 const useApiariesListMapStyles = makeStyles({
   mapContainer: {
-    minHeight: "450px",
-    height: "450px",
+    minHeight: 600,
+    height: 600,
     width: "100vw",
     position: "absolute",
-    left: "0"
+    left: 0
   }
 });
 

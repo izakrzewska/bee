@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
 import PlaceIcon from "@material-ui/icons/Place";
-import useApiariesListMarkerStyle from "./ApiariesListMarker.style";
+import useApiaryMapMarkerStyle from "./ApiaryMarker.style";
 
 const ApiariesListMarker = ({ id }) => {
-  const classes = useApiariesListMarkerStyle();
-  const { apiaryMarker } = classes;
+  const classes = useApiaryMapMarkerStyle();
+
   return (
     <Link to={`/apiaries/${id}`}>
-      <PlaceIcon fontSize='large' className={apiaryMarker} />
+      <PlaceIcon fontSize="large" className={classes.apiaryMarker} />
     </Link>
   );
 };

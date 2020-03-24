@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { Link, hashHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography, TextField, FormLabel } from "@material-ui/core";
 import fetchApiaries from "../../queries/fetchApiaries";
 import ApiaryCreateMap from "../Map/ApiaryCreateMap";
 import apiaryMutations from "../../mutations/apiary_mutations";
 import useApiaryCreateStyles from "./ApiaryCreate.style";
 import useCommonStyle from "../../style/common";
-import classnames from "classnames";
 
 const ApiaryCreate = () => {
   const [apiaryName, setApiaryName] = useState("");
-  const [numberOfBeehivesInRow, setNumberOfBeehivesInRow] = useState(1);
+  const [numberOfBeehivesInRow, setNumberOfBeehivesInRow] = useState();
   const [apiaryCoordinates, setApiaryCoordinates] = useState({
     lng: 0,
     lat: 0
@@ -39,7 +38,7 @@ const ApiaryCreate = () => {
         });
       });
     } else {
-      console.log("geolocation is unavailable");
+      console.warn("please, make geolocation available");
     }
   };
 
@@ -67,50 +66,52 @@ const ApiaryCreate = () => {
 
   return (
     <div>
-      <Link to="/">
-        <ArrowBackIcon className={classes.backIcon} />
+      <Link to="/" className={commonClasses.link}>
+        <ArrowBackIcon className={commonClasses.backIcon} />
       </Link>
-      <Typography
-        component="h1"
-        className={classnames(classes.addApiaryHeading, commonClasses.heading)}
-      >
-        Nowa pasieka
+      <Typography component="h1" className={commonClasses.heading}>
+        Tworzenie nowej pasieki
       </Typography>
+
       <form className={classes.addApiaryForm}>
-        <div className={classes.formInputs}>
-          <label htmlFor="apiaryName">Nazwa pasieki:</label>
-          <input
+        <div className={classes.nameContainer}>
+          <TextField
             id="apiaryName"
-            onChange={({ target: { value } }) => setApiaryName(value)}
+            label="Nazwa pasieki"
             value={apiaryName}
+            onChange={({ target: { value } }) => setApiaryName(value)}
+            color="secondary"
+            fullWidth
           />
-          <label htmlFor="numberOfBeehivesInRow">Liczba uli w rzędzie:</label>
-          <input
-            id="numberOfBeehivesInRow"
-            min={1}
+        </div>
+        <div className={classes.textFieldContainer}>
+          <TextField
             type="number"
+            id="numberOfBeehivesInRow"
+            label="Liczba uli w rzędzie"
+            value={numberOfBeehivesInRow}
             onChange={({ target: { value } }) =>
               setNumberOfBeehivesInRow(Number(value))
             }
-            value={numberOfBeehivesInRow}
+            color="secondary"
           />
-          <div className={classes.formButton}>
-            <Button
-              onClick={e => onApiaryCreate(e)}
-              className={commonClasses.primaryButton}
-            >
-              Zapisz
-            </Button>
-          </div>
         </div>
         <div className={classes.apiaryLocation}>
-          <label htmlFor="apiaryLocation">Lokalizacja pasieki:</label>
+          <FormLabel htmlFor="apiaryLocation">Lokalizacja</FormLabel>
           <ApiaryCreateMap
             id="apiaryLocation"
             userCoordinates={userCoordinates}
             setNewApiaryCoordinates={setNewApiaryCoordinates}
             isMarkerVisible={isMarkerVisible}
           />
+        </div>
+        <div className={classes.addApiaryButton}>
+          <Button
+            onClick={e => onApiaryCreate(e)}
+            className={commonClasses.primaryButton}
+          >
+            Zapisz
+          </Button>
         </div>
       </form>
     </div>

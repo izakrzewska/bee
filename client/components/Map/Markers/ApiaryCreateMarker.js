@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PlaceIcon from "@material-ui/icons/Place";
-import useApiaryCreateMarkerStyles from "./ApiaryCreateMarker.style";
+import useApiaryMapMarkerStyle from "./ApiaryMarker.style";
 
 const ApiaryCreateMarker = () => {
-  const classes = useApiaryCreateMarkerStyles();
-  const { apiaryMarker } = classes;
-  return <PlaceIcon fontSize="large" className={apiaryMarker} />;
+  const classes = useApiaryMapMarkerStyle();
+  return <PlaceIcon fontSize="large" className={classes.apiaryMarker} />;
 };
 
 ApiaryCreateMarker.propTypes = {

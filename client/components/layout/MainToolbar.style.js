@@ -5,7 +5,8 @@ const useStyles = makeStyles({
   appLogo: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
+    color: pallete.brown
   },
   appIcon: {
     fontSize: "3rem"
