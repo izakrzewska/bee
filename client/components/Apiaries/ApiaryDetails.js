@@ -36,7 +36,6 @@ const ApiaryDetails = ({ params: { id } }) => {
     const { apiary } = data;
     const { name, beehives, numberOfBeehivesInRow } = apiary;
     const numberOfBeehives = beehives.length;
-
     const activeBeehives = beehives.filter(beehive => beehive.active);
 
     return (
@@ -50,7 +49,9 @@ const ApiaryDetails = ({ params: { id } }) => {
         <Typography>{`Liczba uli: ${numberOfBeehives}`}</Typography>
         <Typography>{`Liczba aktywych uli: ${activeBeehives.length}`}</Typography>
         <Typography>{`Uli w rzędzie: ${numberOfBeehivesInRow}`}</Typography>
-        {numberOfBeehives > 0 && <BeehivesList beehives={beehives} />}
+        {numberOfBeehives > 0 && (
+          <BeehivesList apiaryId={apiary.id} beehives={beehives} />
+        )}
         <div className={classes.addNewBeehiveIcon}>
           <Button
             onClick={handleIsAddBeehiveOpen}

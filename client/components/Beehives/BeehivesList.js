@@ -1,31 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, CardContent, CardHeader } from "@material-ui/core";
 import useBeehivesListStyles from "./BeehivesList.style";
-import BeehiveColors from "./BeehiveColors";
-import classnames from "classnames";
+import BeehiveCard from "./BeehiveCard";
+import fetchApiary from "../../queries/fetchApiary";
+import beehiveMutations from "../../mutations/beehive_mutations";
+import { useMutation } from "@apollo/react-hooks";
 
-const BeehivesList = ({ beehives }) => {
+const BeehivesList = ({ beehives, apiaryId }) => {
   const classes = useBeehivesListStyles();
+  const { DESACTIVATE_BEEHIVE } = beehiveMutations;
+  const [desactivateBeehive] = useMutation(DESACTIVATE_BEEHIVE);
+
+  const beehiveDesactivateHandler = id => {
+    desactivateBeehive({
+      variables: { id: id },
+      refetchQueries: [
+        {
+          query: fetchApiary,
+          variables: { id: apiaryId }
+        }
+      ]
+    });
+  };
 
   const renderBeehives = beehives => {
-    return beehives.map(({ colors, active, position, id }) => {
+    return beehives.map(beehive => {
       return (
-        <Card
-          key={id}
-          className={classnames(
-            classes.beehiveCard,
-            !active && classes.cardInactive
-          )}
-        >
-          <CardHeader
-            title={`rząd ${position.row}, miejsce ${position.number}`}
-            subheader={!active && "NIEAKTYWNY"}
-          />
-          <CardContent>
-            <BeehiveColors selectedColors={colors} selectable={false} />
-          </CardContent>
-        </Card>
+        <BeehiveCard
+          key={beehive.id}
+          beehive={beehive}
+          beehiveDesactivateHandler={beehiveDesactivateHandler}
+        />
       );
     });
   };

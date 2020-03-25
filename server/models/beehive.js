@@ -30,4 +30,11 @@ const BeehiveSchema = new Schema({
   }
 });
 
+BeehiveSchema.statics.desactivateBeehive = function(beehiveId) {
+  return this.findById(beehiveId).then(beehive => {
+    beehive.active = !beehive.active;
+    return Promise.all([beehive.save()]).then(([beehive]) => beehive);
+  });
+};
+
 mongoose.model("beehive", BeehiveSchema);

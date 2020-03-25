@@ -19,7 +19,14 @@ const beehiveMutations = {
             }
         }
     }
-`
+`,
+  DESACTIVATE_BEEHIVE: gql`
+    mutation desactivateBeehive($id: ID) {
+      desactivateBeehive(id: $id) {
+        id
+      }
+    }
+  `
 };
 
 export default beehiveMutations;

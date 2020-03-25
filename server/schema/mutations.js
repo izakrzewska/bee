@@ -55,6 +55,13 @@ const mutation = new GraphQLObjectType({
       resolve(_, { id }) {
         return Apiary.deleteOne({ _id: id });
       }
+    },
+    desactivateBeehive: {
+      type: BeehiveType,
+      args: { id: { type: GraphQLID } },
+      resolve(_, { id }) {
+        return Beehive.desactivateBeehive({ _id: id });
+      }
     }
   }
 });
