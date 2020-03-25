@@ -86,12 +86,12 @@ const useCommonStyle = makeStyles({
       color: pallete.brown
     }
   },
-  deleteIcon: {
+  icon: {
     color: pallete.brown,
     transition: "transform ease-out .3s",
     "&:hover": {
       cursor: "pointer",
-      transform: "scale(1.1)"
+      transform: "scale(1.2)"
     }
   },
   hidden: {

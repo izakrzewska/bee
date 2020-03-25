@@ -2,12 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import pallete from "../../style/pallete";
 
 const useApiariesListStyles = makeStyles({
-  apiaryCard: {
-    margin: "15px 0",
-    backgroundColor: pallete.backgroundCard,
-    padding: 10,
-    flexGrow: 1
-  },
   switchViewSection: {
     textAlign: "right",
     marginBottom: 10
@@ -15,10 +9,6 @@ const useApiariesListStyles = makeStyles({
   apiariesCardsSection: {
     display: "flex",
     flexDirection: "column"
-  },
-  apiaryCardActions: {
-    display: "flex",
-    justifyContent: "flex-end"
   },
   addNewApiaryButton: {
     margin: "20px 0"

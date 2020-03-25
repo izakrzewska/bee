@@ -11,7 +11,6 @@ import {
   FormControlLabel,
   Switch
 } from "@material-ui/core";
-import useBeehiveCreateModalStyle from "./BeehiveCreateModal.style";
 import useCommonStyle from "../../style/common";
 import classnames from "classnames";
 
@@ -34,7 +33,6 @@ const BeehiveCreateModal = ({
     }
   });
 
-  const classes = useBeehiveCreateModalStyle();
   const commonClasses = useCommonStyle();
 
   const setBeehiveColorHandler = chosenColor => {

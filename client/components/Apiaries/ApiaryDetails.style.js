@@ -4,10 +4,6 @@ const useApiaryDetailsStyles = makeStyles({
   apiaryDetailsContainer: {},
   addNewBeehiveIcon: {
     margin: "20px 0"
-  },
-  apiaryInfo: {
-    textAlign: "center",
-    marginBottom: 30
   }
 });
 

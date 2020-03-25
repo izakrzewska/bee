@@ -37,19 +37,19 @@ const ApiaryDetails = ({ params: { id } }) => {
     const { name, beehives, numberOfBeehivesInRow } = apiary;
     const numberOfBeehives = beehives.length;
 
+    const activeBeehives = beehives.filter(beehive => beehive.active);
+
     return (
       <div className={classes.apiaryDetailsContainer}>
-        <Link to="/" className={commonClasses.link}>
+        <Link to="/apiaries" className={commonClasses.link}>
           <ArrowBackIcon className={commonClasses.backIcon} />
         </Link>
-        <div className={classes.apiaryInfo}>
-          <Typography component="h1" className={commonClasses.heading}>
-            {name}
-          </Typography>
-          <Typography>{`Liczba uli: ${numberOfBeehives}`}</Typography>
-          <Typography>{`Uli w rzędzie: ${numberOfBeehivesInRow}`}</Typography>
-        </div>
-
+        <Typography component="h1" className={commonClasses.heading}>
+          {name}
+        </Typography>
+        <Typography>{`Liczba uli: ${numberOfBeehives}`}</Typography>
+        <Typography>{`Liczba aktywych uli: ${activeBeehives.length}`}</Typography>
+        <Typography>{`Uli w rzędzie: ${numberOfBeehivesInRow}`}</Typography>
         {numberOfBeehives > 0 && <BeehivesList beehives={beehives} />}
         <div className={classes.addNewBeehiveIcon}>
           <Button

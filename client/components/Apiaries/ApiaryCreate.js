@@ -66,7 +66,7 @@ const ApiaryCreate = () => {
 
   return (
     <div>
-      <Link to="/" className={commonClasses.link}>
+      <Link to="/apiaries" className={commonClasses.link}>
         <ArrowBackIcon className={commonClasses.backIcon} />
       </Link>
       <Typography component="h1" className={commonClasses.heading}>

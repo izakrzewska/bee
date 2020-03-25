@@ -9,6 +9,7 @@ import App from "./components/App";
 import ApiariesList from "./components/Apiaries/ApiariesList";
 import ApiaryCreate from "./components/Apiaries/ApiaryCreate";
 import ApiaryDetails from "./components/Apiaries/ApiaryDetails";
+import MainPage from "./components/MainPage/MainPage";
 
 const client = new ApolloClient({
   link: createHttpLink({ uri: "/graphql" }),
@@ -19,10 +20,11 @@ const Root = () => {
   return (
     <ApolloProvider client={client}>
       <Router history={hashHistory}>
-        <Route path='/' component={App}>
-          <IndexRoute component={ApiariesList} />
-          <Route path='apiaries/new' component={ApiaryCreate} />
-          <Route path='apiaries/:id' component={ApiaryDetails} />
+        <Route path="/" component={App}>
+          <IndexRoute component={MainPage} />
+          <Route path="apiaries" exact component={ApiariesList} />
+          <Route path="apiaries/new" component={ApiaryCreate} />
+          <Route path="apiaries/:id" component={ApiaryDetails} />
         </Route>
       </Router>
     </ApolloProvider>

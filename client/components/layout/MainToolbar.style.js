@@ -10,6 +10,13 @@ const useStyles = makeStyles({
   },
   appIcon: {
     fontSize: "3rem"
+  },
+  navigationBar: {
+    display: "flex",
+    marginLeft: "auto"
+  },
+  navigationLink: {
+    margin: "0 15px"
   }
 });
 
