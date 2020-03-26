@@ -11,9 +11,6 @@ const useBeehiveCardStyle = makeStyles({
     display: "flex",
     flexDirection: "column"
   },
-  cardInactive: {
-    opacity: 0.5
-  },
   beehiveCardActions: {
     display: "flex",
     justifyContent: "flex-end",

@@ -50,7 +50,11 @@ const ApiaryDetails = ({ params: { id } }) => {
         <Typography>{`Liczba aktywych uli: ${activeBeehives.length}`}</Typography>
         <Typography>{`Uli w rzędzie: ${numberOfBeehivesInRow}`}</Typography>
         {numberOfBeehives > 0 && (
-          <BeehivesList apiaryId={apiary.id} beehives={beehives} />
+          <BeehivesList
+            apiaryId={apiary.id}
+            isActiveApiary={apiary.active}
+            beehives={beehives}
+          />
         )}
         <div className={classes.addNewBeehiveIcon}>
           <Button

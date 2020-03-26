@@ -3,6 +3,7 @@ import { Button, FormControlLabel, Switch } from "@material-ui/core";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router";
 import fetchApiaries from "../../queries/fetchApiaries";
+import fetchApiary from "../../queries/fetchApiary";
 import ApiariesListMap from "../Map/ApiariesListMap";
 import apiaryMutations from "../../mutations/apiary_mutations";
 import Loading from "../common/Loading";
@@ -15,8 +16,9 @@ import ApiaryCard from "./ApiaryCard";
 const ApiariesList = () => {
   const [isInListView, handleListViewChange] = useState(true);
   const { data, error, loading } = useQuery(fetchApiaries);
-  const { DELETE_APIARY } = apiaryMutations;
+  const { DELETE_APIARY, DESACTIVATE_APIARY } = apiaryMutations;
   const [deleteApiary] = useMutation(DELETE_APIARY);
+  const [desactivateApiary] = useMutation(DESACTIVATE_APIARY);
   const classes = useApiariesListStyles();
   const commonClasses = useCommonStyle();
 
@@ -26,6 +28,18 @@ const ApiariesList = () => {
       refetchQueries: [
         {
           query: fetchApiaries
+        }
+      ]
+    });
+  };
+
+  const apiaryDesactivateHandler = id => {
+    desactivateApiary({
+      variables: { id: id },
+      refetchQueries: [
+        {
+          query: fetchApiary,
+          variables: { id: id }
         }
       ]
     });
@@ -41,6 +55,7 @@ const ApiariesList = () => {
                 key={apiary.id}
                 apiary={apiary}
                 onApiaryDelete={onApiaryDelete}
+                apiaryDesactivateHandler={apiaryDesactivateHandler}
               />
             );
           })}

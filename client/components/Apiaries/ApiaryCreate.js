@@ -57,7 +57,8 @@ const ApiaryCreate = () => {
       variables: {
         name: apiaryName,
         numberOfBeehivesInRow: numberOfBeehivesInRow,
-        coordinates: apiaryCoordinates
+        coordinates: apiaryCoordinates,
+        active: true
       },
       refetchQueries: [{ query: fetchApiaries }],
       awaitRefetchQueries: true

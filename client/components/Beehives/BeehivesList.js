@@ -6,7 +6,7 @@ import fetchApiary from "../../queries/fetchApiary";
 import beehiveMutations from "../../mutations/beehive_mutations";
 import { useMutation } from "@apollo/react-hooks";
 
-const BeehivesList = ({ beehives, apiaryId }) => {
+const BeehivesList = ({ beehives, apiaryId, isActiveApiary }) => {
   const classes = useBeehivesListStyles();
   const { DESACTIVATE_BEEHIVE } = beehiveMutations;
   const [desactivateBeehive] = useMutation(DESACTIVATE_BEEHIVE);
@@ -27,6 +27,7 @@ const BeehivesList = ({ beehives, apiaryId }) => {
     return beehives.map(beehive => {
       return (
         <BeehiveCard
+          isActiveApiary={isActiveApiary}
           key={beehive.id}
           beehive={beehive}
           beehiveDesactivateHandler={beehiveDesactivateHandler}

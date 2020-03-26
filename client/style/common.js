@@ -96,6 +96,9 @@ const useCommonStyle = makeStyles({
   },
   hidden: {
     display: "none"
+  },
+  cardInactive: {
+    opacity: 0.5
   }
 });
 

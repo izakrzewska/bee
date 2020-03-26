@@ -10,6 +10,7 @@ export default gql`
         lng
         lat
       }
+      active
       beehives {
         id
         colors

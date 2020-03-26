@@ -23,10 +23,16 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: GraphQLString },
         numberOfBeehivesInRow: { type: GraphQLInt },
-        coordinates: { type: CoordinatesTypes.CoordinatesInputType }
+        coordinates: { type: CoordinatesTypes.CoordinatesInputType },
+        active: { type: GraphQLBoolean }
       },
-      resolve(_, { name, numberOfBeehivesInRow, coordinates }) {
-        return new Apiary({ name, numberOfBeehivesInRow, coordinates }).save();
+      resolve(_, { name, numberOfBeehivesInRow, coordinates, active }) {
+        return new Apiary({
+          name,
+          numberOfBeehivesInRow,
+          coordinates,
+          active
+        }).save();
       }
     },
     addBeehiveToApiary: {
@@ -42,18 +48,18 @@ const mutation = new GraphQLObjectType({
         return Apiary.addBeehive(apiaryId, colors, active, statuses, position);
       }
     },
-    // likeBeehive: {
-    //   type: BeehiveType,
-    //   args: { id: { type: GraphQLID } },
-    //   resolve(parentValue, { id }) {
-    //     return Beehive.like(id);
-    //   }
-    // },
     deleteApiary: {
       type: ApiaryType,
       args: { id: { type: GraphQLID } },
       resolve(_, { id }) {
         return Apiary.deleteOne({ _id: id });
+      }
+    },
+    desactivateApiary: {
+      type: ApiaryType,
+      args: { id: { type: GraphQLID } },
+      resolve(_, { id }) {
+        return Apiary.desactivateApiary({ _id: id });
       }
     },
     desactivateBeehive: {

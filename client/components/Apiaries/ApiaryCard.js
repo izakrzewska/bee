@@ -1,12 +1,14 @@
 import React, { useState, Fragment } from "react";
-import { Card, CardActions, CardHeader } from "@material-ui/core";
+import { Card, CardActions, CardHeader, IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SettingsIcon from "@material-ui/icons/Settings";
+import BlockIcon from "@material-ui/icons/Block";
 import useApiaryCardStyle from "./ApiaryCard.style";
 import useCommonStyle from "../../style/common";
 import { Link } from "react-router";
+import classnames from "classnames";
 
-const ApiaryCard = ({ apiary, onApiaryDelete }) => {
+const ApiaryCard = ({ apiary, onApiaryDelete, apiaryDesactivateHandler }) => {
   const classes = useApiaryCardStyle();
   const commonClasses = useCommonStyle();
 
@@ -16,28 +18,46 @@ const ApiaryCard = ({ apiary, onApiaryDelete }) => {
     setIsInEditView(!isInEditView);
   };
 
+  const onApiaryDesactivate = () => {
+    handleIsInEditView();
+    apiaryDesactivateHandler(apiary.id);
+  };
+
+  const apiaryCardSubheader = apiary.active
+    ? `Liczba uli: ${apiary.beehives.length}`
+    : "NIEAKTYWNA";
+
   return (
-    <Card id={apiary.id} className={classes.apiaryCard}>
+    <Card
+      id={apiary.id}
+      className={classnames(
+        classes.apiaryCard,
+        !apiary.active && commonClasses.cardInactive
+      )}
+    >
       <Link className={commonClasses.link} to={`/apiaries/${apiary.id}`}>
-        <CardHeader
-          title={apiary.name}
-          subheader={`Liczba uli: ${apiary.beehives.length}`}
-        />
+        <CardHeader title={apiary.name} subheader={apiaryCardSubheader} />
       </Link>
       <CardActions className={classes.apiaryCardActions}>
         {isInEditView ? (
           <Fragment>
-            <DeleteIcon
-              className={commonClasses.icon}
+            <IconButton onClick={onApiaryDesactivate} color="primary">
+              <BlockIcon className={commonClasses.icon} />
+            </IconButton>
+            <IconButton
               onClick={() => onApiaryDelete(apiary.id)}
-            />
-            <SettingsIcon
-              className={commonClasses.icon}
-              onClick={handleIsInEditView}
-            />
+              color="primary"
+            >
+              <DeleteIcon className={commonClasses.icon} />
+            </IconButton>
+            <IconButton onClick={handleIsInEditView} color="primary">
+              <SettingsIcon className={commonClasses.icon} />
+            </IconButton>
           </Fragment>
         ) : (
-          <SettingsIcon onClick={handleIsInEditView} />
+          <IconButton onClick={handleIsInEditView} color="primary">
+            <SettingsIcon className={commonClasses.icon} />
+          </IconButton>
         )}
       </CardActions>
     </Card>
