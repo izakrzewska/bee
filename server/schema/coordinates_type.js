@@ -1,10 +1,5 @@
 const graphql = require("graphql");
-const {
-  GraphQLInputObjectType,
-  GraphQLObjectType,
-  GraphQLInt,
-  GraphQLFloat
-} = graphql;
+const { GraphQLInputObjectType, GraphQLObjectType, GraphQLFloat } = graphql;
 
 const CoordinatesType = new GraphQLObjectType({
   name: "CoordinatesType",

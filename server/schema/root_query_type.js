@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 const ApiaryType = require("./apiary_type");
-const BeehiveType = require("./beehive_type");
+const BeehiveTypes = require("./beehive_type");
 const Beehive = mongoose.model("beehive");
 const Apiary = mongoose.model("apiary");
 
@@ -18,14 +18,14 @@ const RootQuery = new GraphQLObjectType({
     apiary: {
       type: ApiaryType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(parentValue, { id }) {
+      resolve(_, { id }) {
         return Apiary.findById(id);
       }
     },
     beehive: {
-      type: BeehiveType,
+      type: BeehiveTypes.BeehiveType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(parnetValue, { id }) {
+      resolve(_, { id }) {
         return Beehive.findById(id);
       }
     }

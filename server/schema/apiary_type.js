@@ -8,7 +8,7 @@ const {
   GraphQLInt,
   GraphQLBoolean
 } = graphql;
-const BeehiveType = require("./beehive_type");
+const BeehiveTypes = require("./beehive_type");
 const Apiary = mongoose.model("apiary");
 const CoordinatesTypes = require("./coordinates_type");
 
@@ -20,7 +20,7 @@ const ApiaryType = new GraphQLObjectType({
     coordinates: { type: CoordinatesTypes.CoordinatesType },
     active: { type: GraphQLBoolean },
     beehives: {
-      type: new GraphQLList(BeehiveType),
+      type: new GraphQLList(BeehiveTypes.BeehiveType),
       resolve(parentValue) {
         return Apiary.findApiary(parentValue.id);
       }

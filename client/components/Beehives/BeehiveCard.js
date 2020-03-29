@@ -12,15 +12,23 @@ import useBeehiveCardStyle from "./BeehiveCard.style";
 import useCommonStyles from "../../style/common";
 import BlockIcon from "@material-ui/icons/Block";
 import SettingsIcon from "@material-ui/icons/Settings";
+import PaletteIcon from "@material-ui/icons/Palette";
+import BeehiveChangeColorsModal from "./BeehiveChangeColorsModal";
 
 const BeehiveCard = ({
   beehive,
   beehiveDesactivateHandler,
-  isActiveApiary
+  isActiveApiary,
+  apiaryId
 }) => {
   const [isInEditView, setIsInEditView] = useState(false);
+  const [isChangeColorModalOpen, setIsChangeColorModalOpen] = useState(false);
   const commonClasses = useCommonStyles();
   const classes = useBeehiveCardStyle();
+
+  const handleIsChangeColorModalOpen = () => {
+    setIsChangeColorModalOpen(!isChangeColorModalOpen);
+  };
 
   const handleIsInEditView = () => {
     setIsInEditView(!isInEditView);
@@ -29,6 +37,11 @@ const BeehiveCard = ({
   const onBeehiveDesactivate = () => {
     handleIsInEditView();
     beehiveDesactivateHandler(beehive.id);
+  };
+
+  const onBeehiveColorChange = () => {
+    handleIsInEditView();
+    handleIsChangeColorModalOpen();
   };
 
   return (
@@ -48,10 +61,19 @@ const BeehiveCard = ({
           selectedColors={beehive.colors}
           selectable={false}
         />
+        <BeehiveChangeColorsModal
+          apiaryId={apiaryId}
+          beehive={beehive}
+          isChangeColorModalOpen={isChangeColorModalOpen}
+          handleIsChangeColorModalOpen={handleIsChangeColorModalOpen}
+        />
       </CardContent>
       <CardActions className={classes.beehiveCardActions}>
         {isInEditView ? (
           <Fragment>
+            <IconButton onClick={onBeehiveColorChange} color="primary">
+              <PaletteIcon className={commonClasses.icon} />
+            </IconButton>
             <IconButton onClick={onBeehiveDesactivate} color="primary">
               <BlockIcon className={commonClasses.icon} />
             </IconButton>

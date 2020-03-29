@@ -5,7 +5,8 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLList,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLInputObjectType
 } = graphql;
 const PositionTypes = require("./position_type");
 const Beehive = mongoose.model("beehive");
@@ -39,4 +40,26 @@ const BeehiveType = new GraphQLObjectType({
   })
 });
 
-module.exports = BeehiveType;
+const BeehiveInputType = new GraphQLInputObjectType({
+  name: "BeehiveInputType",
+  fields: () => ({
+    id: { type: GraphQLID },
+    colors: {
+      type: new GraphQLList(GraphQLString)
+    },
+    active: {
+      type: GraphQLBoolean
+    },
+    statuses: {
+      type: new GraphQLList(GraphQLString)
+    },
+    position: {
+      type: PositionTypes.PositionInputType
+    }
+  })
+});
+
+module.exports = {
+  BeehiveType: BeehiveType,
+  BeehiveInputType: BeehiveInputType
+};

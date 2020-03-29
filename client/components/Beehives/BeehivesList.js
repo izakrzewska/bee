@@ -27,6 +27,7 @@ const BeehivesList = ({ beehives, apiaryId, isActiveApiary }) => {
     return beehives.map(beehive => {
       return (
         <BeehiveCard
+          apiaryId={apiaryId}
           isActiveApiary={isActiveApiary}
           key={beehive.id}
           beehive={beehive}

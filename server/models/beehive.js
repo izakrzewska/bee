@@ -37,4 +37,15 @@ BeehiveSchema.statics.desactivateBeehive = function(beehiveId) {
   });
 };
 
+BeehiveSchema.statics.updateBeehive = function(data) {
+  return this.findById(data.id).then(beehive => {
+    beehive.colors = data.beehiveUpdated.colors;
+    beehive.active = data.beehiveUpdated.active;
+    beehive.statuses = data.beehiveUpdated.statuses;
+    beehive.position = data.beehiveUpdated.position;
+
+    return Promise.all([beehive.save()]).then(([beehive]) => beehive);
+  });
+};
+
 mongoose.model("beehive", BeehiveSchema);

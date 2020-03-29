@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 const Apiary = mongoose.model("apiary");
 const Beehive = mongoose.model("beehive");
 const ApiaryType = require("./apiary_type");
-const BeehiveType = require("./beehive_type");
+const BeehiveTypes = require("./beehive_type");
 const PositionTypes = require("./position_type");
 const CoordinatesTypes = require("./coordinates_type");
 
@@ -63,10 +63,23 @@ const mutation = new GraphQLObjectType({
       }
     },
     desactivateBeehive: {
-      type: BeehiveType,
+      type: BeehiveTypes.BeehiveType,
       args: { id: { type: GraphQLID } },
       resolve(_, { id }) {
         return Beehive.desactivateBeehive({ _id: id });
+      }
+    },
+    updateBeehive: {
+      type: BeehiveTypes.BeehiveType,
+      args: {
+        id: { type: GraphQLID },
+        beehiveUpdated: { type: BeehiveTypes.BeehiveInputType }
+      },
+      resolve(_, { id, beehiveUpdated }) {
+        return Beehive.updateBeehive({
+          id: id,
+          beehiveUpdated: beehiveUpdated
+        });
       }
     }
   }
