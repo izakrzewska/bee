@@ -14,17 +14,18 @@ import BlockIcon from "@material-ui/icons/Block";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PaletteIcon from "@material-ui/icons/Palette";
 import BeehiveChangeColorsModal from "./BeehiveChangeColorsModal";
+import { useMutation } from "@apollo/react-hooks";
+import beehivesMutations from "../../mutations/beehive_mutations";
+import fetchApiary from "../../queries/fetchApiary";
 
-const BeehiveCard = ({
-  beehive,
-  beehiveDesactivateHandler,
-  isActiveApiary,
-  apiaryId
-}) => {
+const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
   const [isInEditView, setIsInEditView] = useState(false);
   const [isChangeColorModalOpen, setIsChangeColorModalOpen] = useState(false);
   const commonClasses = useCommonStyles();
   const classes = useBeehiveCardStyle();
+
+  const { UPDATE_BEEHIVE } = beehivesMutations;
+  const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
 
   const handleIsChangeColorModalOpen = () => {
     setIsChangeColorModalOpen(!isChangeColorModalOpen);
@@ -35,8 +36,30 @@ const BeehiveCard = ({
   };
 
   const onBeehiveDesactivate = () => {
+    const beehiveUpdated = {
+      id: beehive.id,
+      colors: beehive.colors,
+      active: !beehive.active,
+      statuses: beehive.statuses,
+      position: {
+        row: beehive.position.row,
+        number: beehive.position.number
+      }
+    };
+
     handleIsInEditView();
-    beehiveDesactivateHandler(beehive.id);
+    updateBeehive({
+      variables: {
+        id: beehive.id,
+        beehiveUpdated: beehiveUpdated
+      },
+      refetchQueries: [
+        {
+          query: fetchApiary,
+          variables: { id: apiaryId }
+        }
+      ]
+    });
   };
 
   const onBeehiveColorChange = () => {

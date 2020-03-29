@@ -21,13 +21,6 @@ const beehiveMutations = {
         }
     }
 `,
-  DESACTIVATE_BEEHIVE: gql`
-    mutation desactivateBeehive($id: ID) {
-      desactivateBeehive(id: $id) {
-        id
-      }
-    }
-  `,
   UPDATE_BEEHIVE: gql`
     mutation updateBeehive($id: ID, $beehiveUpdated: ${BeehiveTypes.BeehiveInputType}) {
       updateBeehive(id: $id, beehiveUpdated: $beehiveUpdated) {

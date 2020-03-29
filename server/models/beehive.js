@@ -30,13 +30,6 @@ const BeehiveSchema = new Schema({
   }
 });
 
-BeehiveSchema.statics.desactivateBeehive = function(beehiveId) {
-  return this.findById(beehiveId).then(beehive => {
-    beehive.active = !beehive.active;
-    return Promise.all([beehive.save()]).then(([beehive]) => beehive);
-  });
-};
-
 BeehiveSchema.statics.updateBeehive = function(data) {
   return this.findById(data.id).then(beehive => {
     beehive.colors = data.beehiveUpdated.colors;
