@@ -1,22 +1,14 @@
 import React, { useState, Fragment } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardActions,
-  IconButton
-} from "@material-ui/core";
+import { Card, CardContent, CardHeader, CardActions } from "@material-ui/core";
 import BeehiveColors from "./BeehiveColors";
 import classnames from "classnames";
 import useBeehiveCardStyle from "./BeehiveCard.style";
 import useCommonStyles from "../../style/common";
-import BlockIcon from "@material-ui/icons/Block";
-import SettingsIcon from "@material-ui/icons/Settings";
-import PaletteIcon from "@material-ui/icons/Palette";
 import BeehiveChangeColorsModal from "./BeehiveChangeColorsModal";
 import { useMutation } from "@apollo/react-hooks";
 import beehivesMutations from "../../mutations/beehive_mutations";
 import fetchApiary from "../../queries/fetchApiary";
+import Icon from "../common/Icon";
 
 const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
   const [isInEditView, setIsInEditView] = useState(false);
@@ -92,27 +84,17 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
         />
       </CardContent>
       <CardActions className={classes.beehiveCardActions}>
-        {isInEditView ? (
+        {isInEditView && (
           <Fragment>
-            <IconButton onClick={onBeehiveColorChange} color="primary">
-              <PaletteIcon className={commonClasses.icon} />
-            </IconButton>
-            <IconButton onClick={onBeehiveDesactivate} color="primary">
-              <BlockIcon className={commonClasses.icon} />
-            </IconButton>
-            <IconButton onClick={handleIsInEditView} color="primary">
-              <SettingsIcon className={commonClasses.icon} />
-            </IconButton>
+            <Icon type="palette" onClick={onBeehiveColorChange} />
+            <Icon type="block" onClick={onBeehiveDesactivate} />
           </Fragment>
-        ) : (
-          <IconButton
-            onClick={handleIsInEditView}
-            color="primary"
-            disabled={!isActiveApiary}
-          >
-            <SettingsIcon className={commonClasses.icon} />
-          </IconButton>
         )}
+        <Icon
+          type="settings"
+          onClick={handleIsInEditView}
+          disabled={!isActiveApiary}
+        />
       </CardActions>
     </Card>
   );
