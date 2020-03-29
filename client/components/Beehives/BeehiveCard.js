@@ -86,7 +86,11 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
       <CardActions className={classes.beehiveCardActions}>
         {isInEditView && (
           <Fragment>
-            <Icon type="palette" onClick={onBeehiveColorChange} />
+            <Icon
+              type="palette"
+              onClick={onBeehiveColorChange}
+              disabled={!beehive.active}
+            />
             <Icon type="block" onClick={onBeehiveDesactivate} />
           </Fragment>
         )}

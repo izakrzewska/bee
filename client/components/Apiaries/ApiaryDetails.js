@@ -39,7 +39,7 @@ const ApiaryDetails = ({ params: { id } }) => {
     const activeBeehives = beehives.filter(beehive => beehive.active);
 
     return (
-      <div className={classes.apiaryDetailsContainer}>
+      <div>
         <Link to="/apiaries" className={commonClasses.link}>
           <ArrowBackIcon className={commonClasses.backIcon} />
         </Link>

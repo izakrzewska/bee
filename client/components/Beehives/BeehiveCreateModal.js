@@ -3,16 +3,8 @@ import { useMutation } from "@apollo/react-hooks";
 import PropTypes from "prop-types";
 import beehiveMutations from "../../mutations/beehive_mutations";
 import BeehiveColors from "./BeehiveColors";
-import {
-  Modal,
-  Typography,
-  Button,
-  FormLabel,
-  FormControlLabel,
-  Switch
-} from "@material-ui/core";
-import useCommonStyle from "../../style/common";
-import classnames from "classnames";
+import { FormLabel, FormControlLabel, Switch } from "@material-ui/core";
+import CustomModal from "../common/CustomModal";
 
 const BeehiveCreateModal = ({
   numberOfBeehives,
@@ -24,7 +16,6 @@ const BeehiveCreateModal = ({
 }) => {
   const [selectedColors, setSelectedColors] = useState([]);
   const [isActive, isActiveHandler] = useState(false);
-  const [statuses, setStatuses] = useState([]);
   const { ADD_BEEHIVE } = beehiveMutations;
   const [addBeehive] = useMutation(ADD_BEEHIVE, {
     onCompleted() {
@@ -32,8 +23,6 @@ const BeehiveCreateModal = ({
       isActiveHandler(false);
     }
   });
-
-  const commonClasses = useCommonStyle();
 
   const setBeehiveColorHandler = chosenColor => {
     if (selectedColors.includes(chosenColor)) {
@@ -82,67 +71,44 @@ const BeehiveCreateModal = ({
         apiaryId: apiaryId,
         colors: selectedColors,
         active: isActive,
-        statuses: statuses,
+        statuses: [],
         position: getPosition(numberOfBeehivesInRow, numberOfBeehives)
       }
     });
   };
 
+  const onModalSave = e => {
+    handleIsAddBeehiveOpen();
+    onBeehiveCreate(e);
+  };
+
   return (
-    <Modal
-      aria-labelledby="beehive-create-modal"
-      aria-describedby="beehive-create-modal"
+    <CustomModal
+      onModalClose={onModalClose}
+      onModalSave={onModalSave}
       open={isAddBeehiveOpen}
-      onClose={onModalClose}
+      modalHeading={`Nowy ul w pasiece: ${apiaryName}`}
     >
-      <div className={commonClasses.modal}>
-        <Typography
-          component="h2"
-          className={classnames(
-            commonClasses.subheading,
-            commonClasses.modalHeading
-          )}
-        >{`Nowy ul w pasiece: ${apiaryName}`}</Typography>
-        <div className={commonClasses.modalContent}>
-          <FormLabel htmlFor="beehiveColors">Kolory ula:</FormLabel>
-          <BeehiveColors
-            id="beehiveColors"
-            onChangeHandler={setBeehiveColorHandler}
-            selectedColors={selectedColors}
-            selectable
-            className="beehiveColorsModal"
+      <FormLabel htmlFor="beehiveColors">Kolory ula:</FormLabel>
+      <BeehiveColors
+        id="beehiveColors"
+        onChangeHandler={setBeehiveColorHandler}
+        selectedColors={selectedColors}
+        selectable
+        className="beehiveColorsModal"
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={isActive}
+            onChange={() => isActiveHandler(!isActive)}
+            name="mapView"
+            color="primary"
           />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isActive}
-                onChange={() => isActiveHandler(!isActive)}
-                name="mapView"
-                color="primary"
-              />
-            }
-            label="Aktywny"
-          />
-        </div>
-        <div className={commonClasses.modalButtonSection}>
-          <Button
-            className={commonClasses.secondaryButton}
-            onClick={onModalClose}
-          >
-            Anuluj
-          </Button>
-          <Button
-            className={commonClasses.primaryButton}
-            onClick={e => {
-              handleIsAddBeehiveOpen();
-              onBeehiveCreate(e);
-            }}
-          >
-            Zapisz
-          </Button>
-        </div>
-      </div>
-    </Modal>
+        }
+        label="Aktywny"
+      />
+    </CustomModal>
   );
 };
 

@@ -21,7 +21,7 @@ const ApiaryCreate = () => {
   const { ADD_APIARY } = apiaryMutations;
   const [addApiary] = useMutation(ADD_APIARY, {
     onCompleted() {
-      hashHistory.push("/");
+      hashHistory.push("/apiaries");
     }
   });
   const classes = useApiaryCreateStyles();
