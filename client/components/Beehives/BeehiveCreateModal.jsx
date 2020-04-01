@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
-import PropTypes from "prop-types";
-import beehiveMutations from "../../mutations/beehive_mutations";
-import BeehiveColors from "./BeehiveColors";
-import { FormLabel, FormControlLabel, Switch } from "@material-ui/core";
-import CustomModal from "../common/CustomModal";
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import {
+  number, string, bool, func,
+} from 'prop-types';
+import { FormLabel, FormControlLabel, Switch } from '@material-ui/core';
+import beehiveMutations from '../../mutations/beehive_mutations';
+import BeehiveColors from './BeehiveColors';
+import CustomModal from '../common/CustomModal';
+
 
 const BeehiveCreateModal = ({
   numberOfBeehives,
@@ -12,7 +15,7 @@ const BeehiveCreateModal = ({
   apiaryId,
   handleIsAddBeehiveOpen,
   isAddBeehiveOpen,
-  apiaryName
+  apiaryName,
 }) => {
   const [selectedColors, setSelectedColors] = useState([]);
   const [isActive, isActiveHandler] = useState(false);
@@ -21,18 +24,14 @@ const BeehiveCreateModal = ({
     onCompleted() {
       setSelectedColors([]);
       isActiveHandler(false);
-    }
+    },
   });
 
-  const setBeehiveColorHandler = chosenColor => {
+  const setBeehiveColorHandler = (chosenColor) => {
     if (selectedColors.includes(chosenColor)) {
-      setSelectedColors(() => {
-        return selectedColors.filter(color => color !== chosenColor);
-      });
+      setSelectedColors(() => selectedColors.filter((color) => color !== chosenColor));
     } else {
-      setSelectedColors(() => {
-        return [...selectedColors, chosenColor];
-      });
+      setSelectedColors(() => [...selectedColors, chosenColor]);
     }
   };
 
@@ -42,15 +41,15 @@ const BeehiveCreateModal = ({
     isActiveHandler(false);
   };
 
-  const getPosition = (numberOfBeehivesInRow, numberOfBeehives) => {
+  const getPosition = () => {
     const rowValue = Math.floor(numberOfBeehives / numberOfBeehivesInRow + 1);
     let numberValue;
     const modulo = numberOfBeehives % numberOfBeehivesInRow;
 
     if (
-      numberOfBeehives === 0 ||
-      numberOfBeehives === numberOfBeehivesInRow ||
-      modulo === 0
+      numberOfBeehives === 0
+      || numberOfBeehives === numberOfBeehivesInRow
+      || modulo === 0
     ) {
       numberValue = 1;
     } else if (numberOfBeehives < numberOfBeehivesInRow) {
@@ -60,24 +59,24 @@ const BeehiveCreateModal = ({
     }
     return {
       row: rowValue,
-      number: numberValue
+      number: numberValue,
     };
   };
 
-  const onBeehiveCreate = e => {
+  const onBeehiveCreate = (e) => {
     e.preventDefault();
     addBeehive({
       variables: {
-        apiaryId: apiaryId,
+        apiaryId,
         colors: selectedColors,
         active: isActive,
         statuses: [],
-        position: getPosition(numberOfBeehivesInRow, numberOfBeehives)
-      }
+        position: getPosition(),
+      },
     });
   };
 
-  const onModalSave = e => {
+  const onModalSave = (e) => {
     handleIsAddBeehiveOpen();
     onBeehiveCreate(e);
   };
@@ -98,14 +97,14 @@ const BeehiveCreateModal = ({
         className="beehiveColorsModal"
       />
       <FormControlLabel
-        control={
+        control={(
           <Switch
             checked={isActive}
             onChange={() => isActiveHandler(!isActive)}
             name="mapView"
             color="primary"
           />
-        }
+        )}
         label="Aktywny"
       />
     </CustomModal>
@@ -113,10 +112,12 @@ const BeehiveCreateModal = ({
 };
 
 BeehiveCreateModal.propTypes = {
-  numberOfBeehives: PropTypes.number.isRequired,
-  numberOfBeehivesInRow: PropTypes.number.isRequired,
-  apiaryId: PropTypes.string.isRequired,
-  apiaryName: PropTypes.string.isRequired
+  numberOfBeehives: number.isRequired,
+  numberOfBeehivesInRow: number.isRequired,
+  apiaryId: string.isRequired,
+  apiaryName: string.isRequired,
+  isAddBeehiveOpen: bool.isRequired,
+  handleIsAddBeehiveOpen: func.isRequired,
 };
 
 export default BeehiveCreateModal;

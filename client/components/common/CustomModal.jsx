@@ -1,15 +1,19 @@
-import React from "react";
-import { Modal, Typography, Button } from "@material-ui/core";
-import useCommonStyle from "../../style/common";
-import classnames from "classnames";
-import useCustomModalStyle from "./CustomModal.style";
+import React from 'react';
+import { Modal, Typography, Button } from '@material-ui/core';
+import classnames from 'classnames';
+import {
+  func, bool, oneOfType, arrayOf, node, string,
+} from 'prop-types';
+import useCommonStyle from '../../style/common';
+import useCustomModalStyle from './CustomModal.style';
+
 
 const CustomModal = ({
   onModalClose,
   onModalSave,
   open,
   modalHeading,
-  children
+  children,
 }) => {
   const commonClasses = useCommonStyle();
   const classes = useCustomModalStyle();
@@ -38,6 +42,21 @@ const CustomModal = ({
       </div>
     </Modal>
   );
+};
+
+CustomModal.defaultProps = {
+  modalHeading: '',
+};
+
+CustomModal.propTypes = {
+  onModalClose: func.isRequired,
+  onModalSave: func.isRequired,
+  open: bool.isRequired,
+  modalHeading: string,
+  children: oneOfType([
+    arrayOf(node),
+    node,
+  ]).isRequired,
 };
 
 export default CustomModal;

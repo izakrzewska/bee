@@ -1,44 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { Link, hashHistory } from "react-router";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Button, Typography, TextField, FormLabel } from "@material-ui/core";
-import fetchApiaries from "../../queries/fetchApiaries";
-import ApiaryCreateMap from "../Map/ApiaryCreateMap";
-import apiaryMutations from "../../mutations/apiary_mutations";
-import useApiaryCreateStyles from "./ApiaryCreate.style";
-import useCommonStyle from "../../style/common";
+import React, { useEffect, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { Link, hashHistory } from 'react-router';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {
+  Button, Typography, TextField, FormLabel,
+} from '@material-ui/core';
+import fetchApiaries from '../../queries/fetchApiaries';
+import ApiaryCreateMap from '../Map/ApiaryCreateMap';
+import apiaryMutations from '../../mutations/apiary_mutations';
+import useApiaryCreateStyles from './ApiaryCreate.style';
+import useCommonStyle from '../../style/common';
 
 const ApiaryCreate = () => {
-  const [apiaryName, setApiaryName] = useState("");
+  const [apiaryName, setApiaryName] = useState('');
   const [numberOfBeehivesInRow, setNumberOfBeehivesInRow] = useState();
   const [apiaryCoordinates, setApiaryCoordinates] = useState({
     lng: 0,
-    lat: 0
+    lat: 0,
   });
   const [isMarkerVisible, isMarkerVisibleHandler] = useState(false);
   const [userCoordinates, setUserCoordinates] = useState({ lat: 0, lng: 0 });
   const { ADD_APIARY } = apiaryMutations;
   const [addApiary] = useMutation(ADD_APIARY, {
     onCompleted() {
-      hashHistory.push("/apiaries");
-    }
+      hashHistory.push('/apiaries');
+    },
   });
   const classes = useApiaryCreateStyles();
   const commonClasses = useCommonStyle();
 
   const getUserLocation = () => {
+    /* global navigator */
     const geo = navigator.geolocation;
 
     if (geo) {
       geo.getCurrentPosition(({ coords: { longitude, latitude } }) => {
         setUserCoordinates({
           lng: longitude,
-          lat: latitude
+          lat: latitude,
         });
       });
-    } else {
-      console.warn("please, make geolocation available");
     }
   };
 
@@ -51,17 +52,17 @@ const ApiaryCreate = () => {
     setApiaryCoordinates({ lng, lat });
   };
 
-  const onApiaryCreate = e => {
+  const onApiaryCreate = (e) => {
     e.preventDefault();
     addApiary({
       variables: {
         name: apiaryName,
-        numberOfBeehivesInRow: numberOfBeehivesInRow,
+        numberOfBeehivesInRow,
         coordinates: apiaryCoordinates,
-        active: true
+        active: true,
       },
       refetchQueries: [{ query: fetchApiaries }],
-      awaitRefetchQueries: true
+      awaitRefetchQueries: true,
     });
   };
 
@@ -91,9 +92,7 @@ const ApiaryCreate = () => {
             id="numberOfBeehivesInRow"
             label="Liczba uli w rzędzie"
             value={numberOfBeehivesInRow}
-            onChange={({ target: { value } }) =>
-              setNumberOfBeehivesInRow(Number(value))
-            }
+            onChange={({ target: { value } }) => setNumberOfBeehivesInRow(Number(value))}
             color="secondary"
           />
         </div>
@@ -108,7 +107,7 @@ const ApiaryCreate = () => {
         </div>
         <div className={classes.addApiaryButton}>
           <Button
-            onClick={e => onApiaryCreate(e)}
+            onClick={(e) => onApiaryCreate(e)}
             className={commonClasses.primaryButton}
           >
             Zapisz

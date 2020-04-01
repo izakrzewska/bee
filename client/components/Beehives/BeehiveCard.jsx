@@ -1,14 +1,18 @@
-import React, { useState, Fragment } from "react";
-import { Card, CardContent, CardHeader, CardActions } from "@material-ui/core";
-import BeehiveColors from "./BeehiveColors";
-import classnames from "classnames";
-import useBeehiveCardStyle from "./BeehiveCard.style";
-import useCommonStyles from "../../style/common";
-import BeehiveChangeColorsModal from "./BeehiveChangeColorsModal";
-import { useMutation } from "@apollo/react-hooks";
-import beehivesMutations from "../../mutations/beehive_mutations";
-import fetchApiary from "../../queries/fetchApiary";
-import Icon from "../common/Icon";
+import React, { useState } from 'react';
+import {
+  Card, CardContent, CardHeader, CardActions,
+} from '@material-ui/core';
+import classnames from 'classnames';
+import { useMutation } from '@apollo/react-hooks';
+import { string, bool } from 'prop-types';
+import BeehiveColors from './BeehiveColors';
+import useBeehiveCardStyle from './BeehiveCard.style';
+import useCommonStyles from '../../style/common';
+import BeehiveChangeColorsModal from './BeehiveChangeColorsModal';
+import beehivesMutations from '../../mutations/beehive_mutations';
+import fetchApiary from '../../queries/fetchApiary';
+import Icon from '../common/Icon';
+import { beehiveType } from '../../types/types';
 
 const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
   const [isInEditView, setIsInEditView] = useState(false);
@@ -30,27 +34,27 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
   const onBeehiveDesactivate = () => {
     const beehiveUpdated = {
       id: beehive.id,
-      colors: beehive.colors,
+      colors: [],
       active: !beehive.active,
-      statuses: beehive.statuses,
+      statuses: [],
       position: {
         row: beehive.position.row,
-        number: beehive.position.number
-      }
+        number: beehive.position.number,
+      },
     };
 
     handleIsInEditView();
     updateBeehive({
       variables: {
         id: beehive.id,
-        beehiveUpdated: beehiveUpdated
+        beehiveUpdated,
       },
       refetchQueries: [
         {
           query: fetchApiary,
-          variables: { id: apiaryId }
-        }
-      ]
+          variables: { id: apiaryId },
+        },
+      ],
     });
   };
 
@@ -63,12 +67,12 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
     <Card
       className={classnames(
         classes.beehiveCard,
-        !beehive.active && commonClasses.cardInactive
+        !beehive.active && commonClasses.cardInactive,
       )}
     >
       <CardHeader
         title={`rząd ${beehive.position.row}, miejsce ${beehive.position.number}`}
-        subheader={!beehive.active && "NIEAKTYWNY"}
+        subheader={!beehive.active && 'NIEAKTYWNY'}
       />
       <CardContent>
         <BeehiveColors
@@ -85,14 +89,14 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
       </CardContent>
       <CardActions className={classes.beehiveCardActions}>
         {isInEditView && (
-          <Fragment>
+          [
             <Icon
               type="palette"
               onClick={onBeehiveColorChange}
               disabled={!beehive.active}
-            />
-            <Icon type="block" onClick={onBeehiveDesactivate} />
-          </Fragment>
+            />,
+            <Icon type="block" onClick={onBeehiveDesactivate} />,
+          ]
         )}
         <Icon
           type="settings"
@@ -102,6 +106,12 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
       </CardActions>
     </Card>
   );
+};
+
+BeehiveCard.propTypes = {
+  beehive: beehiveType.isRequired,
+  isActiveApiary: bool.isRequired,
+  apiaryId: string.isRequired,
 };
 
 export default BeehiveCard;

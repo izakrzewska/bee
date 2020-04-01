@@ -1,5 +1,5 @@
-import gql from "graphql-tag";
-import CoordinatesTypes from "../../server/schema/coordinates_type";
+import gql from 'graphql-tag';
+import CoordinatesTypes from '../../server/schema/coordinates_type';
 
 const apiaryMutations = {
   ADD_APIARY: gql`
@@ -28,7 +28,7 @@ const apiaryMutations = {
         id
       }
     }
-  `
+  `,
 };
 
 export default apiaryMutations;

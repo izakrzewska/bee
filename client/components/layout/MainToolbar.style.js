@@ -1,23 +1,23 @@
-import { makeStyles } from "@material-ui/core/styles";
-import pallete from "../../style/pallete";
+import { makeStyles } from '@material-ui/core/styles';
+import pallete from '../../style/pallete';
 
 const useStyles = makeStyles({
   appLogo: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-end",
-    color: pallete.brown
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    color: pallete.brown,
   },
   appIcon: {
-    fontSize: "3rem"
+    fontSize: '3rem',
   },
   navigationBar: {
-    display: "flex",
-    marginLeft: "auto"
+    display: 'flex',
+    marginLeft: 'auto',
   },
   navigationLink: {
-    margin: "0 15px"
-  }
+    margin: '0 15px',
+  },
 });
 
 export default useStyles;

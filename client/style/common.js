@@ -1,71 +1,71 @@
-import { makeStyles } from "@material-ui/core/styles";
-import pallete from "./pallete";
+import { makeStyles } from '@material-ui/core/styles';
+import pallete from './pallete';
 
 const useCommonStyle = makeStyles({
   heading: {
-    fontSize: "2rem"
+    fontSize: '2rem',
   },
   subheading: {
-    fontSize: "1.5rem"
+    fontSize: '1.5rem',
   },
   primaryButton: {
     minWidth: 100,
     backgroundColor: pallete.primary,
     padding: 10,
-    transition: "transform ease-out .3s",
-    "&:hover": {
+    transition: 'transform ease-out .3s',
+    '&:hover': {
       backgroundColor: pallete.primary,
-      transform: "scale(1.1)"
+      transform: 'scale(1.1)',
     },
-    "&:focus": {
-      backgroundColor: pallete.primary
-    }
+    '&:focus': {
+      backgroundColor: pallete.primary,
+    },
   },
   secondaryButton: {
-    maxWidth: "100px",
+    maxWidth: '100px',
     backgroundColor: pallete.backgroundCard,
     padding: 10,
-    transition: "transform ease-out .3s",
+    transition: 'transform ease-out .3s',
     border: `1px solid ${pallete.primary}`,
-    "&:hover": {
+    '&:hover': {
       backgroundColor: pallete.backgroundCard,
-      transform: "scale(1.1)"
+      transform: 'scale(1.1)',
     },
-    "&:focus": {
-      backgroundColor: pallete.backgroundCard
-    }
+    '&:focus': {
+      backgroundColor: pallete.backgroundCard,
+    },
   },
   backIcon: {
-    transition: "transform ease-out .3s",
-    "&:hover": {
-      cursor: "pointer",
-      transform: "scale(1.2)"
+    transition: 'transform ease-out .3s',
+    '&:hover': {
+      cursor: 'pointer',
+      transform: 'scale(1.2)',
     },
-    position: "absolute",
+    position: 'absolute',
     top: 100,
-    left: 40
+    left: 40,
   },
   link: {
-    textDecoration: "none",
+    textDecoration: 'none',
     color: pallete.brown,
-    "&:active": {
-      color: pallete.brown
-    }
+    '&:active': {
+      color: pallete.brown,
+    },
   },
   icon: {
     color: pallete.brown,
-    transition: "transform ease-out .3s",
-    "&:hover": {
-      cursor: "pointer",
-      transform: "scale(1.2)"
-    }
+    transition: 'transform ease-out .3s',
+    '&:hover': {
+      cursor: 'pointer',
+      transform: 'scale(1.2)',
+    },
   },
   hidden: {
-    display: "none"
+    display: 'none',
   },
   cardInactive: {
-    opacity: 0.5
-  }
+    opacity: 0.5,
+  },
 });
 
 export default useCommonStyle;

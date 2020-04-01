@@ -1,6 +1,6 @@
-import gql from "graphql-tag";
-import PositionTypes from "../../server/schema/position_type";
-import BeehiveTypes from "../../server/schema/beehive_type";
+import gql from 'graphql-tag';
+import PositionTypes from '../../server/schema/position_type';
+import BeehiveTypes from '../../server/schema/beehive_type';
 
 const beehiveMutations = {
   ADD_BEEHIVE: gql`
@@ -34,7 +34,7 @@ const beehiveMutations = {
         }
       }
     }
-  `
+  `,
 };
 
 export default beehiveMutations;

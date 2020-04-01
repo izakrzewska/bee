@@ -1,10 +1,13 @@
-import React, { useState, Fragment } from "react";
-import { Card, CardActions, CardHeader } from "@material-ui/core";
-import useApiaryCardStyle from "./ApiaryCard.style";
-import useCommonStyle from "../../style/common";
-import { Link } from "react-router";
-import classnames from "classnames";
-import Icon from "../../components/common/Icon";
+import React, { useState } from 'react';
+import { Card, CardActions, CardHeader } from '@material-ui/core';
+import { Link } from 'react-router';
+import classnames from 'classnames';
+import { func } from 'prop-types';
+import useApiaryCardStyle from './ApiaryCard.style';
+import useCommonStyle from '../../style/common';
+import Icon from '../common/Icon';
+import { apiaryType } from '../../types/types';
+
 
 const ApiaryCard = ({ apiary, onApiaryDelete, apiaryDesactivateHandler }) => {
   const classes = useApiaryCardStyle();
@@ -23,14 +26,14 @@ const ApiaryCard = ({ apiary, onApiaryDelete, apiaryDesactivateHandler }) => {
 
   const apiaryCardSubheader = apiary.active
     ? `Liczba uli: ${apiary.beehives.length}`
-    : "NIEAKTYWNA";
+    : 'NIEAKTYWNA';
 
   return (
     <Card
       id={apiary.id}
       className={classnames(
         classes.apiaryCard,
-        !apiary.active && commonClasses.cardInactive
+        !apiary.active && commonClasses.cardInactive,
       )}
     >
       <Link className={commonClasses.link} to={`/apiaries/${apiary.id}`}>
@@ -38,15 +41,21 @@ const ApiaryCard = ({ apiary, onApiaryDelete, apiaryDesactivateHandler }) => {
       </Link>
       <CardActions className={classes.apiaryCardActions}>
         {isInEditView && (
-          <Fragment>
-            <Icon type="block" onClick={onApiaryDesactivate} />
-            <Icon type="delete" onClick={() => onApiaryDelete(apiary.id)} />
-          </Fragment>
+          [
+            <Icon type="block" onClick={onApiaryDesactivate} />,
+            <Icon type="delete" onClick={() => onApiaryDelete(apiary.id)} />,
+          ]
         )}
         <Icon type="settings" onClick={handleIsInEditView} />
       </CardActions>
     </Card>
   );
+};
+
+ApiaryCard.propTypes = {
+  apiary: apiaryType.isRequired,
+  onApiaryDelete: func.isRequired,
+  apiaryDesactivateHandler: func.isRequired,
 };
 
 export default ApiaryCard;

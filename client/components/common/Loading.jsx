@@ -1,5 +1,5 @@
-import React from "react";
-import useLoadingStyles from "./Loading.style";
+import React from 'react';
+import useLoadingStyles from './Loading.style';
 
 const Loading = () => {
   const classes = useLoadingStyles();

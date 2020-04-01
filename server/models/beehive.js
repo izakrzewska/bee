@@ -1,37 +1,38 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const BeehiveSchema = new Schema({
   apiary: {
     type: Schema.Types.ObjectId,
-    ref: "apiary"
+    ref: 'apiary',
   },
   colors: {
     type: [Schema.Types.String],
-    default: []
+    default: [],
   },
   active: {
     type: Schema.Types.Boolean,
-    default: false
+    default: false,
   },
   statuses: {
     type: Schema.Types.Array,
-    default: []
+    default: [],
   },
   position: {
     row: {
       type: Schema.Types.Number,
-      default: 0
+      default: 0,
     },
     number: {
       type: Schema.Types.Number,
-      default: 0
-    }
-  }
+      default: 0,
+    },
+  },
 });
 
-BeehiveSchema.statics.updateBeehive = function(data) {
-  return this.findById(data.id).then(beehive => {
+BeehiveSchema.statics.updateBeehive = function (data) {
+  return this.findById(data.id).then((beehive) => {
     beehive.colors = data.beehiveUpdated.colors;
     beehive.active = data.beehiveUpdated.active;
     beehive.statuses = data.beehiveUpdated.statuses;
@@ -41,4 +42,4 @@ BeehiveSchema.statics.updateBeehive = function(data) {
   });
 };
 
-mongoose.model("beehive", BeehiveSchema);
+mongoose.model('beehive', BeehiveSchema);

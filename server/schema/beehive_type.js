@@ -1,65 +1,66 @@
-const mongoose = require("mongoose");
-const graphql = require("graphql");
+const mongoose = require('mongoose');
+const graphql = require('graphql');
+
 const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
   GraphQLList,
   GraphQLBoolean,
-  GraphQLInputObjectType
+  GraphQLInputObjectType,
 } = graphql;
-const PositionTypes = require("./position_type");
-const Beehive = mongoose.model("beehive");
+const PositionTypes = require('./position_type');
+
+const Beehive = mongoose.model('beehive');
 
 const BeehiveType = new GraphQLObjectType({
-  name: "BeehiveType",
+  name: 'BeehiveType',
   fields: () => ({
     id: { type: GraphQLID },
     apiary: {
-      type: require("./apiary_type"),
+      // eslint-disable-next-line global-require
+      type: require('./apiary_type'),
       resolve(parentValue) {
         return Beehive.findById(parentValue)
-          .populate("apiary")
-          .then(beehive => {
-            return beehive.apiary;
-          });
-      }
+          .populate('apiary')
+          .then((beehive) => beehive.apiary);
+      },
     },
     colors: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
     },
     active: {
-      type: GraphQLBoolean
+      type: GraphQLBoolean,
     },
     statuses: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
     },
     position: {
-      type: PositionTypes.PositionType
-    }
-  })
+      type: PositionTypes.PositionType,
+    },
+  }),
 });
 
 const BeehiveInputType = new GraphQLInputObjectType({
-  name: "BeehiveInputType",
+  name: 'BeehiveInputType',
   fields: () => ({
     id: { type: GraphQLID },
     colors: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
     },
     active: {
-      type: GraphQLBoolean
+      type: GraphQLBoolean,
     },
     statuses: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
     },
     position: {
-      type: PositionTypes.PositionInputType
-    }
-  })
+      type: PositionTypes.PositionInputType,
+    },
+  }),
 });
 
 module.exports = {
-  BeehiveType: BeehiveType,
-  BeehiveInputType: BeehiveInputType
+  BeehiveType,
+  BeehiveInputType,
 };

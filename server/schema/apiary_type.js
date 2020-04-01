@@ -1,19 +1,23 @@
-const mongoose = require("mongoose");
-const graphql = require("graphql");
+const mongoose = require('mongoose');
+
+const graphql = require('graphql');
+
 const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
   GraphQLList,
   GraphQLInt,
-  GraphQLBoolean
+  GraphQLBoolean,
 } = graphql;
-const BeehiveTypes = require("./beehive_type");
-const Apiary = mongoose.model("apiary");
-const CoordinatesTypes = require("./coordinates_type");
+
+const BeehiveTypes = require('./beehive_type');
+
+const Apiary = mongoose.model('apiary');
+const CoordinatesTypes = require('./coordinates_type');
 
 const ApiaryType = new GraphQLObjectType({
-  name: "ApiaryType",
+  name: 'ApiaryType',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -23,10 +27,10 @@ const ApiaryType = new GraphQLObjectType({
       type: new GraphQLList(BeehiveTypes.BeehiveType),
       resolve(parentValue) {
         return Apiary.findApiary(parentValue.id);
-      }
+      },
     },
-    numberOfBeehivesInRow: { type: GraphQLInt }
-  })
+    numberOfBeehivesInRow: { type: GraphQLInt },
+  }),
 });
 
 module.exports = ApiaryType;
