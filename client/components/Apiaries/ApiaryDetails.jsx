@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Typography, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { string } from 'prop-types';
+import { string, shape } from 'prop-types';
 import fetchApiary from '../../queries/fetchApiary';
 import BeehiveCreateModal from '../Beehives/BeehiveCreateModal';
 import BeehivesList from '../Beehives/BeehivesList';
@@ -14,12 +14,12 @@ import useApiaryDetailsStyles from './ApiaryDetails.style';
 import useCommonStyle from '../../style/common';
 
 
-const ApiaryDetails = ({ params: { id } }) => {
+const ApiaryDetails = ({ params }) => {
   const classes = useApiaryDetailsStyles();
   const commonClasses = useCommonStyle();
   const { data, error, loading } = useQuery(fetchApiary, {
     variables: {
-      id,
+      id: params.id,
     },
   });
   const [isAddBeehiveOpen, setIsAddBeehiveOpen] = useState(false);
@@ -53,7 +53,7 @@ const ApiaryDetails = ({ params: { id } }) => {
       <Typography>{`Uli w rzędzie: ${numberOfBeehivesInRow}`}</Typography>
       {numberOfBeehives > 0 && (
       <BeehivesList
-        apiaryId={apiary.id}
+        apiaryId={params.id}
         isActiveApiary={apiary.active}
         beehives={beehives}
       />
@@ -71,7 +71,7 @@ const ApiaryDetails = ({ params: { id } }) => {
         isAddBeehiveOpen={isAddBeehiveOpen}
         numberOfBeehives={numberOfBeehives}
         numberOfBeehivesInRow={numberOfBeehivesInRow}
-        apiaryId={id}
+        apiaryId={params.id}
         handleIsAddBeehiveOpen={handleIsAddBeehiveOpen}
       />
     </div>
@@ -79,9 +79,9 @@ const ApiaryDetails = ({ params: { id } }) => {
 };
 
 ApiaryDetails.propTypes = {
-  params: {
+  params: shape({
     id: string.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default ApiaryDetails;

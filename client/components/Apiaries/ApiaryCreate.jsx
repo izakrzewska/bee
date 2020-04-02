@@ -13,7 +13,7 @@ import useCommonStyle from '../../style/common';
 
 const ApiaryCreate = () => {
   const [apiaryName, setApiaryName] = useState('');
-  const [numberOfBeehivesInRow, setNumberOfBeehivesInRow] = useState();
+  const [numberOfBeehivesInRow, setNumberOfBeehivesInRow] = useState(1);
   const [apiaryCoordinates, setApiaryCoordinates] = useState({
     lng: 0,
     lat: 0,
@@ -91,7 +91,7 @@ const ApiaryCreate = () => {
             type="number"
             id="numberOfBeehivesInRow"
             label="Liczba uli w rzędzie"
-            value={numberOfBeehivesInRow}
+            defaultValue={1}
             onChange={({ target: { value } }) => setNumberOfBeehivesInRow(Number(value))}
             color="secondary"
           />

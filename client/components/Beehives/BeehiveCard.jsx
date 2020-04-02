@@ -72,7 +72,7 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
     >
       <CardHeader
         title={`rząd ${beehive.position.row}, miejsce ${beehive.position.number}`}
-        subheader={!beehive.active && 'NIEAKTYWNY'}
+        subheader={!beehive.active && 'WOLNE MIEJSCE'}
       />
       <CardContent>
         <BeehiveColors
@@ -91,11 +91,12 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
         {isInEditView && (
           [
             <Icon
+              key="palette"
               type="palette"
               onClick={onBeehiveColorChange}
               disabled={!beehive.active}
             />,
-            <Icon type="block" onClick={onBeehiveDesactivate} />,
+            <Icon key="block" type="block" onClick={onBeehiveDesactivate} />,
           ]
         )}
         <Icon

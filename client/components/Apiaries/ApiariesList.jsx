@@ -47,7 +47,7 @@ const ApiariesList = () => {
 
   const renderApiariesList = (apiaries) => (
     [
-      <div className={classes.apiariesCardsSection}>
+      <div key="card" className={classes.apiariesCardsSection}>
         {apiaries.map((apiary) => (
           <ApiaryCard
             key={apiary.id}
@@ -57,7 +57,7 @@ const ApiariesList = () => {
           />
         ))}
       </div>,
-      <div className={classes.addNewApiaryButton}>
+      <div key="buttons" className={classes.addNewApiaryButton}>
         <Link to="/apiaries/new">
           <Button className={commonClasses.primaryButton}>
             <AddIcon fontSize="large" />

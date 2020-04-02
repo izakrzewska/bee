@@ -7,6 +7,12 @@ export default gql`
       name
       beehives {
         id
+        active
+        position {
+          row
+          number
+        }
+        colors
       }
       coordinates {
         lng

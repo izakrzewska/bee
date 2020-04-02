@@ -24,6 +24,7 @@ const BeehiveColors = ({
       }
       return backgroundColor;
     });
+    return backgroundColor;
   };
 
   return (
@@ -73,14 +74,13 @@ BeehiveColors.defaultProps = {
   className: '',
   selectable: false,
   onChangeHandler: () => {},
-  selectedColors: [],
 };
 
 BeehiveColors.propTypes = {
   className: string,
   selectable: bool,
   onChangeHandler: func,
-  selectedColors: arrayOf(string),
+  selectedColors: arrayOf(string).isRequired,
 };
 
 

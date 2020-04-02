@@ -42,8 +42,8 @@ const ApiaryCard = ({ apiary, onApiaryDelete, apiaryDesactivateHandler }) => {
       <CardActions className={classes.apiaryCardActions}>
         {isInEditView && (
           [
-            <Icon type="block" onClick={onApiaryDesactivate} />,
-            <Icon type="delete" onClick={() => onApiaryDelete(apiary.id)} />,
+            <Icon key="desactivate" type="block" onClick={onApiaryDesactivate} />,
+            <Icon key="delete" type="delete" onClick={() => onApiaryDelete(apiary.id)} />,
           ]
         )}
         <Icon type="settings" onClick={handleIsInEditView} />

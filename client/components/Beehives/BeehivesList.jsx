@@ -1,8 +1,10 @@
 import React from 'react';
-import { string, bool, arrayOf } from 'prop-types';
+import {
+  string, bool, arrayOf,
+} from 'prop-types';
 import useBeehivesListStyles from './BeehivesList.style';
 import BeehiveCard from './BeehiveCard';
-import beehiveType from '../../types/types';
+import { beehiveType } from '../../types/types';
 
 const BeehivesList = ({ beehives, apiaryId, isActiveApiary }) => {
   const classes = useBeehivesListStyles();

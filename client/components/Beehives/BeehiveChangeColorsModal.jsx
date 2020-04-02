@@ -51,6 +51,7 @@ const BeehiveChangeColorsModal = ({
         },
       ],
     });
+    setSelectedColors([]);
     handleIsChangeColorModalOpen();
   };
 
