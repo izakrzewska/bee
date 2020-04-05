@@ -7,7 +7,7 @@ import { FormLabel, FormControlLabel, Switch } from '@material-ui/core';
 import beehiveMutations from '../../mutations/beehive_mutations';
 import BeehiveColors from './BeehiveColors';
 import CustomModal from '../common/CustomModal';
-
+import getPosition from './utils';
 
 const BeehiveCreateModal = ({
   numberOfBeehives,
@@ -41,28 +41,6 @@ const BeehiveCreateModal = ({
     isActiveHandler(false);
   };
 
-  const getPosition = () => {
-    const rowValue = Math.floor(numberOfBeehives / numberOfBeehivesInRow + 1);
-    let numberValue;
-    const modulo = numberOfBeehives % numberOfBeehivesInRow;
-
-    if (
-      numberOfBeehives === 0
-      || numberOfBeehives === numberOfBeehivesInRow
-      || modulo === 0
-    ) {
-      numberValue = 1;
-    } else if (numberOfBeehives < numberOfBeehivesInRow) {
-      numberValue = numberOfBeehives + 1;
-    } else {
-      numberValue = modulo + 1;
-    }
-    return {
-      row: rowValue,
-      number: numberValue,
-    };
-  };
-
   const onBeehiveCreate = (e) => {
     e.preventDefault();
     addBeehive({
@@ -71,7 +49,7 @@ const BeehiveCreateModal = ({
         colors: selectedColors,
         active: isActive,
         statuses: [],
-        position: getPosition(),
+        position: getPosition(numberOfBeehives, numberOfBeehivesInRow),
       },
     });
   };

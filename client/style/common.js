@@ -35,6 +35,31 @@ const useCommonStyle = makeStyles({
       backgroundColor: pallete.backgroundCard,
     },
   },
+  tertiaryButton: {
+    backgroundColor: pallete.backgroundCard,
+    padding: 10,
+    transition: 'transform ease-out .3s',
+    border: `1px solid ${pallete.brown}`,
+    '&:hover': {
+      backgroundColor: pallete.backgroundCard,
+      transform: 'scale(1.1)',
+    },
+    '&:focus': {
+      backgroundColor: pallete.backgroundCard,
+    },
+  },
+  selectedButton: {
+    color: pallete.white,
+    backgroundColor: pallete.lightBrown,
+    padding: 10,
+    border: `2px solid ${pallete.brown}`,
+    '&:hover': {
+      backgroundColor: pallete.lightBrown,
+    },
+    '&:focus': {
+      backgroundColor: pallete.lightBrown,
+    },
+  },
   backIcon: {
     transition: 'transform ease-out .3s',
     '&:hover': {

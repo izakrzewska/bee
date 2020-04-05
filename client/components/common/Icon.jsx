@@ -6,6 +6,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { string, func, bool } from 'prop-types';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import useCommonStyles from '../../style/common';
 
 const Icon = ({ type, onClick, disabled }) => {
@@ -27,6 +28,10 @@ const Icon = ({ type, onClick, disabled }) => {
       }
       case 'delete': {
         icon = <DeleteIcon className={commonClasses.icon} />;
+        break;
+      }
+      case 'move': {
+        icon = <ArrowUpwardIcon className={commonClasses.icon} />;
         break;
       }
       default: {

@@ -13,10 +13,12 @@ import beehivesMutations from '../../mutations/beehive_mutations';
 import fetchApiary from '../../queries/fetchApiary';
 import Icon from '../common/Icon';
 import { beehiveType } from '../../types/types';
+import BeehiveMoveModal from './BeehiveMoveModal';
 
 const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
   const [isInEditView, setIsInEditView] = useState(false);
   const [isChangeColorModalOpen, setIsChangeColorModalOpen] = useState(false);
+  const [isMoveModalOpen, setIsMoveModalOpen] = useState(false);
   const commonClasses = useCommonStyles();
   const classes = useBeehiveCardStyle();
 
@@ -25,6 +27,10 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
 
   const handleIsChangeColorModalOpen = () => {
     setIsChangeColorModalOpen(!isChangeColorModalOpen);
+  };
+
+  const handleIsMoveModalOpen = () => {
+    setIsMoveModalOpen(!isMoveModalOpen);
   };
 
   const handleIsInEditView = () => {
@@ -63,6 +69,11 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
     handleIsChangeColorModalOpen();
   };
 
+  const onBeehiveMove = () => {
+    handleIsInEditView();
+    handleIsMoveModalOpen();
+  };
+
   return (
     <Card
       className={classnames(
@@ -86,6 +97,12 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
           isChangeColorModalOpen={isChangeColorModalOpen}
           handleIsChangeColorModalOpen={handleIsChangeColorModalOpen}
         />
+        <BeehiveMoveModal
+          apiaryId={apiaryId}
+          beehive={beehive}
+          isMoveModalOpen={isMoveModalOpen}
+          handleIsMoveModalOpen={handleIsMoveModalOpen}
+        />
       </CardContent>
       <CardActions className={classes.beehiveCardActions}>
         {isInEditView && (
@@ -97,6 +114,7 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
               disabled={!beehive.active}
             />,
             <Icon key="block" type="block" onClick={onBeehiveDesactivate} />,
+            <Icon key="move" type="move" onClick={onBeehiveMove} />,
           ]
         )}
         <Icon

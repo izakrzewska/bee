@@ -4,6 +4,7 @@ import brown from '@material-ui/core/colors/brown';
 const pallete = {
   white: '#ffffff',
   brown: brown[900],
+  lightBrown: brown[400],
   backgroundCard: '#fffdf8',
   primary: amber[500],
 };

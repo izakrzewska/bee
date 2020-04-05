@@ -9,7 +9,9 @@ import Icon from '../common/Icon';
 import { apiaryType } from '../../types/types';
 
 
-const ApiaryCard = ({ apiary, onApiaryDelete, apiaryDesactivateHandler }) => {
+const ApiaryCard = ({
+  apiary, onApiaryDelete, apiaryDesactivateHandler,
+}) => {
   const classes = useApiaryCardStyle();
   const commonClasses = useCommonStyle();
 
