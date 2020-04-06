@@ -8,9 +8,6 @@ const useBeehiveMoveModalStyles = makeStyles({
     alignItems: 'center',
     height: '100%',
     width: '100%',
-    '& button': {
-      margin: '10px 10px',
-    },
   },
 });
 

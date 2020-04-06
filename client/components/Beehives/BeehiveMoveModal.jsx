@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { bool, string, func } from 'prop-types';
-import { Button } from '@material-ui/core';
 import { hashHistory } from 'react-router';
-import classnames from 'classnames';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import beehiveMutations from '../../mutations/beehive_mutations';
 import fetchApiary from '../../queries/fetchApiary';
 import fetchApiaries from '../../queries/fetchApiaries';
 import CustomModal from '../common/CustomModal';
 import { beehiveType } from '../../types/types';
 import Loading from '../common/Loading';
-import useCommonStyles from '../../style/common';
 import getPosition from './utils';
 import useBeehiveMoveModalStyles from './BeehiveMoveModal.style';
 
@@ -24,17 +23,14 @@ const BeehiveMoveModal = ({
   const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
   const [addBeehive] = useMutation(ADD_BEEHIVE);
   const { data, loading } = useQuery(fetchApiaries);
-  const commonClasses = useCommonStyles();
   const classes = useBeehiveMoveModalStyles();
   const [selectedApiary, setSelectedApiary] = useState();
   const [selectedPlace, setSelectedPlace] = useState();
-  const [isAddingNewBeehive, setIsAddingNewBeehive] = useState(false);
 
   const onModalClose = () => {
     handleIsMoveModalOpen();
     setSelectedApiary();
     setSelectedPlace();
-    setIsAddingNewBeehive(false);
   };
 
   const updateBeehiveMoves = (beehiveId, beehiveUpdated, apiaryToUpdateId) => {
@@ -63,7 +59,7 @@ const BeehiveMoveModal = ({
 
     updateBeehiveMoves(beehive.id, beehiveDesactivated, apiaryId);
 
-    if (isAddingNewBeehive) {
+    if (selectedPlace === 'placeAtTheEnd') {
       const beehivesNumber = selectedApiary.beehives.length;
       addBeehive({
         variables: {
@@ -95,7 +91,6 @@ const BeehiveMoveModal = ({
     }
 
     hashHistory.push(`/apiaries/${selectedApiary.id}`);
-    setIsAddingNewBeehive(false);
     handleIsMoveModalOpen();
   };
 
@@ -103,61 +98,43 @@ const BeehiveMoveModal = ({
     const { apiaries } = data;
     return apiaries
       .filter((apiary) => apiary.active && apiary.id !== apiaryId)
-      .map((apiary) => {
-        const isSelectedApiary = selectedApiary === apiary;
-        return (
-          <Button
-            key={apiary.id}
-            className={
-              isSelectedApiary ? commonClasses.selectedButton : commonClasses.tertiaryButton
-            }
-            onClick={() => {
-              setSelectedApiary(apiary);
-              setSelectedPlace();
-              setIsAddingNewBeehive(false);
-            }}
-          >
-            {apiary.name}
-          </Button>
-        );
-      });
+      .map((apiary) => (
+        <ToggleButton key={apiary.id} value={apiary}>{apiary.name}</ToggleButton>
+      ));
   };
 
   const getAvailablePlaces = () => {
     const { beehives } = selectedApiary;
-    return beehives.filter((beehivePlace) => !beehivePlace.active).map((beehivePlace) => {
-      const isSelectedPlace = beehivePlace === selectedPlace;
-      return (
-        <Button
-          key={beehivePlace.id}
-          className={isSelectedPlace ? commonClasses.selectedButton : commonClasses.tertiaryButton}
-          onClick={() => {
-            setSelectedPlace(beehivePlace);
-            setIsAddingNewBeehive(false);
-          }}
-        >
-          {`Rząd ${beehivePlace.position.row} m.${beehivePlace.position.number}`}
-        </Button>
-      );
-    });
-  };
-
-  const onAddingNewBeehive = () => {
-    setSelectedPlace();
-    setIsAddingNewBeehive(true);
+    return beehives.filter((beehivePlace) => !beehivePlace.active).map((beehivePlace) => (
+      <ToggleButton
+        key={beehivePlace.id}
+        value={beehivePlace.position}
+      >
+        {`Rząd ${beehivePlace.position.row} m.${beehivePlace.position.number}`}
+      </ToggleButton>
+    ));
   };
 
   const selectedApiaryString = selectedApiary ? `${selectedApiary.name},` : '';
   const getSelectedPlaceString = () => {
-    if (isAddingNewBeehive) {
+    if (selectedPlace === 'placeAtTheEnd') {
       return 'dostaw na koniec';
     } if (selectedPlace) {
-      return `rząd ${selectedPlace.position.row} m.${selectedPlace.position.number}`;
+      return `rząd ${selectedPlace.row} m.${selectedPlace.number}`;
     }
     return '';
   };
   const selectedPlaceString = getSelectedPlaceString();
   const modalHeading = `Nowa lokalizacja ula: ${selectedApiaryString} ${selectedPlaceString}`;
+
+  const onApiarySelected = (_, apiary) => {
+    setSelectedPlace();
+    setSelectedApiary(apiary);
+  };
+
+  const onPlaceSelected = (_, place) => {
+    setSelectedPlace(place);
+  };
 
   return (
     <CustomModal
@@ -168,22 +145,25 @@ const BeehiveMoveModal = ({
     >
       { loading ? <Loading /> : (
         <div className={classes.buttonContainer}>
-          <div>
+          <ToggleButtonGroup
+            value={selectedApiary}
+            exclusive
+            onChange={onApiarySelected}
+          >
             {getAvaiableApiaries()}
-          </div>
-          <div>
+          </ToggleButtonGroup>
+          <ToggleButtonGroup value={selectedPlace} exclusive onChange={onPlaceSelected}>
             {!!selectedApiary && getAvailablePlaces() }
             {!!selectedApiary
             && (
-            <Button
-              className={classnames(commonClasses.tertiaryButton,
-                isAddingNewBeehive && commonClasses.selectedButton)}
-              onClick={onAddingNewBeehive}
+            <ToggleButton
+              key="placeAtTheEnd"
+              value="placeAtTheEnd"
             >
               Dostaw na koniec
-            </Button>
+            </ToggleButton>
             ) }
-          </div>
+          </ToggleButtonGroup>
         </div>
       )}
     </CustomModal>
