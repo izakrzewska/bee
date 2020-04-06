@@ -16,7 +16,7 @@ const BeehiveSchema = new Schema({
     default: false,
   },
   statuses: {
-    type: Schema.Types.Array,
+    type: [Schema.Types.String],
     default: [],
   },
   position: {

@@ -13,7 +13,6 @@ import Error from '../common/Error';
 import useApiaryDetailsStyles from './ApiaryDetails.style';
 import useCommonStyle from '../../style/common';
 
-
 const ApiaryDetails = ({ params }) => {
   const classes = useApiaryDetailsStyles();
   const commonClasses = useCommonStyle();

@@ -14,23 +14,23 @@ import fetchApiary from '../../queries/fetchApiary';
 import Icon from '../common/Icon';
 import { beehiveType } from '../../types/types';
 import BeehiveMoveModal from './BeehiveMoveModal';
+import BeehiveStatusModal from './BeehiveStatusModal';
 
-const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
+const BeehiveCard = ({
+  beehive, isActiveApiary, apiaryId,
+}) => {
   const [isInEditView, setIsInEditView] = useState(false);
   const [isChangeColorModalOpen, setIsChangeColorModalOpen] = useState(false);
   const [isMoveModalOpen, setIsMoveModalOpen] = useState(false);
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const commonClasses = useCommonStyles();
   const classes = useBeehiveCardStyle();
 
   const { UPDATE_BEEHIVE } = beehivesMutations;
   const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
 
-  const handleIsChangeColorModalOpen = () => {
-    setIsChangeColorModalOpen(!isChangeColorModalOpen);
-  };
-
-  const handleIsMoveModalOpen = () => {
-    setIsMoveModalOpen(!isMoveModalOpen);
+  const handleIsModalOpen = (useStateFuncion, useStateArgument) => {
+    useStateFuncion(!useStateArgument);
   };
 
   const handleIsInEditView = () => {
@@ -64,14 +64,9 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
     });
   };
 
-  const onBeehiveColorChange = () => {
+  const onIconWithModalClick = (useStateFuncion, useStateArgument) => {
     handleIsInEditView();
-    handleIsChangeColorModalOpen();
-  };
-
-  const onBeehiveMove = () => {
-    handleIsInEditView();
-    handleIsMoveModalOpen();
+    handleIsModalOpen(useStateFuncion, useStateArgument);
   };
 
   return (
@@ -86,6 +81,9 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
         subheader={!beehive.active && 'WOLNE MIEJSCE'}
       />
       <CardContent>
+        <div>
+          {beehive.statuses.map((status) => <p key={status}>{status}</p>)}
+        </div>
         <BeehiveColors
           className="beehiveColorsCard"
           selectedColors={beehive.colors}
@@ -95,13 +93,21 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
           apiaryId={apiaryId}
           beehive={beehive}
           isChangeColorModalOpen={isChangeColorModalOpen}
-          handleIsChangeColorModalOpen={handleIsChangeColorModalOpen}
+          handleIsChangeColorModalOpen={
+            () => handleIsModalOpen(setIsChangeColorModalOpen, isChangeColorModalOpen)
+          }
         />
         <BeehiveMoveModal
           apiaryId={apiaryId}
           beehive={beehive}
           isMoveModalOpen={isMoveModalOpen}
-          handleIsMoveModalOpen={handleIsMoveModalOpen}
+          handleIsMoveModalOpen={() => handleIsModalOpen(setIsMoveModalOpen, isMoveModalOpen)}
+        />
+        <BeehiveStatusModal
+          apiaryId={apiaryId}
+          beehive={beehive}
+          isStatusModalOpen={isStatusModalOpen}
+          handleIsStatusModalOpen={() => handleIsModalOpen(setIsStatusModalOpen, isStatusModalOpen)}
         />
       </CardContent>
       <CardActions className={classes.beehiveCardActions}>
@@ -110,11 +116,14 @@ const BeehiveCard = ({ beehive, isActiveApiary, apiaryId }) => {
             <Icon
               key="palette"
               type="palette"
-              onClick={onBeehiveColorChange}
+              onClick={
+                () => onIconWithModalClick(setIsChangeColorModalOpen, isChangeColorModalOpen)
+              }
               disabled={!beehive.active}
             />,
             <Icon key="block" type="block" onClick={onBeehiveDesactivate} />,
-            <Icon key="move" type="move" onClick={onBeehiveMove} />,
+            <Icon key="move" type="move" onClick={() => onIconWithModalClick(setIsMoveModalOpen, isMoveModalOpen)} disabled={!beehive.active} />,
+            <Icon key="problem" type="problem" onClick={() => onIconWithModalClick(setIsStatusModalOpen, isStatusModalOpen)} disabled={!beehive.active} />,
           ]
         )}
         <Icon

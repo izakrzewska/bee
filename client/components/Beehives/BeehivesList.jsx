@@ -6,7 +6,9 @@ import useBeehivesListStyles from './BeehivesList.style';
 import BeehiveCard from './BeehiveCard';
 import { beehiveType } from '../../types/types';
 
-const BeehivesList = ({ beehives, apiaryId, isActiveApiary }) => {
+const BeehivesList = ({
+  beehives, apiaryId, isActiveApiary,
+}) => {
   const classes = useBeehivesListStyles();
 
   const renderBeehives = () => beehives.map((beehive) => (

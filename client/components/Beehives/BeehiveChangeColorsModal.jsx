@@ -13,7 +13,7 @@ const BeehiveChangeColorsModal = ({
   handleIsChangeColorModalOpen,
   apiaryId,
 }) => {
-  const [selectedColors, setSelectedColors] = useState(beehive.colors);
+  const [selectedColors, setSelectedColors] = useState([]);
   const { UPDATE_BEEHIVE } = beehiveMutations;
   const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
 
