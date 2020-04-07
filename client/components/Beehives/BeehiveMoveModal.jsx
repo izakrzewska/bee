@@ -12,6 +12,7 @@ import { beehiveType } from '../../types/types';
 import Loading from '../common/Loading';
 import getPosition from './utils';
 import useBeehiveMoveModalStyles from './BeehiveMoveModal.style';
+import useCommonStyles from '../../style/common';
 
 const BeehiveMoveModal = ({
   handleIsMoveModalOpen,
@@ -26,6 +27,7 @@ const BeehiveMoveModal = ({
   const classes = useBeehiveMoveModalStyles();
   const [selectedApiary, setSelectedApiary] = useState();
   const [selectedPlace, setSelectedPlace] = useState();
+  const commonClasses = useCommonStyles();
 
   const onModalClose = () => {
     handleIsMoveModalOpen();
@@ -99,7 +101,15 @@ const BeehiveMoveModal = ({
     return apiaries
       .filter((apiary) => apiary.active && apiary.id !== apiaryId)
       .map((apiary) => (
-        <ToggleButton key={apiary.id} value={apiary}>{apiary.name}</ToggleButton>
+        <ToggleButton
+          classes={{
+            root: commonClasses.toggleButton,
+          }}
+          key={apiary.id}
+          value={apiary}
+        >
+          {apiary.name}
+        </ToggleButton>
       ));
   };
 
@@ -107,8 +117,11 @@ const BeehiveMoveModal = ({
     const { beehives } = selectedApiary;
     return beehives.filter((beehivePlace) => !beehivePlace.active).map((beehivePlace) => (
       <ToggleButton
+        classes={{
+          root: commonClasses.toggleButton,
+        }}
         key={beehivePlace.id}
-        value={beehivePlace.position}
+        value={beehivePlace}
       >
         {`Rząd ${beehivePlace.position.row} m.${beehivePlace.position.number}`}
       </ToggleButton>
@@ -120,7 +133,7 @@ const BeehiveMoveModal = ({
     if (selectedPlace === 'placeAtTheEnd') {
       return 'dostaw na koniec';
     } if (selectedPlace) {
-      return `rząd ${selectedPlace.row} m.${selectedPlace.number}`;
+      return `rząd ${selectedPlace.position.row} m.${selectedPlace.position.number}`;
     }
     return '';
   };
@@ -157,6 +170,9 @@ const BeehiveMoveModal = ({
             {!!selectedApiary
             && (
             <ToggleButton
+              classes={{
+                root: commonClasses.toggleButton,
+              }}
               key="placeAtTheEnd"
               value="placeAtTheEnd"
             >

@@ -76,6 +76,22 @@ const useCommonStyle = makeStyles({
   cardInactive: {
     opacity: 0.5,
   },
+  toggleButton: {
+    '&.MuiToggleButton-root': {
+      '&.Mui-selected': {
+        backgroundColor: pallete.primary,
+        color: pallete.text,
+        '&:hover': {
+          backgroundColor: pallete.primary,
+          color: pallete.text,
+        },
+      },
+      '&:hover': {
+        backgroundColor: pallete.lightAmber,
+        color: pallete.text,
+      },
+    },
+  },
 });
 
 export default useCommonStyle;

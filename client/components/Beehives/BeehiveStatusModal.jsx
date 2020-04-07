@@ -8,6 +8,7 @@ import fetchApiary from '../../queries/fetchApiary';
 import CustomModal from '../common/CustomModal';
 import { beehiveType } from '../../types/types';
 import availableStatuses from '../../statuses';
+import useCommonStyles from '../../style/common';
 
 const BeehiveStatusModal = ({
   beehive,
@@ -17,7 +18,8 @@ const BeehiveStatusModal = ({
 }) => {
   const { UPDATE_BEEHIVE } = beehiveMutations;
   const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
-  const [beehiveStatuses, setBeehiveStatuses] = useState(() => []);
+  const [beehiveStatuses, setBeehiveStatuses] = useState(() => beehive.statuses);
+  const commonClasses = useCommonStyles();
 
   const onModalClose = () => {
     handleIsStatusModalOpen();
@@ -59,12 +61,19 @@ const BeehiveStatusModal = ({
       open={isStatusModalOpen}
       modalHeading="Zmień statusy ula"
     >
-      <ToggleButtonGroup value={beehiveStatuses} onChange={handleStatusChange}>
+      <ToggleButtonGroup
+        value={beehiveStatuses}
+        onChange={handleStatusChange}
+
+      >
         {availableStatuses.map((status) => (
           <ToggleButton
             key={status.id}
             value={status.id}
             disabled={beehiveStatuses.includes(status.disabledWhen)}
+            classes={{
+              root: commonClasses.toggleButton,
+            }}
           >
             {status.name}
           </ToggleButton>

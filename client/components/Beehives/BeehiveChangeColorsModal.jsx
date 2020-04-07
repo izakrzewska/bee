@@ -15,7 +15,7 @@ const BeehiveChangeColorsModal = ({
 }) => {
   const { UPDATE_BEEHIVE } = beehiveMutations;
   const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
-  const [beehiveColors, setBeehiveColors] = useState();
+  const [beehiveColors, setBeehiveColors] = useState(() => beehive.colors);
 
   const onModalClose = () => {
     handleIsChangeColorModalOpen();
