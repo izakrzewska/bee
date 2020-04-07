@@ -5,7 +5,6 @@ import {
 import classnames from 'classnames';
 import { useMutation } from '@apollo/react-hooks';
 import { string, bool } from 'prop-types';
-import BeehiveColors from './BeehiveColors';
 import useBeehiveCardStyle from './BeehiveCard.style';
 import useCommonStyles from '../../style/common';
 import BeehiveChangeColorsModal from './BeehiveChangeColorsModal';
@@ -15,6 +14,7 @@ import Icon from '../common/Icon';
 import { beehiveType } from '../../types/types';
 import BeehiveMoveModal from './BeehiveMoveModal';
 import BeehiveStatusModal from './BeehiveStatusModal';
+import availableColors from '../../colors';
 
 const BeehiveCard = ({
   beehive, isActiveApiary, apiaryId,
@@ -69,6 +69,10 @@ const BeehiveCard = ({
     handleIsModalOpen(useStateFuncion, useStateArgument);
   };
 
+  const getBackgroundColor = (id) => availableColors
+    .filter((availableColor) => availableColor.id === id)
+    .map((availableColor) => availableColor.hex);
+
   return (
     <Card
       className={classnames(
@@ -84,11 +88,17 @@ const BeehiveCard = ({
         <div>
           {beehive.statuses.map((status) => <p key={status}>{status}</p>)}
         </div>
-        <BeehiveColors
-          className="beehiveColorsCard"
-          selectedColors={beehive.colors}
-          selectable={false}
-        />
+        <div className={classes.beehiveColorsCard}>
+          {beehive.colors.map((color) => (
+            <div
+              key={color}
+              className={classes.colorBoxCard}
+              style={{
+                backgroundColor: getBackgroundColor(color),
+              }}
+            />
+          ))}
+        </div>
         <BeehiveChangeColorsModal
           apiaryId={apiaryId}
           beehive={beehive}

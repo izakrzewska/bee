@@ -16,6 +16,18 @@ const useBeehiveCardStyle = makeStyles({
     justifyContent: 'flex-end',
     marginTop: 'auto',
   },
+  beehiveColorsCard: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+    display: 'flex',
+  },
+  colorBoxCard: {
+    width: '25px',
+    height: '25px',
+    borderRadius: '50%',
+    margin: 5,
+  },
 });
 
 export default useBeehiveCardStyle;

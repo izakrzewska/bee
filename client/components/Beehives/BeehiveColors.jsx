@@ -1,86 +1,35 @@
 import React from 'react';
-import classnames from 'classnames';
-import {
-  string, bool, func, arrayOf,
-} from 'prop-types';
-import useBeehiveColorsStyles from './BeehiveColors.style';
+import { func, arrayOf, string } from 'prop-types';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import availableColors from '../../colors';
-import useCommonStyles from '../../style/common';
 
 const BeehiveColors = ({
-  onChangeHandler,
-  selectedColors,
-  selectable,
-  className,
+  beehiveColors,
+  setBeehiveColors,
 }) => {
-  const classes = useBeehiveColorsStyles();
-  const commonClasses = useCommonStyles();
-
-  const getBackgroundColor = (id) => {
-    let backgroundColor;
-    availableColors.map((color) => {
-      if (color.id === id) {
-        backgroundColor = color.hex;
-      }
-      return backgroundColor;
-    });
-    return backgroundColor;
+  const onColorChange = (_, newColor) => {
+    setBeehiveColors(newColor);
   };
 
   return (
-    <div className={classnames(classes.colorBoxContainer, classes[className])}>
-      {selectable
-        ? availableColors.map((color) => {
-          const { id } = color;
-          return (
-            <div key={id}>
-              <label
-                htmlFor={id}
-                style={{
-                  backgroundColor: color.hex,
-                }}
-                className={classnames(
-                  classes.colorBox,
-                  selectedColors.includes(id)
-                    ? classes.borderActive
-                    : classes.borderInactive,
-                )}
-              >
-                <input
-                  type="checkbox"
-                  id={id}
-                  value={id}
-                  onChange={() => onChangeHandler(id)}
-                  className={commonClasses.hidden}
-                />
-              </label>
-            </div>
-          );
-        })
-        : selectedColors.map((color) => (
-          <div
-            key={color}
-            className={classes.colorBoxCard}
-            style={{
-              backgroundColor: getBackgroundColor(color),
-            }}
-          />
-        ))}
-    </div>
+    <ToggleButtonGroup
+      value={beehiveColors}
+      onChange={onColorChange}
+    >
+      {availableColors.map((color) => (
+        <ToggleButton key={color.id} value={color.id}>{color.name}</ToggleButton>))}
+    </ToggleButtonGroup>
   );
 };
 
 BeehiveColors.defaultProps = {
-  className: '',
-  selectable: false,
-  onChangeHandler: () => {},
+  beehiveColors: [],
 };
 
 BeehiveColors.propTypes = {
-  className: string,
-  selectable: bool,
-  onChangeHandler: func,
-  selectedColors: arrayOf(string).isRequired,
+  setBeehiveColors: func.isRequired,
+  beehiveColors: arrayOf(string),
 };
 
 

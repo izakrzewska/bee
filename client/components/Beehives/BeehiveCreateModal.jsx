@@ -3,11 +3,10 @@ import { useMutation } from '@apollo/react-hooks';
 import {
   number, string, bool, func,
 } from 'prop-types';
-import { FormLabel, FormControlLabel, Switch } from '@material-ui/core';
 import beehiveMutations from '../../mutations/beehive_mutations';
-import BeehiveColors from './BeehiveColors';
 import CustomModal from '../common/CustomModal';
 import getPosition from './utils';
+import BeehiveColors from './BeehiveColors';
 
 const BeehiveCreateModal = ({
   numberOfBeehives,
@@ -17,28 +16,17 @@ const BeehiveCreateModal = ({
   isAddBeehiveOpen,
   apiaryName,
 }) => {
-  const [selectedColors, setSelectedColors] = useState([]);
-  const [isActive, isActiveHandler] = useState(false);
+  const [beehiveColors, setBeehiveColors] = useState(() => []);
   const { ADD_BEEHIVE } = beehiveMutations;
   const [addBeehive] = useMutation(ADD_BEEHIVE, {
     onCompleted() {
-      setSelectedColors([]);
-      isActiveHandler(false);
+      setBeehiveColors(() => []);
     },
   });
 
-  const setBeehiveColorHandler = (chosenColor) => {
-    if (selectedColors.includes(chosenColor)) {
-      setSelectedColors(() => selectedColors.filter((color) => color !== chosenColor));
-    } else {
-      setSelectedColors(() => [...selectedColors, chosenColor]);
-    }
-  };
-
   const onModalClose = () => {
     handleIsAddBeehiveOpen();
-    setSelectedColors([]);
-    isActiveHandler(false);
+    setBeehiveColors([]);
   };
 
   const onBeehiveCreate = (e) => {
@@ -46,8 +34,8 @@ const BeehiveCreateModal = ({
     addBeehive({
       variables: {
         apiaryId,
-        colors: selectedColors,
-        active: isActive,
+        colors: beehiveColors,
+        active: true,
         statuses: [],
         position: getPosition(numberOfBeehives, numberOfBeehivesInRow),
       },
@@ -64,27 +52,9 @@ const BeehiveCreateModal = ({
       onModalClose={onModalClose}
       onModalSave={onModalSave}
       open={isAddBeehiveOpen}
-      modalHeading={`Nowy ul w pasiece: ${apiaryName}`}
+      modalHeading={`Wybierz kolory nowego ula w pasiece: ${apiaryName}`}
     >
-      <FormLabel htmlFor="beehiveColors">Kolory ula:</FormLabel>
-      <BeehiveColors
-        id="beehiveColors"
-        onChangeHandler={setBeehiveColorHandler}
-        selectedColors={selectedColors}
-        selectable
-        className="beehiveColorsModal"
-      />
-      <FormControlLabel
-        control={(
-          <Switch
-            checked={isActive}
-            onChange={() => isActiveHandler(!isActive)}
-            name="mapView"
-            color="primary"
-          />
-        )}
-        label="Aktywny"
-      />
+      <BeehiveColors beehiveColors={beehiveColors} setBeehiveColors={setBeehiveColors} />
     </CustomModal>
   );
 };

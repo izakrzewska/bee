@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { bool, string, func } from 'prop-types';
-import BeehiveColors from './BeehiveColors';
 import beehiveMutations from '../../mutations/beehive_mutations';
 import fetchApiary from '../../queries/fetchApiary';
 import CustomModal from '../common/CustomModal';
 import { beehiveType } from '../../types/types';
+import BeehiveColors from './BeehiveColors';
 
 const BeehiveChangeColorsModal = ({
   beehive,
@@ -13,26 +13,17 @@ const BeehiveChangeColorsModal = ({
   handleIsChangeColorModalOpen,
   apiaryId,
 }) => {
-  const [selectedColors, setSelectedColors] = useState([]);
   const { UPDATE_BEEHIVE } = beehiveMutations;
   const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
-
-  const setBeehiveColorHandler = (chosenColor) => {
-    if (selectedColors.includes(chosenColor)) {
-      setSelectedColors(() => selectedColors.filter((color) => color !== chosenColor));
-    } else {
-      setSelectedColors(() => [...selectedColors, chosenColor]);
-    }
-  };
+  const [beehiveColors, setBeehiveColors] = useState();
 
   const onModalClose = () => {
     handleIsChangeColorModalOpen();
-    setSelectedColors(beehive.colors);
   };
 
   const beehiveUpdated = {
     id: beehive.id,
-    colors: selectedColors,
+    colors: beehiveColors,
     active: beehive.active,
     statuses: beehive.statuses,
     position: {
@@ -40,6 +31,7 @@ const BeehiveChangeColorsModal = ({
       number: beehive.position.number,
     },
   };
+
 
   const onModalSave = () => {
     updateBeehive({
@@ -51,7 +43,7 @@ const BeehiveChangeColorsModal = ({
         },
       ],
     });
-    setSelectedColors([]);
+    setBeehiveColors(() => []);
     handleIsChangeColorModalOpen();
   };
 
@@ -62,13 +54,7 @@ const BeehiveChangeColorsModal = ({
       open={isChangeColorModalOpen}
       modalHeading="Wybierz nowy kolor ula"
     >
-      <BeehiveColors
-        id="beehiveColors"
-        onChangeHandler={setBeehiveColorHandler}
-        selectedColors={selectedColors}
-        selectable
-        className="beehiveColorsModal"
-      />
+      <BeehiveColors beehiveColors={beehiveColors} setBeehiveColors={setBeehiveColors} />
     </CustomModal>
   );
 };

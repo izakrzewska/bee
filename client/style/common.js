@@ -73,9 +73,6 @@ const useCommonStyle = makeStyles({
       transform: 'scale(1.2)',
     },
   },
-  hidden: {
-    display: 'none',
-  },
   cardInactive: {
     opacity: 0.5,
   },

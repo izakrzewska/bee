@@ -1,22 +1,22 @@
 const availableColors = [
   {
     id: 'green',
-    displayValue: 'Zielony',
+    name: 'Zielony',
     hex: '#006400',
   },
   {
     id: 'red',
-    displayValue: 'Czerwony',
+    name: 'Czerwony',
     hex: '#B22222',
   },
   {
     id: 'yellow',
-    displayValue: 'Żółty',
+    name: 'Żółty',
     hex: '#FFFF00',
   },
   {
     id: 'blue',
-    displayValue: 'Niebieski',
+    name: 'Niebieski',
     hex: '#0000CD',
   },
 ];
