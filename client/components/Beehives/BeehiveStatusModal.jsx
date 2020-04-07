@@ -7,6 +7,7 @@ import beehiveMutations from '../../mutations/beehive_mutations';
 import fetchApiary from '../../queries/fetchApiary';
 import CustomModal from '../common/CustomModal';
 import { beehiveType } from '../../types/types';
+import availableStatuses from '../../statuses';
 
 const BeehiveStatusModal = ({
   beehive,
@@ -17,7 +18,6 @@ const BeehiveStatusModal = ({
   const { UPDATE_BEEHIVE } = beehiveMutations;
   const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
   const [beehiveStatuses, setBeehiveStatuses] = useState(() => []);
-
 
   const onModalClose = () => {
     handleIsStatusModalOpen();
@@ -57,13 +57,18 @@ const BeehiveStatusModal = ({
       onModalClose={onModalClose}
       onModalSave={onModalSave}
       open={isStatusModalOpen}
-      modalHeading="Dodaj status ula"
+      modalHeading="Zmień statusy ula"
     >
       <ToggleButtonGroup value={beehiveStatuses} onChange={handleStatusChange}>
-        <ToggleButton value="hungry">Głodny</ToggleButton>
-        <ToggleButton value="layingWorker">Trutówka</ToggleButton>
-        <ToggleButton disabled={beehiveStatuses.includes('weakQueen')} value="noQueen">Brak matki</ToggleButton>
-        <ToggleButton disabled={beehiveStatuses.includes('noQueen')} value="weakQueen">Słaba matka</ToggleButton>
+        {availableStatuses.map((status) => (
+          <ToggleButton
+            key={status.id}
+            value={status.id}
+            disabled={beehiveStatuses.includes(status.disabledWhen)}
+          >
+            {status.name}
+          </ToggleButton>
+        ))}
       </ToggleButtonGroup>
     </CustomModal>
   );

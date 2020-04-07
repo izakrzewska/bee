@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import {
-  Card, CardContent, CardHeader, CardActions,
+  Card, Chip, CardContent, CardHeader, CardActions,
 } from '@material-ui/core';
 import classnames from 'classnames';
 import { useMutation } from '@apollo/react-hooks';
 import { string, bool } from 'prop-types';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import useBeehiveCardStyle from './BeehiveCard.style';
 import useCommonStyles from '../../style/common';
 import BeehiveChangeColorsModal from './BeehiveChangeColorsModal';
@@ -15,6 +16,7 @@ import { beehiveType } from '../../types/types';
 import BeehiveMoveModal from './BeehiveMoveModal';
 import BeehiveStatusModal from './BeehiveStatusModal';
 import availableColors from '../../colors';
+import availableStatuses from '../../statuses';
 
 const BeehiveCard = ({
   beehive, isActiveApiary, apiaryId,
@@ -69,10 +71,6 @@ const BeehiveCard = ({
     handleIsModalOpen(useStateFuncion, useStateArgument);
   };
 
-  const getBackgroundColor = (id) => availableColors
-    .filter((availableColor) => availableColor.id === id)
-    .map((availableColor) => availableColor.hex);
-
   return (
     <Card
       className={classnames(
@@ -85,16 +83,27 @@ const BeehiveCard = ({
         subheader={!beehive.active && 'WOLNE MIEJSCE'}
       />
       <CardContent>
-        <div>
-          {beehive.statuses.map((status) => <p key={status}>{status}</p>)}
+        <div className={classes.statusChipContainer}>
+          {beehive.statuses.map((status) => (
+            <Chip
+              key={status}
+              variant="outlined"
+              className={classes.statusChip}
+              label={availableStatuses
+                .filter((availableStatus) => availableStatus.id === status)
+                .map((availableStatus) => availableStatus.name)}
+            />
+          ))}
         </div>
-        <div className={classes.beehiveColorsCard}>
+        <div className={classes.beehiveColorsContainer}>
           {beehive.colors.map((color) => (
-            <div
+            <FiberManualRecordIcon
               key={color}
-              className={classes.colorBoxCard}
               style={{
-                backgroundColor: getBackgroundColor(color),
+                color: availableColors
+                  .filter((availableColor) => availableColor.id === color)
+                  .map((availableColor) => availableColor.hex),
+                fontSize: 30,
               }}
             />
           ))}

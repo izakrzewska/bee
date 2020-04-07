@@ -16,17 +16,19 @@ const useBeehiveCardStyle = makeStyles({
     justifyContent: 'flex-end',
     marginTop: 'auto',
   },
-  beehiveColorsCard: {
+  beehiveColorsContainer: {
     position: 'absolute',
     top: 15,
-    right: 15,
+    right: 25,
     display: 'flex',
   },
-  colorBoxCard: {
-    width: '25px',
-    height: '25px',
-    borderRadius: '50%',
-    margin: 5,
+  statusChip: {
+    marginRight: 10,
+  },
+  statusChipContainer: {
+    bottom: 25,
+    left: 25,
+    position: 'absolute',
   },
 });
 
