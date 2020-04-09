@@ -11,9 +11,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import useSpeedDialStyle from './CustomSpeedDial.style';
 
 const CustomSpeedDial = ({ actions, ariaLabel }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const classes = useSpeedDialStyle();
 
   const handleIsOpen = () => {
     setIsOpen(!isOpen);
@@ -62,6 +64,10 @@ const CustomSpeedDial = ({ actions, ariaLabel }) => {
       onOpen={handleIsOpen}
       open={isOpen}
       direction="left"
+      classes={{
+        root: classes.speedDial,
+        fab: classes.fab,
+      }}
     >
       {actions.map((action) => (
         <SpeedDialAction
@@ -71,6 +77,9 @@ const CustomSpeedDial = ({ actions, ariaLabel }) => {
           tooltipTitle={action.tooltip}
           onClick={action.onClick}
           delay={100}
+          classes={{
+            fab: classes.fab,
+          }}
         />
       ))}
     </SpeedDial>
