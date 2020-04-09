@@ -23,7 +23,7 @@ const BeehiveStatusModal = ({
 
   const onModalClose = () => {
     handleIsStatusModalOpen();
-    setBeehiveStatuses([]);
+    setBeehiveStatuses(() => beehive.statuses);
   };
 
   const onModalSave = () => {

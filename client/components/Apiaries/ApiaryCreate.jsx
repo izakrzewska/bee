@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { Link, hashHistory } from 'react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
-  Button, Typography, TextField, FormLabel,
+  Button, Typography, TextField, FormLabel, Tooltip,
 } from '@material-ui/core';
 import fetchApiaries from '../../queries/fetchApiaries';
 import ApiaryCreateMap from '../Map/ApiaryCreateMap';
@@ -69,7 +69,9 @@ const ApiaryCreate = () => {
   return (
     <div>
       <Link to="/apiaries" className={commonClasses.link}>
-        <ArrowBackIcon className={commonClasses.backIcon} />
+        <Tooltip title="Wróć do widoku pasiek">
+          <ArrowBackIcon className={commonClasses.backIcon} />
+        </Tooltip>
       </Link>
       <Typography component="h1" className={commonClasses.heading}>
         Tworzenie nowej pasieki

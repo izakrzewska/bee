@@ -1,20 +1,19 @@
 import React from 'react';
 import {
-  string, bool, arrayOf,
+  string, arrayOf,
 } from 'prop-types';
 import useBeehivesListStyles from './BeehivesList.style';
 import BeehiveCard from './BeehiveCard';
 import { beehiveType } from '../../types/types';
 
 const BeehivesList = ({
-  beehives, apiaryId, isActiveApiary,
+  beehives, apiaryId,
 }) => {
   const classes = useBeehivesListStyles();
 
   const renderBeehives = () => beehives.map((beehive) => (
     <BeehiveCard
       apiaryId={apiaryId}
-      isActiveApiary={isActiveApiary}
       key={beehive.id}
       beehive={beehive}
     />
@@ -30,7 +29,6 @@ const BeehivesList = ({
 BeehivesList.propTypes = {
   beehives: arrayOf(beehiveType).isRequired,
   apiaryId: string.isRequired,
-  isActiveApiary: bool.isRequired,
 };
 
 export default BeehivesList;

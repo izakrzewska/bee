@@ -6,7 +6,7 @@ const pallete = {
   text: 'rgba(0, 0, 0, 0.87)',
   brown: brown[900],
   lightBrown: brown[400],
-  backgroundCard: '#fffdf8',
+  backgroundCard: '#fffcf5',
   primary: amber[500],
   lightAmber: amber[400],
 };

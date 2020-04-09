@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Link } from 'react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { string, shape } from 'prop-types';
 import fetchApiary from '../../queries/fetchApiary';
@@ -42,7 +42,9 @@ const ApiaryDetails = ({ params }) => {
   return (
     <div>
       <Link to="/apiaries" className={commonClasses.link}>
-        <ArrowBackIcon className={commonClasses.backIcon} />
+        <Tooltip title="Wróc do widoku pasiek">
+          <ArrowBackIcon className={commonClasses.backIcon} />
+        </Tooltip>
       </Link>
       <Typography component="h1" className={commonClasses.heading}>
         {name}
@@ -53,17 +55,18 @@ const ApiaryDetails = ({ params }) => {
       {numberOfBeehives > 0 && (
       <BeehivesList
         apiaryId={params.id}
-        isActiveApiary={apiary.active}
         beehives={beehives}
       />
       )}
       <div className={classes.addNewBeehiveIcon}>
-        <Button
-          onClick={handleIsAddBeehiveOpen}
-          className={commonClasses.primaryButton}
-        >
-          <AddIcon fontSize="large" />
-        </Button>
+        <Tooltip title="Dodaj ul do pasieki">
+          <Button
+            onClick={handleIsAddBeehiveOpen}
+            className={commonClasses.primaryButton}
+          >
+            <AddIcon fontSize="large" />
+          </Button>
+        </Tooltip>
       </div>
       <BeehiveCreateModal
         apiaryName={name}

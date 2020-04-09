@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, FormControlLabel, Switch } from '@material-ui/core';
+import {
+  Button, FormControlLabel, Switch, Tooltip,
+} from '@material-ui/core';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Link } from 'react-router';
 import AddIcon from '@material-ui/icons/Add';
@@ -59,9 +61,11 @@ const ApiariesList = () => {
       </div>,
       <div key="buttons" className={classes.addNewApiaryButton}>
         <Link to="/apiaries/new">
-          <Button className={commonClasses.primaryButton}>
-            <AddIcon fontSize="large" />
-          </Button>
+          <Tooltip title="Dodaj pasiekę">
+            <Button className={commonClasses.primaryButton}>
+              <AddIcon fontSize="large" />
+            </Button>
+          </Tooltip>
         </Link>
       </div>,
     ]

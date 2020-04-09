@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardActions, CardHeader } from '@material-ui/core';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import { func } from 'prop-types';
 import useApiaryCardStyle from './ApiaryCard.style';
 import useCommonStyle from '../../style/common';
-import Icon from '../common/Icon';
 import { apiaryType } from '../../types/types';
-
+import CustomSpeedDial from '../common/CustomSpeedDial';
 
 const ApiaryCard = ({
   apiary, onApiaryDelete, apiaryDesactivateHandler,
@@ -15,15 +14,12 @@ const ApiaryCard = ({
   const classes = useApiaryCardStyle();
   const commonClasses = useCommonStyle();
 
-  const [isInEditView, setIsInEditView] = useState(false);
-
-  const handleIsInEditView = () => {
-    setIsInEditView(!isInEditView);
+  const onApiaryDesactivate = () => {
+    apiaryDesactivateHandler(apiary.id);
   };
 
-  const onApiaryDesactivate = () => {
-    handleIsInEditView();
-    apiaryDesactivateHandler(apiary.id);
+  const onApiaryDeleteClick = () => {
+    onApiaryDelete(apiary.id);
   };
 
   const apiaryCardSubheader = apiary.active
@@ -42,13 +38,13 @@ const ApiaryCard = ({
         <CardHeader title={apiary.name} subheader={apiaryCardSubheader} />
       </Link>
       <CardActions className={classes.apiaryCardActions}>
-        {isInEditView && (
-          [
-            <Icon key="desactivate" type="block" onClick={onApiaryDesactivate} />,
-            <Icon key="delete" type="delete" onClick={() => onApiaryDelete(apiary.id)} />,
-          ]
-        )}
-        <Icon type="settings" onClick={handleIsInEditView} />
+        <CustomSpeedDial
+          ariaLabel="apiaryActions"
+          actions={[
+            { name: 'block', onClick: onApiaryDesactivate, tooltip: 'Aktywuj/dezaktywuj pasiekę' },
+            { name: 'delete', onClick: onApiaryDeleteClick, tooltip: 'Usuń pasiekę' },
+          ]}
+        />
       </CardActions>
     </Card>
   );
