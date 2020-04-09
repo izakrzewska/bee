@@ -25,7 +25,7 @@ const MainToolbar = () => {
           <Typography>Pasieki</Typography>
         </Link>
         <Link
-          to="/"
+          to="/calendar"
           className={classnames(commonClasses.link, classes.navigationLink)}
         >
           <Typography>Kalendarz</Typography>
