@@ -9,6 +9,7 @@ import fetchApiaries from '../../queries/fetchApiaries';
 import fetchApiary from '../../queries/fetchApiary';
 import ApiariesListMap from '../Map/ApiariesListMap';
 import apiaryMutations from '../../mutations/apiary_mutations';
+import beehiveMutations from '../../mutations/beehive_mutations';
 import Loading from '../common/Loading';
 import Error from '../common/Error';
 import useApiariesListStyles from './ApiariesList.style';
@@ -18,9 +19,11 @@ import ApiaryCard from './ApiaryCard';
 const ApiariesList = () => {
   const [isInListView, handleListViewChange] = useState(true);
   const { data, error, loading } = useQuery(fetchApiaries);
-  const { DELETE_APIARY, DESACTIVATE_APIARY } = apiaryMutations;
+  const { DELETE_APIARY, UPDATE_APIARY } = apiaryMutations;
+  const { UPDATE_BEEHIVE } = beehiveMutations;
+  const [updateBeehive] = useMutation(UPDATE_BEEHIVE);
   const [deleteApiary] = useMutation(DELETE_APIARY);
-  const [desactivateApiary] = useMutation(DESACTIVATE_APIARY);
+  const [updateApiary] = useMutation(UPDATE_APIARY);
   const classes = useApiariesListStyles();
   const commonClasses = useCommonStyle();
 
@@ -35,13 +38,39 @@ const ApiariesList = () => {
     });
   };
 
-  const apiaryDesactivateHandler = (id) => {
-    desactivateApiary({
-      variables: { id },
+  const apiaryDesactivateHandler = (apiary) => {
+    const desactivatedApiary = {
+      name: apiary.name,
+      numberOfBeehivesInRow: apiary.numberOfBeehivesInRow,
+      coordinates: {
+        lng: apiary.coordinates.lng,
+        lat: apiary.coordinates.lat,
+      },
+      active: !apiary.active,
+      beehives: apiary.beehives.map((beehive) => {
+        const desactivatedBeehive = {
+          id: beehive.id,
+          colors: [],
+          active: false,
+          statuses: [],
+          position: {
+            row: beehive.position.row,
+            number: beehive.position.number,
+          },
+        };
+        return updateBeehive({
+          variables: { id: beehive.id, beehiveUpdated: desactivatedBeehive },
+        });
+      }),
+
+    };
+
+    updateApiary({
+      variables: { id: apiary.id, updatedApiary: desactivatedApiary },
       refetchQueries: [
         {
           query: fetchApiary,
-          variables: { id },
+          variables: { id: apiary.id },
         },
       ],
     });

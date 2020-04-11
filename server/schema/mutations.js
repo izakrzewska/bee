@@ -1,4 +1,14 @@
 const graphql = require('graphql');
+const mongoose = require('mongoose');
+const ApiaryType = require('./apiary_type');
+const BeehiveType = require('./beehive_type');
+const BeehiveInputType = require('./beehive_input_type');
+const PositionTypes = require('./position_type');
+const CoordinatesTypes = require('./coordinates_type');
+const ApiaryInputType = require('./apiary_input_type');
+
+const Apiary = mongoose.model('apiary');
+const Beehive = mongoose.model('beehive');
 
 const {
   GraphQLObjectType,
@@ -8,14 +18,7 @@ const {
   GraphQLBoolean,
   GraphQLInt,
 } = graphql;
-const mongoose = require('mongoose');
 
-const Apiary = mongoose.model('apiary');
-const Beehive = mongoose.model('beehive');
-const ApiaryType = require('./apiary_type');
-const BeehiveTypes = require('./beehive_type');
-const PositionTypes = require('./position_type');
-const CoordinatesTypes = require('./coordinates_type');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -61,18 +64,24 @@ const mutation = new GraphQLObjectType({
         return Apiary.deleteOne({ _id: id });
       },
     },
-    desactivateApiary: {
+    updateApiary: {
       type: ApiaryType,
-      args: { id: { type: GraphQLID } },
-      resolve(_, { id }) {
-        return Apiary.desactivateApiary({ _id: id });
+      args: {
+        id: { type: GraphQLID },
+        updatedApiary: { type: ApiaryInputType },
+      },
+      resolve(_, { id, updatedApiary }) {
+        return Apiary.updateApiary({
+          id,
+          updatedApiary,
+        });
       },
     },
     updateBeehive: {
-      type: BeehiveTypes.BeehiveType,
+      type: BeehiveType,
       args: {
         id: { type: GraphQLID },
-        beehiveUpdated: { type: BeehiveTypes.BeehiveInputType },
+        beehiveUpdated: { type: BeehiveInputType },
       },
       resolve(_, { id, beehiveUpdated }) {
         return Beehive.updateBeehive({

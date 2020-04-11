@@ -58,19 +58,15 @@ ApiarySchema.statics.findApiary = function (id) {
     .then((apiary) => apiary.beehives);
 };
 
-ApiarySchema.statics.desactivateApiary = function (apiaryId) {
-  return this.findById(apiaryId)
-    .populate('beehives')
-    .then((apiary) => {
-      apiary.beehives.map((beehive) => {
-        if (beehive.active) {
-          beehive.active = false;
-        }
-        beehive.save();
-      });
-      apiary.active = !apiary.active;
-      return Promise.all([apiary.save()]).then(([apiary]) => apiary);
-    });
+ApiarySchema.statics.updateApiary = function (data) {
+  return this.findById(data.id).then((apiary) => {
+    apiary.colors = data.updatedApiary.colors;
+    apiary.active = data.updatedApiary.active;
+    apiary.statuses = data.updatedApiary.statuses;
+    apiary.position = data.updatedApiary.position;
+
+    return Promise.all([apiary.save()]).then(([apiary]) => apiary);
+  });
 };
 
 mongoose.model('apiary', ApiarySchema);

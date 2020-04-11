@@ -15,7 +15,7 @@ const ApiaryCard = ({
   const commonClasses = useCommonStyle();
 
   const onApiaryDesactivate = () => {
-    apiaryDesactivateHandler(apiary.id);
+    apiaryDesactivateHandler(apiary);
   };
 
   const onApiaryDeleteClick = () => {
