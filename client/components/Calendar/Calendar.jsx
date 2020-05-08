@@ -9,8 +9,8 @@ const Calendar = () => {
   const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   const getFirstDay = (date) => new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-
   const today = new Date();
+
   const [date, setDate] = useState(today);
   const [day, setDay] = useState(date.getDate());
   const [month, setMonth] = useState(date.getMonth());
@@ -31,13 +31,10 @@ const Calendar = () => {
     <div className={classes.calendar}>
       <CalendarHeader setDate={setDate} day={day} month={month} year={year} />
       <CalendarBody
-        setDate={setDate}
         days={days}
         today={today}
         startDay={startDay}
-        day={day}
         month={month}
-        year={year}
       />
     </div>
   );

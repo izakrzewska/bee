@@ -9,6 +9,9 @@ const useDayStyles = makeStyles({
     justifyContent: 'center',
     cursor: 'pointer',
   },
+  today: {
+    border: '1px solid #eee',
+  },
 });
 
 export default useDayStyles;
